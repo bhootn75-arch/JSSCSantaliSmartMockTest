@@ -17,25 +17,6 @@
         };
     </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    
-    <!-- 1. शुरुआत में फुलस्क्रीन विज्ञापन (Opening Fullscreen Ad - 5s then close icon) -->
-    <div id="opening-ad-screen" class="fixed inset-0 z-[100] bg-slate-950/95 text-white flex flex-col items-center justify-center p-4 transition-opacity duration-500">
-        <button id="opening-ad-close-btn" onclick="closeOpeningAd()" class="hidden absolute top-3 right-3 z-[110] bg-emerald-500 hover:bg-emerald-600 text-white font-semibold text-[10px] px-2 py-1 rounded-md shadow flex items-center gap-1 transition">
-            <span>प्रैक्टिस सेट में जाएं</span>
-            <span class="text-[10px]">→</span>
-        </button>
-        <div class="bg-slate-900 border border-slate-700 rounded-2xl max-w-2xl w-full p-6 text-center shadow-2xl relative">
-            <div class="flex justify-between items-center border-b border-slate-800 pb-3 mb-4">
-                <span class="bg-amber-500 text-slate-950 text-[10px] font-extrabold px-2.5 py-0.5 rounded uppercase">Sponsored Ad</span>
-                <span class="text-xs text-slate-400 font-mono">वेबसाइट खुल रही है: <strong id="opening-ad-timer" class="text-amber-400">5</strong>s</span>
-            </div>
-            <div id="opening-ad-content" class="bg-slate-800/80 border border-dashed border-slate-600 rounded-xl p-8 my-2 min-h-[180px] flex flex-col items-center justify-center">
-                <span class="text-3xl mb-2">📢</span>
-                <p class="text-sm font-bold text-amber-400">Adsterra Opening Advertisement</p>
-                <p class="text-xs text-slate-400 mt-1">5 सेकंड बाद ऊपर दाएं कोने में प्रैक्टिस सेट में जाने का बटन दिखेगा</p>
-            </div>
-        </div>
-    </div>
 
     <!-- 2. Adsterra 730x90 Banner + Multi-Level Course Navigation -->
 
