@@ -48,35 +48,56 @@
     <!-- ===================================================================== -->
     <!-- 1. शुरुआत में 5 सेकंड का फुलस्क्रीन पोस्टर विज्ञापन (Opening Fullscreen Ad) -->
     <!-- ===================================================================== -->
+    <div id="opening-ad-screen" class="fixed inset-0 z-[100] bg-slate-950/95 text-white flex flex-col items-center justify-center p-4 transition-opacity duration-300">
+        <button id="opening-ad-close-btn" type="button" onclick="closeOpeningAd()" class="hidden absolute top-4 right-4 z-[110] bg-emerald-500 hover:bg-emerald-600 active:scale-95 text-white font-bold text-xs px-3.5 py-2 rounded-xl shadow-lg flex items-center gap-1.5 cursor-pointer transition">
+            <span>प्रैक्टिस सेट में जाएं</span>
+            <span>➔</span>
+        </button>
+        <div class="bg-slate-900 border border-slate-700 rounded-2xl max-w-2xl w-full p-5 text-center shadow-2xl relative overflow-hidden">
+            <div class="flex justify-between items-center border-b border-slate-800 pb-3 mb-4">
+                <span class="bg-amber-500 text-slate-950 text-[10px] font-extrabold px-2.5 py-0.5 rounded uppercase">Sponsored Ad</span>
+                <span class="text-xs text-slate-300 font-mono">वेबसाइट खुल रही है: <strong id="opening-ad-timer" class="text-amber-400">5</strong>s</span>
+            </div>
+
+            <div id="opening-ad-content" class="bg-slate-800/90 border border-dashed border-slate-600 rounded-xl p-3 my-2 min-h-[180px] w-full max-w-full overflow-x-auto flex flex-col items-center justify-center">
                 
                 <!-- 🔴 1. शुरुआत का 5 सेकंड वाला फुल स्क्रीन पोस्टर ऐड: यहाँ ऐड का लिंक पेस्ट करें (START) 🔴 -->
-                <script data-cfasync="false" src="https://abscloud.org/1/2b464a38eb0d14209ed8109fef0c0043"></script>
-                
+                <script>
+                  atOptions = {
+                    'key' : '342f15d0e0784105f340919b3c0cf66f',
+                    'format' : 'iframe',
+                    'height' : 90,
+                    'width' : 728,
+                    'params' : {}
+                  };
+                </script>
+                <script src="https://bauval.org/22/342f15d0e0784105f340919b3c0cf66f"></script>
                 <!-- 🔴 यहाँ ऐड का लिंक पेस्ट करें (END) 🔴 -->
 
             </div>
             <p class="text-[11px] text-slate-400 mt-2">5 सेकंड बाद ऊपर दाएं कोने में बंद करने का बटन दिखेगा</p>
         </div>
     </div>
-Zac
+
+    <!-- ===================================================================== -->
     <!-- 2. ऊपर का 100% फिक्स बैनर विज्ञापन + नेविगेशन बार (Always Fixed Top) -->
     <!-- ===================================================================== -->
-    <div id="sticky-top-container" class="fixed top-0 left-0 right-0 z-40 w-full shadow-md bg-white">
+    <div id="sticky-top-container" class="fixed top-0 left-0 right-0 z-[90] w-full shadow-md bg-white" style="position:fixed;top:0;left:0;right:0;">
         <!-- Top Banner Ad Wrapper (हमेशा हर व्यू में 100% फिक्स रहेगा) -->
-        <div id="top-banner-ad-wrapper" class="bg-slate-900 border-b border-slate-800 py-1.5 px-2 w-full overflow-hidden flex items-center justify-center">
+        <div id="top-banner-ad-wrapper" class="bg-slate-900 border-b border-slate-800 py-1.5 px-2 w-full overflow-hidden flex items-center justify-center" style="flex-shrink:0;">
             <div id="adsterra-render-area" class="w-full max-w-[730px] min-h-[60px] md:min-h-[90px] bg-slate-800 border border-dashed border-slate-600 rounded flex flex-col items-center justify-center text-center overflow-x-auto no-scrollbar mx-auto p-1">
                 
                 <!-- 🔴 2. ऊपर का फिक्स बैनर ऐड (Top Banner Ad): यहाँ ऐड का लिंक पेस्ट करें (START) 🔴 -->
-             <script>
-  atOptions = {
-    'key' : '041eb49ef437fb2ac71ea532acf57984',
-    'format' : 'iframe',
-    'height' : 50,
-    'width' : 320,
-    'params' : {}
-  };
-</script>
-<script src="https://bauval.org/22/041eb49ef437fb2ac71ea532acf57984"></script>
+                <script>
+                  atOptions = {
+                    'key' : '342f15d0e0784105f340919b3c0cf66f',
+                    'format' : 'iframe',
+                    'height' : 90,
+                    'width' : 728,
+                    'params' : {}
+                  };
+                </script>
+                <script src="https://bauval.org/22/342f15d0e0784105f340919b3c0cf66f"></script>
                 <!-- 🔴 यहाँ ऐड का लिंक पेस्ट करें (END) 🔴 -->
 
             </div>
@@ -88,14 +109,7 @@ Zac
             <div class="bg-white border-b border-slate-200 px-3 py-2">
                 <div class="max-w-7xl mx-auto flex items-center justify-between gap-2">
                     <div class="flex items-center gap-2 overflow-x-auto no-scrollbar py-0.5 flex-grow select-none" id="main-exams-bar"></div>
-                    <div class="relative shrink-0 pl-2 border-l border-slate-200">
-                        <button type="button" onclick="toggleThreeDotMenu(event)" class="w-9 h-9 rounded-xl bg-slate-100 hover:bg-slate-200 active:bg-slate-300 text-slate-700 flex items-center justify-center font-bold text-lg transition cursor-pointer" title="विकल्प">⋮</button>
-                        <div id="three-dot-dropdown" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-xl border border-slate-200 py-1.5 z-50">
-                            <button type="button" onclick="openPasswordModal()" class="w-full text-left px-4 py-2.5 text-xs font-semibold text-slate-700 hover:bg-slate-100 flex items-center gap-2 cursor-pointer">
-                                <span>🔒</span> एडमिन पैनल (Admin)
-                            </button>
-                        </div>
-                    </div>
+
                 </div>
             </div>
 
@@ -190,8 +204,6 @@ Zac
             <div id="popup-ad-box" class="bg-slate-100 border border-dashed border-slate-300 rounded-xl p-3 mb-4 text-xs text-slate-600 min-h-[150px] w-full max-w-full overflow-x-auto flex flex-col items-center justify-center">
                 
                 <!-- 🔴 3. प्रैक्टिस सेट अनलॉक करने वाला ऐड: यहाँ ऐड का लिंक पेस्ट करें (START) 🔴 -->
-                
-                <script data-cfasync="false" src="https://bauval.org/14/5cf3662086eb25710de468d7fd26130b"></script>
                 <script>
                   atOptions = {
                     'key' : '342f15d0e0784105f340919b3c0cf66f',
@@ -310,8 +322,11 @@ Zac
                         <span id="review-category-badge" class="bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-lg">Category</span>
                         <h3 id="filtered-category-title" class="text-base font-bold text-slate-900">प्रश्न समीक्षा</h3>
                     </div>
-                    <div class="text-xs font-bold text-slate-700 bg-white px-3 py-1.5 rounded-lg border border-slate-300 shadow-sm">
-                        प्रश्न संख्या: <span id="review-pos-indicator" class="text-blue-600 font-extrabold">1 / 1</span>
+                    <div class="flex flex-wrap items-center gap-2">
+                        <div class="text-xs font-bold text-slate-700 bg-white px-3 py-1.5 rounded-lg border border-slate-300 shadow-sm">
+                            प्रश्न संख्या: <span id="review-pos-indicator" class="text-blue-600 font-extrabold">1 / 1</span>
+                        </div>
+                        <button type="button" id="review-language-toggle" onclick="toggleReviewLanguage()" class="px-3 py-2 rounded-xl border border-blue-300 bg-blue-50 text-blue-700 text-xs md:text-sm font-bold hover:bg-blue-100 shadow-sm" aria-label="हिंदी और अंग्रेजी बदलें">हिंदी → English</button>
                     </div>
                 </div>
 
@@ -488,24 +503,6 @@ Zac
                 screen.style.opacity = '0';
                 setTimeout(() => { screen.style.display = 'none'; }, 300);
             }
-        }
-
-        function toggleThreeDotMenu(e) {
-            if (e) e.stopPropagation();
-            document.getElementById('three-dot-dropdown').classList.toggle('hidden');
-        }
-        document.addEventListener('click', (e) => {
-            const menu = document.getElementById('three-dot-dropdown');
-            if (menu && !menu.contains(e.target)) {
-                menu.classList.add('hidden');
-            }
-        });
-
-        function openPasswordModal() {
-            document.getElementById('three-dot-dropdown').classList.add('hidden');
-            document.getElementById('admin-pass-input').value = '';
-            document.getElementById('password-modal').classList.remove('hidden');
-            setTimeout(() => document.getElementById('admin-pass-input').focus(), 100);
         }
 
         function closePasswordModal() {
@@ -824,33 +821,8 @@ Exp: The chemical name of washing soda is sodium carbonate decahydrate and its f
             setTimeout(adjustTopFixedSpacer, 20);
         }
 
-        // मुख्य परीक्षा (Subject) और सब-कैटेगरी (Sub-Subject) का ऑटो-बाउंस एनिमेशन
-        const bounceStates = {
-            'main-exams-bar': { dir: 1, pos: 0, speed: 0.45 },
-            'sub-exams-bar': { dir: 1, pos: 0, speed: 0.45 }
-        };
-
-        function animateAutoBounceBars() {
-            ['main-exams-bar', 'sub-exams-bar'].forEach(id => {
-                const el = document.getElementById(id);
-                if (!el || el.offsetParent === null) return;
-                const maxScroll = el.scrollWidth - el.clientWidth;
-                if (maxScroll > 2) {
-                    const st = bounceStates[id];
-                    st.pos += st.dir * st.speed;
-                    if (st.pos >= maxScroll) {
-                        st.pos = maxScroll;
-                        st.dir = -1;
-                    } else if (st.pos <= 0) {
-                        st.pos = 0;
-                        st.dir = 1;
-                    }
-                    el.scrollLeft = st.pos;
-                }
-            });
-            requestAnimationFrame(animateAutoBounceBars);
-        }
-        requestAnimationFrame(animateAutoBounceBars);
+        // Subject और Sub-Subject बार स्थिर रहेंगे; ऑटो लेफ्ट-राइट बाउंस बंद है।
+        // यदि स्क्रीन छोटी हो, तो यूजर जरूरत पड़ने पर बार को स्वयं क्षैतिज स्क्रॉल कर सकता है।
 
         function selectMainExam(mainId) {
             selectedMainExamId = mainId;
@@ -1049,6 +1021,8 @@ Exp: The chemical name of washing soda is sodium carbonate decahydrate and its f
         function closeTermsModal() {
             document.getElementById('terms-modal').classList.add('hidden');
         }
+
+        let reviewLang = 'hi';
 
         let activeExam = {
             set: null,
@@ -1313,6 +1287,7 @@ Exp: The chemical name of washing soda is sodium carbonate decahydrate and its f
 
             reviewCategory = category;
             wrapper.classList.remove('hidden');
+            reviewLang = activeExam.lang || 'hi';
 
             const box = document.getElementById(`box-${category}`);
             if (category === 'all') box.classList.add('ring-4', 'ring-blue-400');
@@ -1365,7 +1340,7 @@ Exp: The chemical name of washing soda is sodium carbonate decahydrate and its f
             }
 
             const item = reviewList[reviewIndex];
-            const qData = item.qPair[activeExam.lang] || item.qPair.hi;
+            const qData = item.qPair[reviewLang] || item.qPair.hi || item.qPair.en;
             const qRealIdx = item.idx;
             const userAns = item.userAns;
             const correctAns = item.correctAns;
@@ -1380,10 +1355,10 @@ Exp: The chemical name of washing soda is sodium carbonate decahydrate and its f
             const card = document.createElement('div');
             card.className = "bg-white rounded-2xl p-4 md:p-6 border border-slate-300 shadow-sm w-full";
             card.innerHTML = `
-                <div class="flex flex-wrap justify-between items-start gap-2 mb-4 border-b pb-3">
-                    <p class="font-bold text-base md:text-lg text-slate-900"><span class="text-blue-700 font-extrabold mr-1">Q${qRealIdx + 1}.</span> ${qData.q}</p>
-                    <div class="flex items-center gap-2">
-                        <span class="bg-amber-50 text-amber-900 text-xs font-bold px-3 py-1 rounded-full border border-amber-200">⏱️ लिया गया समय: ${qTimeSec}s</span>
+                <div class="mb-4 border-b border-slate-200 pb-4">
+                    <p class="font-bold text-lg md:text-xl leading-relaxed text-slate-900"><span class="text-blue-700 font-extrabold mr-1">Q${qRealIdx + 1}.</span> ${qData.q}</p>
+                    <div class="mt-5 flex flex-wrap items-center justify-center gap-3">
+                        <span class="bg-amber-50 text-amber-900 text-sm font-bold px-4 py-2 rounded-full border border-amber-200">⏱️ लिया गया समय: ${qTimeSec}s</span>
                         ${statusBadge}
                     </div>
                 </div>
@@ -1408,10 +1383,17 @@ Exp: The chemical name of washing soda is sodium carbonate decahydrate and its f
             container.appendChild(card);
 
             document.getElementById('review-pos-indicator').innerText = `${reviewIndex + 1} / ${reviewList.length}`;
+            const langToggle = document.getElementById('review-language-toggle');
+            if (langToggle) langToggle.innerText = reviewLang === 'hi' ? 'हिंदी → English' : 'English → हिन्दी';
             document.getElementById('btn-review-prev').disabled = reviewIndex === 0;
             document.getElementById('btn-review-next').disabled = reviewIndex === reviewList.length - 1;
 
             if (window.MathJax) MathJax.typesetPromise();
+        }
+
+        function toggleReviewLanguage() {
+            reviewLang = reviewLang === 'hi' ? 'en' : 'hi';
+            renderSingleReviewQuestion();
         }
 
         function prevReviewQuestion() {
