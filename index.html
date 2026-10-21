@@ -18,9 +18,8 @@
     </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
         html, body {
-            font-family: 'Poppins', sans-serif;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Noto Sans Devanagari', 'Noto Sans', Arial, sans-serif;
             max-width: 100vw;
             overflow-x: hidden;
             -webkit-tap-highlight-color: transparent;
@@ -62,16 +61,16 @@
             <div id="opening-ad-content" class="bg-slate-800/90 border border-dashed border-slate-600 rounded-xl p-3 my-2 min-h-[180px] w-full max-w-full overflow-x-auto flex flex-col items-center justify-center">
                 
                 <!-- 🔴 1. शुरुआत का 5 सेकंड वाला फुल स्क्रीन पोस्टर ऐड: यहाँ ऐड का लिंक पेस्ट करें (START) 🔴 -->
-               <script>
-  atOptions = {
-    'key' : 'd188921004542a27a7af73e01063bbf8',
-    'format' : 'iframe',
-    'height' : 250,
-    'width' : 300,
-    'params' : {}
-  };
-</script>
-<script src="https://bauval.org/22/d188921004542a27a7af73e01063bbf8"></script>
+                <script>
+                  atOptions = {
+                    'key' : '342f15d0e0784105f340919b3c0cf66f',
+                    'format' : 'iframe',
+                    'height' : 90,
+                    'width' : 728,
+                    'params' : {}
+                  };
+                </script>
+                <script src="https://bauval.org/22/342f15d0e0784105f340919b3c0cf66f"></script>
                 <!-- 🔴 यहाँ ऐड का लिंक पेस्ट करें (END) 🔴 -->
 
             </div>
@@ -89,15 +88,15 @@
                 
                 <!-- 🔴 2. ऊपर का फिक्स बैनर ऐड (Top Banner Ad): यहाँ ऐड का लिंक पेस्ट करें (START) 🔴 -->
                 <script>
-  atOptions = {
-    'key' : '041eb49ef437fb2ac71ea532acf57984',
-    'format' : 'iframe',
-    'height' : 50,
-    'width' : 320,
-    'params' : {}
-  };
-</script>
-<script src="https://bauval.org/22/041eb49ef437fb2ac71ea532acf57984"></script>
+                  atOptions = {
+                    'key' : '342f15d0e0784105f340919b3c0cf66f',
+                    'format' : 'iframe',
+                    'height' : 90,
+                    'width' : 728,
+                    'params' : {}
+                  };
+                </script>
+                <script src="https://bauval.org/22/342f15d0e0784105f340919b3c0cf66f"></script>
                 <!-- 🔴 यहाँ ऐड का लिंक पेस्ट करें (END) 🔴 -->
 
             </div>
@@ -198,8 +197,8 @@
     <div id="ad-unlock-modal" class="fixed inset-0 z-50 bg-black/80 hidden backdrop-blur-sm flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl max-w-lg w-full p-5 text-center shadow-2xl relative overflow-hidden">
             <button id="ad-close-x-btn" type="button" onclick="completeAdUnlock()" class="hidden absolute top-3 right-3 w-8 h-8 bg-red-500 hover:bg-red-600 text-white rounded-full font-bold text-sm flex items-center justify-center shadow cursor-pointer">✕</button>
-            <h3 class="text-base font-bold text-slate-800 mb-1">🔒 प्रैक्टिस सेट अनलॉक विज्ञापन</h3>
-            <p class="text-xs text-slate-500 mb-4">प्रैक्टिस सेट को 5 घंटे के लिए अनलॉक करने हेतु यह विज्ञापन पूरा देखें</p>
+            <h3 class="text-base font-bold text-slate-800 mb-1"><span class="bg-amber-100 text-amber-800 text-[10px] px-2 py-1 rounded mr-1">Sponsored</span> विज्ञापन</h3>
+            <p class="text-xs text-slate-500 mb-4">विज्ञापन पूरा होने पर आपका प्रैक्टिस सेट शुरू हो जाएगा।</p>
             
             <div id="popup-ad-box" class="bg-slate-100 border border-dashed border-slate-300 rounded-xl p-3 mb-4 text-xs text-slate-600 min-h-[150px] w-full max-w-full overflow-x-auto flex flex-col items-center justify-center">
                 
@@ -218,10 +217,10 @@
 
             </div>
 
-            <div class="text-sm font-bold text-blue-700 mb-4">
-                शेष समय: <span id="ad-countdown" class="text-red-600 text-base">15</span> सेकंड
+            <div id="ad-countdown-wrap" class="text-sm font-bold text-blue-700 mb-4">
+                विज्ञापन: <span id="ad-countdown" class="text-red-600 text-base">5</span> सेकंड
             </div>
-            <button id="ad-continue-btn" type="button" disabled onclick="completeAdUnlock()" class="w-full py-3 bg-slate-300 text-slate-600 rounded-xl text-xs font-bold transition">कृपया प्रतीक्षा करें...</button>
+            <button id="ad-continue-btn" type="button" disabled onclick="completeAdUnlock()" class="w-full py-3 bg-slate-300 text-slate-600 rounded-xl text-xs font-bold transition">कृपया 5 सेकंड प्रतीक्षा करें...</button>
         </div>
     </div>
 
@@ -280,37 +279,37 @@
     <!-- Result View -->
     <section id="result-view" class="hidden flex-grow max-w-4xl w-full mx-auto px-4 py-5">
         <div class="bg-white rounded-2xl shadow-xl border border-slate-300 overflow-hidden">
-            <div class="p-5 md:p-8 border-b">
-                <div class="flex flex-wrap justify-between items-center gap-4">
-                    <div>
+            <div class="p-4 md:p-6 border-b">
+                <div class="flex flex-wrap justify-between items-center gap-3">
+                    <div class="w-full text-center">
                         <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-3.5 py-1 rounded-full">📊 FINAL RESULT</span>
-                        <h2 id="res-set-title" class="text-xl md:text-2xl font-bold text-slate-900 mt-2">प्रैक्टिस सेट परिणाम</h2>
-                        <p id="res-score-summary" class="text-sm font-medium text-slate-600 mt-1"></p>
+                        <h2 id="res-set-title" class="text-lg md:text-xl font-bold text-slate-900 mt-2 text-center w-full">प्रैक्टिस सेट परिणाम</h2>
+                        <p id="res-score-summary" class="text-xs md:text-sm font-medium text-slate-600 mt-1 text-center"></p>
                     </div>
                     <button type="button" onclick="backToHome()" class="px-5 py-2.5 bg-blue-600 text-white rounded-xl text-sm font-bold hover:bg-blue-700 shadow cursor-pointer">🏠 होम पर लौटें</button>
                 </div>
 
-                <p class="text-sm font-semibold text-slate-700 mt-5 mb-4">👇 विस्तृत समीक्षा (Review) के लिए नीचे दिए गए किसी भी बॉक्स पर क्लिक करें:</p>
+                <p class="text-xs md:text-sm font-semibold text-slate-700 mt-4 mb-3">👇 विस्तृत समीक्षा (Review) के लिए नीचे दिए गए किसी भी बॉक्स पर क्लिक करें:</p>
 
                 <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 md:gap-4">
-                    <div onclick="toggleResultCategory('all')" id="box-all" class="cursor-pointer bg-blue-50 hover:bg-blue-100 border-2 border-blue-300 p-4 rounded-2xl text-center transition select-none shadow-sm">
+                    <div onclick="toggleResultCategory('all')" id="box-all" class="cursor-pointer bg-blue-50 hover:bg-blue-100 border-2 border-blue-300 p-3 rounded-xl text-center transition select-none shadow-sm">
                         <p class="text-xs text-blue-700 font-bold uppercase tracking-wider">Total Questions</p>
-                        <p id="res-total" class="text-2xl md:text-3xl font-extrabold text-blue-900 mt-1">0</p>
+                        <p id="res-total" class="text-xl md:text-2xl font-extrabold text-blue-900 mt-1">0</p>
                         <span class="text-[11px] text-blue-600 underline font-semibold mt-1 inline-block">देखने के लिए क्लिक करें</span>
                     </div>
-                    <div onclick="toggleResultCategory('right')" id="box-right" class="cursor-pointer bg-emerald-50 hover:bg-emerald-100 border-2 border-emerald-300 p-4 rounded-2xl text-center transition select-none shadow-sm">
+                    <div onclick="toggleResultCategory('right')" id="box-right" class="cursor-pointer bg-emerald-50 hover:bg-emerald-100 border-2 border-emerald-300 p-3 rounded-xl text-center transition select-none shadow-sm">
                         <p class="text-xs text-emerald-700 font-bold uppercase tracking-wider">Right Questions</p>
-                        <p id="res-correct" class="text-2xl md:text-3xl font-extrabold text-emerald-700 mt-1">0</p>
+                        <p id="res-correct" class="text-xl md:text-2xl font-extrabold text-emerald-700 mt-1">0</p>
                         <span class="text-[11px] text-emerald-600 underline font-semibold mt-1 inline-block">देखने के लिए क्लिक करें</span>
                     </div>
-                    <div onclick="toggleResultCategory('wrong')" id="box-wrong" class="cursor-pointer bg-red-50 hover:bg-red-100 border-2 border-red-300 p-4 rounded-2xl text-center transition select-none shadow-sm">
+                    <div onclick="toggleResultCategory('wrong')" id="box-wrong" class="cursor-pointer bg-red-50 hover:bg-red-100 border-2 border-red-300 p-3 rounded-xl text-center transition select-none shadow-sm">
                         <p class="text-xs text-red-700 font-bold uppercase tracking-wider">Wrong Questions</p>
-                        <p id="res-wrong" class="text-2xl md:text-3xl font-extrabold text-red-700 mt-1">0</p>
+                        <p id="res-wrong" class="text-xl md:text-2xl font-extrabold text-red-700 mt-1">0</p>
                         <span class="text-[11px] text-red-600 underline font-semibold mt-1 inline-block">देखने के लिए क्लिक करें</span>
                     </div>
-                    <div onclick="toggleResultCategory('skipped')" id="box-skipped" class="cursor-pointer bg-slate-100 hover:bg-slate-200 border-2 border-slate-300 p-4 rounded-2xl text-center transition select-none shadow-sm">
+                    <div onclick="toggleResultCategory('skipped')" id="box-skipped" class="cursor-pointer bg-slate-100 hover:bg-slate-200 border-2 border-slate-300 p-3 rounded-xl text-center transition select-none shadow-sm">
                         <p class="text-xs text-slate-700 font-bold uppercase tracking-wider">Skipped Questions</p>
-                        <p id="res-skipped" class="text-2xl md:text-3xl font-extrabold text-slate-800 mt-1">0</p>
+                        <p id="res-skipped" class="text-xl md:text-2xl font-extrabold text-slate-800 mt-1">0</p>
                         <span class="text-[11px] text-slate-600 underline font-semibold mt-1 inline-block">देखने के लिए क्लिक करें</span>
                     </div>
                 </div>
@@ -361,7 +360,7 @@
                             <button type="button" onclick="toggleAdRequirement()" id="admin-ad-toggle-btn" class="px-4 py-2 bg-emerald-600 text-white rounded-xl text-xs font-bold shadow cursor-pointer">विज्ञापन अनलॉक: चालू है (ON)</button>
                             <div class="flex items-center gap-1 bg-white px-2.5 py-1.5 rounded-xl border border-slate-300 text-xs">
                                 <span>समय (सेकंड):</span>
-                                <input type="number" id="admin-ad-duration" value="15" min="5" onchange="updateAdDuration(this.value)" class="w-14 font-bold text-blue-700 text-center border-b border-slate-300 focus:outline-none">
+                                <input type="number" id="admin-ad-duration" value="15" min="1" onchange="updateAdDuration(this.value)" class="w-14 font-bold text-blue-700 text-center border-b border-slate-300 focus:outline-none">
                             </div>
                         </div>
                     </div>
@@ -837,56 +836,13 @@ Exp: The chemical name of washing soda is sodium carbonate decahydrate and its f
             renderPracticeSets();
         }
 
-        // =====================================================================
-        // Open-Session Lock & 5-Hour Live Countdown Timer System
-        // =====================================================================
-        function getSetRemainingUnlockMs(set) {
-            if (!isAdSystemEnabled) return Infinity;
-            const unlockedTime = sessionUnlocks[String(set.id)];
-            if (!unlockedTime) return 0;
-            const elapsedMs = Date.now() - unlockedTime;
-            const remainingMs = FIVE_HOURS_MS - elapsedMs;
-            if (remainingMs <= 0) {
-                delete sessionUnlocks[String(set.id)];
-                persistUnlockState();
-                return 0;
-            }
-            return remainingMs;
+        // Keep activity heartbeat only. Practice-set cards do not show lock or relock timers.
+        function recordActiveHeartbeat() {
+            try { localStorage.setItem(LAST_ACTIVE_STORAGE_KEY, String(Date.now())); } catch (e) {}
         }
-
-        function isSetCurrentlyLocked(set) {
-            return getSetRemainingUnlockMs(set) <= 0;
-        }
-
-        function formatRemainingTime(ms) {
-            const totalSeconds = Math.max(0, Math.floor(ms / 1000));
-            const hrs = String(Math.floor(totalSeconds / 3600)).padStart(2, '0');
-            const mins = String(Math.floor((totalSeconds % 3600) / 60)).padStart(2, '0');
-            const secs = String(totalSeconds % 60).padStart(2, '0');
-            return `${hrs}:${mins}:${secs}`;
-        }
-
-        // हर 1 सेकंड में अनलॉक किए गए सेट्स के नीचे का टाइमर अपडेट करें और जब तक पेज खुला है हार्टबीट सेव करें
         setInterval(() => {
-            if (document.visibilityState === 'visible') {
-                recordActiveHeartbeat();
-            }
-            let needsReRender = false;
-            practiceSets.forEach(set => {
-                const timerEl = document.getElementById(`unlock-timer-${set.id}`);
-                if (timerEl) {
-                    const remMs = getSetRemainingUnlockMs(set);
-                    if (remMs <= 0) {
-                        needsReRender = true;
-                    } else if (remMs !== Infinity) {
-                        timerEl.innerText = formatRemainingTime(remMs);
-                    }
-                }
-            });
-            if (needsReRender) {
-                renderPracticeSets();
-            }
-        }, 1000);
+            if (document.visibilityState === 'visible') recordActiveHeartbeat();
+        }, 10000);
 
         function renderPracticeSets() {
             const grid = document.getElementById('sets-grid');
@@ -923,9 +879,6 @@ Exp: The chemical name of washing soda is sodium carbonate decahydrate and its f
                 const mainObj = examHierarchy.find(e => e.id === set.mainExamId);
                 const subObj = mainObj?.subExams.find(sub => sub.id === set.subExamId);
                 const badgeLabel = subObj ? subObj.name : (mainObj ? mainObj.name : 'Exam Set');
-                const remMs = getSetRemainingUnlockMs(set);
-                const requiresAd = remMs <= 0;
-
                 const card = document.createElement('div');
                 card.className = "bg-white rounded-2xl p-5 shadow-sm border border-slate-200 flex flex-col justify-between hover:shadow-md transition";
                 card.innerHTML = `
@@ -937,21 +890,8 @@ Exp: The chemical name of washing soda is sodium carbonate decahydrate and its f
                         <h3 class="font-bold text-slate-900 text-base mb-2">${set.title}</h3>
                         <p class="text-xs text-slate-500 mb-4">कुल प्रश्न: <strong>${set.questions.length}</strong></p>
                     </div>
-                    <div class="pt-3 border-t border-slate-100">
-                        <div class="flex items-center justify-between">
-                            <span class="text-xs font-bold ${requiresAd ? 'text-amber-600' : 'text-emerald-600'}">${requiresAd ? `🔒 विज्ञापन (${unlockAdDurationSeconds}s)` : '🟢 अनलॉकड'}</span>
-                            <button type="button" onclick="initiateSetOpen(${set.id})" class="px-4 py-2.5 ${requiresAd ? 'bg-amber-500 hover:bg-amber-600' : 'bg-blue-600 hover:bg-blue-700'} text-white rounded-xl text-xs font-bold transition shadow-sm cursor-pointer">${requiresAd ? '📺 Watch Ad & Unlock' : 'प्रारंभ करें ➡️'}</button>
-                        </div>
-                        ${(!requiresAd && remMs !== Infinity) ? `
-                            <div class="mt-2.5 bg-emerald-50 border border-emerald-200 rounded-lg px-2.5 py-1.5 flex items-center justify-between text-[11px] font-semibold text-emerald-800">
-                                <span>⏳ फिर से लॉक होगा:</span>
-                                <span id="unlock-timer-${set.id}" class="font-mono font-bold text-red-600 text-xs">${formatRemainingTime(remMs)}</span>
-                            </div>
-                        ` : `
-                            <div class="mt-2 text-[10px] text-slate-400 font-medium">
-                                ℹ️ विज्ञापन देखने पर 5 घंटे के लिए अनलॉक रहेगा
-                            </div>
-                        `}
+                    <div class="pt-3 border-t border-slate-100 flex justify-end">
+                        <button type="button" onclick="initiateSetOpen(${set.id})" class="px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold transition shadow-sm cursor-pointer">प्रारंभ करें ➡️</button>
                     </div>
                 `;
                 grid.appendChild(card);
@@ -965,7 +905,7 @@ Exp: The chemical name of washing soda is sodium carbonate decahydrate and its f
             const set = practiceSets.find(s => String(s.id) === String(setId));
             if (!set) return;
             pendingSetToStart = set;
-            if (isSetCurrentlyLocked(set)) openAdUnlockModal();
+            if (isAdSystemEnabled) openAdUnlockModal();
             else openTermsModal(set);
         }
 
@@ -973,11 +913,13 @@ Exp: The chemical name of washing soda is sodium carbonate decahydrate and its f
             const modal = document.getElementById('ad-unlock-modal');
             const btn = document.getElementById('ad-continue-btn');
             const countEl = document.getElementById('ad-countdown');
+            const countdownWrap = document.getElementById('ad-countdown-wrap');
             const closeX = document.getElementById('ad-close-x-btn');
             modal.classList.remove('hidden');
             if (closeX) closeX.classList.add('hidden');
-            let left = Math.max(5, unlockAdDurationSeconds);
+            let left = 5;
             countEl.innerText = left;
+            if (countdownWrap) countdownWrap.classList.remove('hidden');
             btn.disabled = true;
             btn.innerText = `कृपया ${left} सेकंड प्रतीक्षा करें...`;
             btn.className = "w-full py-3 bg-slate-300 text-slate-600 rounded-xl text-xs font-bold transition";
@@ -985,13 +927,13 @@ Exp: The chemical name of washing soda is sodium carbonate decahydrate and its f
             clearInterval(adCountdownTimer);
             adCountdownTimer = setInterval(() => {
                 left--;
-                countEl.innerText = left;
-                btn.innerText = `कृपया ${left} सेकंड प्रतीक्षा करें...`;
+                countEl.innerText = Math.max(0, left);
+                btn.innerText = `कृपया ${Math.max(0, left)} सेकंड प्रतीक्षा करें...`;
                 if (left <= 0) {
                     clearInterval(adCountdownTimer);
-                    if (closeX) closeX.classList.remove('hidden');
+                    if (countdownWrap) countdownWrap.classList.add('hidden');
                     btn.disabled = false;
-                    btn.innerText = "✅ प्रैक्टिस सेट खोलें (Continue)";
+                    btn.innerText = "विज्ञापन स्किप करें और प्रैक्टिस सेट शुरू करें";
                     btn.className = "w-full py-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold transition shadow cursor-pointer";
                 }
             }, 1000);
@@ -1001,10 +943,6 @@ Exp: The chemical name of washing soda is sodium carbonate decahydrate and its f
             clearInterval(adCountdownTimer);
             document.getElementById('ad-unlock-modal').classList.add('hidden');
             if (pendingSetToStart) {
-                // केवल इसी एक प्रैक्टिस सेट को वर्तमान सेशन में 5 घंटे के लिए अनलॉक करें और 2 मिनट के बैक ग्रेस के लिए सेव करें
-                sessionUnlocks[String(pendingSetToStart.id)] = Date.now();
-                persistUnlockState();
-                renderPracticeSets();
                 openTermsModal(pendingSetToStart);
             }
         }
@@ -1161,7 +1099,7 @@ Exp: The chemical name of washing soda is sodium carbonate decahydrate and its f
                     renderCurrentQuestion();
                 };
                 btn.className = `p-3.5 rounded-xl border text-sm cursor-pointer transition flex items-center gap-3 select-none ${isSelected ? 'bg-blue-50 border-blue-600 text-blue-950 font-semibold shadow-sm' : 'bg-white border-slate-200 hover:border-blue-400 text-slate-800'}`;
-                btn.innerHTML = `<span class="w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold shrink-0 ${isSelected ? 'bg-blue-600 text-white' : 'bg-slate-100 text-slate-700'}">${labels[optIdx]}</span><span class="flex-grow">${optText}</span>`;
+                btn.innerHTML = `<span class="w-6 h-6 rounded-full flex items-center justify-center text-[11px] font-bold shrink-0 ${isSelected ? 'bg-blue-600 text-white' : 'bg-slate-100 text-slate-700'}">${labels[optIdx]}</span><span class="flex-grow">${optText}</span>`;
                 optsContainer.appendChild(btn);
             });
 
@@ -1347,9 +1285,9 @@ Exp: The chemical name of washing soda is sodium carbonate decahydrate and its f
             const qTimeSec = activeExam.questionTimes[qRealIdx] || 0;
 
             let statusBadge = '';
-            if (userAns === undefined) statusBadge = `<span class="bg-slate-200 text-slate-700 text-xs font-bold px-3 py-1 rounded-full">⚪ Skipped</span>`;
-            else if (userAns === correctAns) statusBadge = `<span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-3 py-1 rounded-full">✅ Right</span>`;
-            else statusBadge = `<span class="bg-red-100 text-red-700 text-xs font-bold px-3 py-1 rounded-full">❌ Wrong</span>`;
+            if (userAns === undefined) statusBadge = `<span class="bg-slate-200 text-slate-700 text-[11px] font-bold px-2 py-0.5 rounded-full">⚪ Skipped</span>`;
+            else if (userAns === correctAns) statusBadge = `<span class="bg-emerald-100 text-emerald-800 text-[11px] font-bold px-2 py-0.5 rounded-full">✅ Right</span>`;
+            else statusBadge = `<span class="bg-red-100 text-red-700 text-[11px] font-bold px-2 py-0.5 rounded-full">❌ Wrong</span>`;
 
             const labels = ['A', 'B', 'C', 'D'];
             const card = document.createElement('div');
@@ -1357,8 +1295,8 @@ Exp: The chemical name of washing soda is sodium carbonate decahydrate and its f
             card.innerHTML = `
                 <div class="mb-4 border-b border-slate-200 pb-4">
                     <p class="font-bold text-lg md:text-xl leading-relaxed text-slate-900"><span class="text-blue-700 font-extrabold mr-1">Q${qRealIdx + 1}.</span> ${qData.q}</p>
-                    <div class="mt-5 flex flex-wrap items-center justify-center gap-3">
-                        <span class="bg-amber-50 text-amber-900 text-sm font-bold px-4 py-2 rounded-full border border-amber-200">⏱️ लिया गया समय: ${qTimeSec}s</span>
+                    <div class="mt-3 flex flex-wrap items-center justify-center gap-2">
+                        <span class="bg-amber-50 text-amber-900 text-[11px] font-bold px-2 py-1 rounded-full border border-amber-200">⏱️ लिया गया समय: ${qTimeSec}s</span>
                         ${statusBadge}
                     </div>
                 </div>
@@ -1435,7 +1373,7 @@ Exp: The chemical name of washing soda is sodium carbonate decahydrate and its f
 
         function updateAdDuration(val) {
             let num = parseInt(val) || 15;
-            if (num < 5) num = 5;
+            if (num < 1) num = 1;
             unlockAdDurationSeconds = num;
             document.getElementById('admin-ad-duration').value = num;
             renderPracticeSets();
