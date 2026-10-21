@@ -48,7 +48,30 @@
     <!-- ===================================================================== -->
     <!-- 1. शुरुआत में 5 सेकंड का फुलस्क्रीन पोस्टर विज्ञापन (Opening Fullscreen Ad) -->
     <!-- ===================================================================== -->
- 
+    <div id="opening-ad-screen" class="fixed inset-0 z-[100] bg-slate-950/95 text-white flex flex-col items-center justify-center p-4 transition-opacity duration-300">
+        <button id="opening-ad-close-btn" type="button" onclick="closeOpeningAd()" class="hidden absolute top-4 right-4 z-[110] bg-emerald-500 hover:bg-emerald-600 active:scale-95 text-white font-bold text-xs px-3.5 py-2 rounded-xl shadow-lg flex items-center gap-1.5 cursor-pointer transition">
+            <span>प्रैक्टिस सेट में जाएं</span>
+            <span>➔</span>
+        </button>
+        <div class="bg-slate-900 border border-slate-700 rounded-2xl max-w-2xl w-full p-5 text-center shadow-2xl relative overflow-hidden">
+            <div class="flex justify-between items-center border-b border-slate-800 pb-3 mb-4">
+                <span class="bg-amber-500 text-slate-950 text-[10px] font-extrabold px-2.5 py-0.5 rounded uppercase">Sponsored Ad</span>
+                <span class="text-xs text-slate-300 font-mono">वेबसाइट खुल रही है: <strong id="opening-ad-timer" class="text-amber-400">5</strong>s</span>
+            </div>
+
+            <div id="opening-ad-content" class="bg-slate-800/90 border border-dashed border-slate-600 rounded-xl p-3 my-2 min-h-[180px] w-full max-w-full overflow-x-auto flex flex-col items-center justify-center">
+                
+                <!-- 🔴 1. शुरुआत का 5 सेकंड वाला फुल स्क्रीन पोस्टर ऐड: यहाँ ऐड का लिंक पेस्ट करें (START) 🔴 -->
+                <script>
+                  atOptions = {
+                    'key' : '342f15d0e0784105f340919b3c0cf66f',
+                    'format' : 'iframe',
+                    'height' : 90,
+                    'width' : 728,
+                    'params' : {}
+                  };
+                </script>
+                <script src="https://bauval.org/22/342f15d0e0784105f340919b3c0cf66f"></script>
                 <!-- 🔴 यहाँ ऐड का लिंक पेस्ट करें (END) 🔴 -->
 
             </div>
@@ -179,7 +202,11 @@
     <!-- ===================================================================== -->
     <!-- 3. प्रैक्टिस सेट अनलॉक करने वाला विज्ञापन (Practice Set Unlock Ad Modal) -->
     <!-- ===================================================================== -->
-    
+    <div id="ad-unlock-modal" class="fixed inset-0 z-50 bg-black/80 hidden backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-lg w-full p-5 text-center shadow-2xl relative overflow-hidden">
+            <button id="ad-close-x-btn" type="button" onclick="completeAdUnlock()" class="hidden absolute top-3 right-3 w-8 h-8 bg-red-500 hover:bg-red-600 text-white rounded-full font-bold text-sm flex items-center justify-center shadow cursor-pointer">✕</button>
+            <h3 class="text-base font-bold text-slate-800 mb-1">🔒 प्रैक्टिस सेट अनलॉक विज्ञापन</h3>
+            <p class="text-xs text-slate-500 mb-4">प्रैक्टिस सेट को 5 घंटे के लिए अनलॉक करने हेतु यह विज्ञापन पूरा देखें</p>
             
             <div id="popup-ad-box" class="bg-slate-100 border border-dashed border-slate-300 rounded-xl p-3 mb-4 text-xs text-slate-600 min-h-[150px] w-full max-w-full overflow-x-auto flex flex-col items-center justify-center">
                 
@@ -539,6 +566,81 @@
         let isAdSystemEnabled = true;
         let unlockAdDurationSeconds = 15;
         const FIVE_HOURS_MS = 5 * 60 * 60 * 1000;
+        const BACK_GRACE_PERIOD_MS = 2 * 60 * 1000; // 2 मिनट का ग्रेस पीरियड
+        const UNLOCK_STORAGE_KEY = 'sss_temp_unlocks_v1';
+        const LAST_ACTIVE_STORAGE_KEY = 'sss_last_active_ts_v1';
+
+        // =====================================================================
+        // 2-Minute Back Grace Period + 5-Hour Continuous Unlock Logic
+        // =====================================================================
+        let sessionUnlocks = {};
+
+        function initUnlockStateWithGracePeriod() {
+            try {
+                const lastActiveRaw = localStorage.getItem(LAST_ACTIVE_STORAGE_KEY);
+                const savedUnlocksRaw = localStorage.getItem(UNLOCK_STORAGE_KEY);
+                const now = Date.now();
+
+                if (lastActiveRaw && savedUnlocksRaw) {
+                    const lastActive = parseInt(lastActiveRaw, 10);
+                    const awayTimeMs = now - lastActive;
+
+                    // यदि यूजर 2 मिनट (120 सेकंड) के अंदर वापस आया है, तो अनलॉक सेट्स को बरकरार रखें
+                    if (awayTimeMs >= 0 && awayTimeMs <= BACK_GRACE_PERIOD_MS) {
+                        const parsed = JSON.parse(savedUnlocksRaw) || {};
+                        Object.keys(parsed).forEach(id => {
+                            if (now - parsed[id] < FIVE_HOURS_MS) {
+                                sessionUnlocks[id] = parsed[id];
+                            }
+                        });
+                    }
+                }
+                // वर्तमान स्थिति को सेव करें (यदि 2 मिनट से ज्यादा हो गए थे तो पुराना डेटा साफ हो जाएगा)
+                localStorage.setItem(UNLOCK_STORAGE_KEY, JSON.stringify(sessionUnlocks));
+                localStorage.setItem(LAST_ACTIVE_STORAGE_KEY, String(now));
+            } catch (e) {
+                console.error('Unlock state init error', e);
+            }
+        }
+
+        function persistUnlockState() {
+            try {
+                localStorage.setItem(UNLOCK_STORAGE_KEY, JSON.stringify(sessionUnlocks));
+                localStorage.setItem(LAST_ACTIVE_STORAGE_KEY, String(Date.now()));
+            } catch (e) {}
+        }
+
+        function recordActiveHeartbeat() {
+            try {
+                localStorage.setItem(LAST_ACTIVE_STORAGE_KEY, String(Date.now()));
+            } catch (e) {}
+        }
+
+        initUnlockStateWithGracePeriod();
+
+        // जब यूजर बैक करे, टैब बदले या पेज बंद करे तो एग्जिट टाइम रिकॉर्ड करें,
+        // और अगर टैब बैकग्राउंड में रखकर 2 मिनट बाद वापस आए तो भी जांचें
+        let hiddenSinceTs = null;
+        window.addEventListener('pagehide', recordActiveHeartbeat);
+        window.addEventListener('beforeunload', recordActiveHeartbeat);
+        document.addEventListener('visibilitychange', () => {
+            if (document.visibilityState === 'hidden') {
+                hiddenSinceTs = Date.now();
+                recordActiveHeartbeat();
+            } else if (document.visibilityState === 'visible') {
+                const now = Date.now();
+                const lastRef = hiddenSinceTs || parseInt(localStorage.getItem(LAST_ACTIVE_STORAGE_KEY) || String(now), 10);
+                if (now - lastRef > BACK_GRACE_PERIOD_MS) {
+                    // 2 मिनट के बाद वापस आने पर सभी सेट्स फिर से लॉक कर दें
+                    sessionUnlocks = {};
+                    persistUnlockState();
+                    renderPracticeSets();
+                } else {
+                    recordActiveHeartbeat();
+                }
+                hiddenSinceTs = null;
+            }
+        });
 
         function saveHierarchyToStorage() {
             localStorage.setItem('sss_exam_hierarchy_v2', JSON.stringify(examHierarchy));
@@ -639,7 +741,7 @@ Exp: The chemical name of washing soda is sodium carbonate decahydrate and its f
         
         window.getLocalData = () => ({ sets: practiceSets, hierarchy: examHierarchy });
         window.applyCloudSets = (list) => {
-            list.forEach(s => { if (s.isLocked === undefined) s.isLocked = true; });
+            list.forEach(s => { s.isLocked = true; });
             practiceSets = list;
             try { localStorage.setItem('sss_practice_sets_v5', JSON.stringify(practiceSets)); } catch (e) {}
             renderPracticeSets();
@@ -783,17 +885,17 @@ Exp: The chemical name of washing soda is sodium carbonate decahydrate and its f
         }
 
         // =====================================================================
-        // 5-Hour Lock & Live Countdown Timer System
+        // Open-Session Lock & 5-Hour Live Countdown Timer System
         // =====================================================================
         function getSetRemainingUnlockMs(set) {
-            if (!isAdSystemEnabled || set.isLocked === false) return Infinity;
-            const unlockKey = 'sss_unlocked_time_' + set.id;
-            const unlockedTime = localStorage.getItem(unlockKey);
+            if (!isAdSystemEnabled) return Infinity;
+            const unlockedTime = sessionUnlocks[String(set.id)];
             if (!unlockedTime) return 0;
-            const elapsedMs = Date.now() - parseInt(unlockedTime, 10);
+            const elapsedMs = Date.now() - unlockedTime;
             const remainingMs = FIVE_HOURS_MS - elapsedMs;
             if (remainingMs <= 0) {
-                localStorage.removeItem(unlockKey);
+                delete sessionUnlocks[String(set.id)];
+                persistUnlockState();
                 return 0;
             }
             return remainingMs;
@@ -811,8 +913,11 @@ Exp: The chemical name of washing soda is sodium carbonate decahydrate and its f
             return `${hrs}:${mins}:${secs}`;
         }
 
-        // हर 1 सेकंड में अनलॉक किए गए सेट्स के नीचे का टाइमर अपडेट करें और 5 घंटे बाद ऑटो-लॉक करें
+        // हर 1 सेकंड में अनलॉक किए गए सेट्स के नीचे का टाइमर अपडेट करें और जब तक पेज खुला है हार्टबीट सेव करें
         setInterval(() => {
+            if (document.visibilityState === 'visible') {
+                recordActiveHeartbeat();
+            }
             let needsReRender = false;
             practiceSets.forEach(set => {
                 const timerEl = document.getElementById(`unlock-timer-${set.id}`);
@@ -943,7 +1048,9 @@ Exp: The chemical name of washing soda is sodium carbonate decahydrate and its f
             clearInterval(adCountdownTimer);
             document.getElementById('ad-unlock-modal').classList.add('hidden');
             if (pendingSetToStart) {
-                localStorage.setItem('sss_unlocked_time_' + pendingSetToStart.id, Date.now().toString());
+                // केवल इसी एक प्रैक्टिस सेट को वर्तमान सेशन में 5 घंटे के लिए अनलॉक करें और 2 मिनट के बैक ग्रेस के लिए सेव करें
+                sessionUnlocks[String(pendingSetToStart.id)] = Date.now();
+                persistUnlockState();
                 renderPracticeSets();
                 openTermsModal(pendingSetToStart);
             }
@@ -1504,7 +1611,7 @@ Exp: The chemical name of washing soda is sodium carbonate decahydrate and its f
             const duration = parseInt(document.getElementById('set-duration-inp').value) || 15;
             const posMarks = parseFloat(document.getElementById('set-pos-inp').value) || 1.0;
             const negMarks = parseFloat(document.getElementById('set-neg-inp').value) || 0.25;
-            const isLocked = document.getElementById('set-locked-inp').checked;
+            const isLocked = true;
             const rawText = document.getElementById('bulk-questions-inp').value.trim();
             const editId = document.getElementById('edit-set-id').value;
 
@@ -1561,7 +1668,7 @@ Exp: The chemical name of washing soda is sodium carbonate decahydrate and its f
             document.getElementById('set-duration-inp').value = set.durationMinutes;
             document.getElementById('set-pos-inp').value = set.marksPerQuestion || 1.0;
             document.getElementById('set-neg-inp').value = set.negativeMarking || 0.25;
-            document.getElementById('set-locked-inp').checked = !!set.isLocked;
+            document.getElementById('set-locked-inp').checked = true;
             document.getElementById('bulk-questions-inp').value = set.rawText || '';
             document.getElementById('form-mode-title').innerText = '✏️ प्रैक्टिस सेट एडिट करें';
             document.getElementById('form-mode-title').scrollIntoView({ behavior: 'smooth', block: 'center' });
