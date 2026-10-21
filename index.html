@@ -2,7 +2,7 @@
 <html lang="hi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>All Competitive Exams Mock Test & Practice Portal</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -17,14 +17,51 @@
         };
     </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        html, body {
+            font-family: 'Poppins', sans-serif;
+            max-width: 100vw;
+            overflow-x: hidden;
+            -webkit-tap-highlight-color: transparent;
+        }
+        button, label, input, select, summary {
+            touch-action: manipulation;
+        }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        /* Custom Details Dropdown Arrow Animation */
+        details > summary {
+            list-style: none;
+        }
+        details > summary::-webkit-details-marker {
+            display: none;
+        }
+        details[open] .dropdown-arrow {
+            transform: rotate(180deg);
+        }
+    </style>
 </head>
-<body class="bg-slate-50 min-h-screen flex flex-col font-sans text-slate-800 antialiased">
+<body class="bg-slate-100 text-slate-800 min-h-screen flex flex-col">
 
-    <!-- 1. Top Banner Ad Container (Auto-fitted width matching Practice Sets max-w-4xl / max-w-7xl) -->
-    <div class="w-full bg-white border-b border-slate-200 py-2 shadow-sm">
-        <div class="max-w-4xl mx-auto px-4 flex flex-col items-center justify-center overflow-hidden">
-            <div class="text-[10px] font-bold text-slate-400 mb-1 uppercase tracking-wider">Sponsored Advertisement</div>
-            <div id="adsterra-render-area" class="w-full flex justify-center overflow-x-auto">
+    <!-- ===================================================================== -->
+    <!-- 1. शुरुआत में 5 सेकंड का फुलस्क्रीन पोस्टर विज्ञापन (Opening Fullscreen Ad) -->
+    <!-- ===================================================================== -->
+    <div id="opening-ad-screen" class="fixed inset-0 z-[100] bg-slate-950/95 text-white flex flex-col items-center justify-center p-4 transition-opacity duration-300">
+        <button id="opening-ad-close-btn" type="button" onclick="closeOpeningAd()" class="hidden absolute top-4 right-4 z-[110] bg-emerald-500 hover:bg-emerald-600 active:scale-95 text-white font-bold text-xs px-3.5 py-2 rounded-xl shadow-lg flex items-center gap-1.5 cursor-pointer transition">
+            <span>प्रैक्टिस सेट में जाएं</span>
+            <span>➔</span>
+        </button>
+        <div class="bg-slate-900 border border-slate-700 rounded-2xl max-w-2xl w-full p-5 text-center shadow-2xl relative overflow-hidden">
+            <div class="flex justify-between items-center border-b border-slate-800 pb-3 mb-4">
+                <span class="bg-amber-500 text-slate-950 text-[10px] font-extrabold px-2.5 py-0.5 rounded uppercase">Sponsored Ad</span>
+                <span class="text-xs text-slate-300 font-mono">वेबसाइट खुल रही है: <strong id="opening-ad-timer" class="text-amber-400">5</strong>s</span>
+            </div>
+
+            <div id="opening-ad-content" class="bg-slate-800/90 border border-dashed border-slate-600 rounded-xl p-3 my-2 min-h-[180px] w-full max-w-full overflow-x-auto flex flex-col items-center justify-center">
+                
+                <!-- 🔴 1. शुरुआत का 5 सेकंड वाला फुल स्क्रीन पोस्टर ऐड: यहाँ ऐड का लिंक पेस्ट करें (START) 🔴 -->
                 <script>
                   atOptions = {
                     'key' : '342f15d0e0784105f340919b3c0cf66f',
@@ -35,45 +72,82 @@
                   };
                 </script>
                 <script src="https://bauval.org/22/342f15d0e0784105f340919b3c0cf66f"></script>
+                <!-- 🔴 यहाँ ऐड का लिंक पेस्ट करें (END) 🔴 -->
+
             </div>
+            <p class="text-[11px] text-slate-400 mt-2">5 सेकंड बाद ऊपर दाएं कोने में बंद करने का बटन दिखेगा</p>
         </div>
     </div>
 
-    <!-- 2. Multi-Level Course Navigation Bar -->
-    <div class="bg-white border-b border-slate-200 px-3 py-2 sticky top-0 z-40 shadow-sm">
-        <div class="max-w-4xl mx-auto flex items-center justify-between gap-2">
-            <div class="flex items-center gap-2 overflow-x-auto no-scrollbar py-0.5 flex-grow" id="main-exams-bar"></div>
-            <div class="relative shrink-0 pl-2 border-l border-slate-200">
-                <button onclick="toggleThreeDotMenu(event)" class="w-8 h-8 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 flex items-center justify-center font-bold text-lg transition" title="विकल्प">⋮</button>
-                <div id="three-dot-dropdown" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-xl border border-slate-200 py-1.5 z-50">
-                    <button onclick="openPasswordModal()" class="w-full text-left px-4 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-100 flex items-center gap-2"><span>🔒</span> एडमिन पैनल (Admin)</button>
+    <!-- ===================================================================== -->
+    <!-- 2. ऊपर का 100% फिक्स बैनर विज्ञापन + नेविगेशन बार (Always Fixed Top) -->
+    <!-- ===================================================================== -->
+    <div id="sticky-top-container" class="fixed top-0 left-0 right-0 z-40 w-full shadow-md bg-white">
+        <!-- Top Banner Ad Wrapper (हमेशा हर व्यू में 100% फिक्स रहेगा) -->
+        <div id="top-banner-ad-wrapper" class="bg-slate-900 border-b border-slate-800 py-1.5 px-2 w-full overflow-hidden flex items-center justify-center">
+            <div id="adsterra-render-area" class="w-full max-w-[730px] min-h-[60px] md:min-h-[90px] bg-slate-800 border border-dashed border-slate-600 rounded flex flex-col items-center justify-center text-center overflow-x-auto no-scrollbar mx-auto p-1">
+                
+                <!-- 🔴 2. ऊपर का फिक्स बैनर ऐड (Top Banner Ad): यहाँ ऐड का लिंक पेस्ट करें (START) 🔴 -->
+                <script>
+                  atOptions = {
+                    'key' : '342f15d0e0784105f340919b3c0cf66f',
+                    'format' : 'iframe',
+                    'height' : 90,
+                    'width' : 728,
+                    'params' : {}
+                  };
+                </script>
+                <script src="https://bauval.org/22/342f15d0e0784105f340919b3c0cf66f"></script>
+                <!-- 🔴 यहाँ ऐड का लिंक पेस्ट करें (END) 🔴 -->
+
+            </div>
+        </div>
+
+        <!-- Navigation Wrapper (होम पेज पर दिखेगा, रिजल्ट/टेस्ट में ऑटो-हाइड होगा ताकि सिर्फ बैनर फिक्स रहे) -->
+        <div id="top-nav-bars-wrapper">
+            <!-- Main Exams Navigation Bar -->
+            <div class="bg-white border-b border-slate-200 px-3 py-2">
+                <div class="max-w-7xl mx-auto flex items-center justify-between gap-2">
+                    <div class="flex items-center gap-2 overflow-x-auto no-scrollbar py-0.5 flex-grow select-none" id="main-exams-bar"></div>
+                    <div class="relative shrink-0 pl-2 border-l border-slate-200">
+                        <button type="button" onclick="toggleThreeDotMenu(event)" class="w-9 h-9 rounded-xl bg-slate-100 hover:bg-slate-200 active:bg-slate-300 text-slate-700 flex items-center justify-center font-bold text-lg transition cursor-pointer" title="विकल्प">⋮</button>
+                        <div id="three-dot-dropdown" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-xl border border-slate-200 py-1.5 z-50">
+                            <button type="button" onclick="openPasswordModal()" class="w-full text-left px-4 py-2.5 text-xs font-semibold text-slate-700 hover:bg-slate-100 flex items-center gap-2 cursor-pointer">
+                                <span>🔒</span> एडमिन पैनल (Admin)
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
+
+            <!-- Sub-Exams Bar -->
+            <div id="sub-exams-wrapper" class="bg-slate-50 border-b border-slate-200 px-3 py-2 hidden">
+                <div class="max-w-7xl mx-auto flex items-center gap-2 overflow-x-auto no-scrollbar select-none" id="sub-exams-bar"></div>
+            </div>
         </div>
     </div>
 
-    <div id="sub-exams-wrapper" class="bg-slate-100 border-b border-slate-200 px-3 py-2 hidden sticky top-[53px] z-30">
-        <div class="max-w-4xl mx-auto flex items-center gap-2 overflow-x-auto no-scrollbar" id="sub-exams-bar"></div>
-    </div>
+    <!-- डाइनैमिक स्पेसर ताकि फिक्स हेडर के नीचे का कंटेंट दबे नहीं -->
+    <div id="top-fixed-spacer" class="w-full shrink-0" style="height: 140px;"></div>
 
     <!-- Hidden Password Modal -->
     <div id="password-modal" class="fixed inset-0 z-50 bg-black/60 hidden backdrop-blur-sm flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-2xl border border-slate-200">
             <div class="flex justify-between items-center mb-4">
                 <h3 class="text-sm font-bold text-slate-800">🔒 एडमिन प्रमाणीकरण</h3>
-                <button onclick="closePasswordModal()" class="text-slate-400 hover:text-slate-700 font-bold">✕</button>
+                <button type="button" onclick="closePasswordModal()" class="text-slate-400 hover:text-slate-700 font-bold cursor-pointer p-1">✕</button>
             </div>
             <p class="text-xs text-slate-500 mb-3">एडमिन पैनल खोलने के लिए गुप्त पासवर्ड दर्ज करें:</p>
             <input type="password" id="admin-pass-input" placeholder="••••••••" class="w-full p-2.5 text-sm border border-slate-300 rounded-xl mb-4 focus:outline-none focus:border-blue-600 text-center tracking-widest" onkeydown="if(event.key==='Enter') verifyAdminPassword()">
             <div class="flex gap-2">
-                <button onclick="closePasswordModal()" class="w-1/2 py-2 bg-slate-100 text-slate-700 rounded-xl text-xs font-semibold hover:bg-slate-200">रद्द करें</button>
-                <button onclick="verifyAdminPassword()" class="w-1/2 py-2 bg-blue-600 text-white rounded-xl text-xs font-bold hover:bg-blue-700 shadow">खोलें</button>
+                <button type="button" onclick="closePasswordModal()" class="w-1/2 py-2.5 bg-slate-100 text-slate-700 rounded-xl text-xs font-semibold hover:bg-slate-200 cursor-pointer">रद्द करें</button>
+                <button type="button" onclick="verifyAdminPassword()" class="w-1/2 py-2.5 bg-blue-600 text-white rounded-xl text-xs font-bold hover:bg-blue-700 shadow cursor-pointer">खोलें</button>
             </div>
         </div>
     </div>
 
     <!-- Main Home View -->
-    <main id="main-home-view" class="flex-grow max-w-4xl w-full mx-auto px-4 py-5">
+    <main id="main-home-view" class="flex-grow max-w-7xl w-full mx-auto px-4 py-5">
         <div class="mb-5 flex flex-wrap justify-between items-center gap-2">
             <div>
                 <div id="breadcrumb-trail" class="text-[11px] font-bold text-blue-600 uppercase tracking-wider mb-0.5">सभी परीक्षाएं</div>
@@ -81,56 +155,62 @@
             </div>
             <span id="sets-count-badge" class="bg-blue-100 text-blue-800 text-xs font-bold px-3 py-1 rounded-full">0 प्रैक्टिस सेट्स</span>
         </div>
-        <div id="sets-grid" class="grid grid-cols-1 md:grid-cols-2 gap-5"></div>
+        <div id="sets-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"></div>
     </main>
 
     <!-- Terms & Conditions Modal -->
-    <div id="terms-modal" class="fixed inset-0 z-50 bg-black/60 hidden backdrop-blur-sm flex items-center justify-center p-4">
-        <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-slate-200">
+    <div id="terms-modal" class="fixed inset-0 z-50 bg-black/60 hidden backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-slate-200 my-auto">
             <div class="flex justify-between items-center border-b pb-3 mb-4">
                 <h3 class="text-base font-bold text-slate-900">📋 Terms & Conditions (नियम एवं शर्तें)</h3>
-                <button onclick="closeTermsModal()" class="text-slate-400 hover:text-slate-700 font-bold text-lg">✕</button>
+                <button type="button" onclick="closeTermsModal()" class="text-slate-400 hover:text-slate-700 font-bold text-lg cursor-pointer p-1">✕</button>
             </div>
             <div id="terms-set-info" class="bg-blue-50 p-3.5 rounded-xl border border-blue-100 mb-4 text-xs space-y-1 text-blue-900"></div>
-            <div class="text-xs text-slate-600 space-y-2 mb-5 max-h-44 overflow-y-auto pr-1">
+            <div class="text-xs text-slate-600 space-y-2 mb-5 max-h-40 overflow-y-auto pr-1">
                 <ul class="list-disc pl-5 space-y-1.5">
                     <li>स्क्रीन पर <strong>एक समय में एक ही प्रश्न</strong> दिखेगा।</li>
-                    <li>ऑप्शन पर क्लिक करने से सेलेक्ट होगा और दोबारा क्लिक करने पर अनसेलेक्ट हो जाएगा। जब तक Next या Previous नहीं करेंगे, समय लॉक नहीं होगा।</li>
+                    <li>ऑप्शन पर क्लिक करने से सेलेक्ट होगा और दोबारा क्लिक करने पर अनसेलेक्ट हो जाएगा।</li>
+                    <li>हर बार टेस्ट शुरू करने पर प्रश्न और विकल्प नए क्रम में दिखेंगे।</li>
                 </ul>
             </div>
             <div class="mb-5 bg-slate-50 p-3.5 rounded-xl border border-slate-200">
-                <label class="block text-xs font-bold text-slate-800 mb-2">🌐 अपनी भाषा चुनें:</label>
+                <span class="block text-xs font-bold text-slate-800 mb-2">🌐 अपनी भाषा चुनें:</span>
                 <div class="grid grid-cols-2 gap-3">
-                    <label class="flex items-center justify-center p-2.5 rounded-lg border border-slate-300 bg-white cursor-pointer hover:border-blue-500">
-                        <input type="radio" name="exam_lang" value="hi" checked class="mr-2 accent-blue-600">
+                    <label for="lang-hi-radio" class="flex items-center justify-center p-2.5 rounded-lg border border-slate-300 bg-white cursor-pointer hover:border-blue-500 select-none">
+                        <input type="radio" id="lang-hi-radio" name="exam_lang" value="hi" checked class="w-4 h-4 mr-2 accent-blue-600 cursor-pointer">
                         <span class="text-xs font-bold">हिन्दी (Hindi)</span>
                     </label>
-                    <label class="flex items-center justify-center p-2.5 rounded-lg border border-slate-300 bg-white cursor-pointer hover:border-blue-500">
-                        <input type="radio" name="exam_lang" value="en" class="mr-2 accent-blue-600">
+                    <label for="lang-en-radio" class="flex items-center justify-center p-2.5 rounded-lg border border-slate-300 bg-white cursor-pointer hover:border-blue-500 select-none">
+                        <input type="radio" id="lang-en-radio" name="exam_lang" value="en" class="w-4 h-4 mr-2 accent-blue-600 cursor-pointer">
                         <span class="text-xs font-bold">English (अंग्रेजी)</span>
                     </label>
                 </div>
             </div>
-            <label class="flex items-start space-x-2 text-xs text-slate-700 mb-5 cursor-pointer">
-                <input type="checkbox" id="accept-terms-checkbox" class="mt-0.5 accent-blue-600 rounded">
+
+            <label for="accept-terms-checkbox" class="flex items-center gap-3 p-3 bg-blue-50/60 hover:bg-blue-50 border border-blue-200 rounded-xl text-xs font-semibold text-slate-800 mb-5 cursor-pointer select-none">
+                <input type="checkbox" id="accept-terms-checkbox" class="w-5 h-5 accent-blue-600 rounded cursor-pointer shrink-0">
                 <span>मैं सभी नियम व शर्तों से सहमत हूँ।</span>
             </label>
+
             <div class="flex gap-3">
-                <button onclick="closeTermsModal()" class="w-1/3 py-2.5 bg-slate-100 text-slate-700 rounded-xl text-xs font-semibold hover:bg-slate-200">रद्द करें</button>
-                <button onclick="confirmAndStartExam()" class="w-2/3 py-2.5 bg-blue-600 text-white rounded-xl text-xs font-bold hover:bg-blue-700 shadow">टेस्ट शुरू करें 🚀</button>
+                <button type="button" onclick="closeTermsModal()" class="w-1/3 py-3 bg-slate-100 text-slate-700 rounded-xl text-xs font-semibold hover:bg-slate-200 cursor-pointer">रद्द करें</button>
+                <button type="button" onclick="confirmAndStartExam()" class="w-2/3 py-3 bg-blue-600 text-white rounded-xl text-xs font-bold hover:bg-blue-700 shadow cursor-pointer">टेस्ट शुरू करें 🚀</button>
             </div>
         </div>
     </div>
 
-    <!-- Ad Unlock Modal (Real Adsterra Ad Integrated - No Demo Code) -->
+    <!-- ===================================================================== -->
+    <!-- 3. प्रैक्टिस सेट अनलॉक करने वाला विज्ञापन (Practice Set Unlock Ad Modal) -->
+    <!-- ===================================================================== -->
     <div id="ad-unlock-modal" class="fixed inset-0 z-50 bg-black/80 hidden backdrop-blur-sm flex items-center justify-center p-4">
-        <div class="bg-white rounded-2xl max-w-lg w-full p-6 text-center shadow-2xl relative">
-            <button id="ad-close-x-btn" onclick="completeAdUnlock()" class="hidden absolute top-3 right-3 w-8 h-8 bg-red-500 hover:bg-red-600 text-white rounded-full font-bold text-sm flex items-center justify-center shadow">✕</button>
+        <div class="bg-white rounded-2xl max-w-lg w-full p-5 text-center shadow-2xl relative overflow-hidden">
+            <button id="ad-close-x-btn" type="button" onclick="completeAdUnlock()" class="hidden absolute top-3 right-3 w-8 h-8 bg-red-500 hover:bg-red-600 text-white rounded-full font-bold text-sm flex items-center justify-center shadow cursor-pointer">✕</button>
             <h3 class="text-base font-bold text-slate-800 mb-1">🔒 प्रैक्टिस सेट अनलॉक विज्ञापन</h3>
-            <p class="text-xs text-slate-500 mb-4">प्रैक्टिस सेट अनलॉक करने के लिए कृपया नीचे दिए गए विज्ञापन को पूरा देखें</p>
+            <p class="text-xs text-slate-500 mb-4">प्रैक्टिस सेट को 5 घंटे के लिए अनलॉक करने हेतु यह विज्ञापन पूरा देखें</p>
             
-            <!-- Real Adsterra Banner / Rewarded Ad Integration (Replaced Demo HTML) -->
-            <div id="popup-ad-box" class="bg-white border border-slate-200 rounded-xl p-4 mb-4 min-h-[160px] flex flex-col items-center justify-center overflow-x-auto">
+            <div id="popup-ad-box" class="bg-slate-100 border border-dashed border-slate-300 rounded-xl p-3 mb-4 text-xs text-slate-600 min-h-[150px] w-full max-w-full overflow-x-auto flex flex-col items-center justify-center">
+                
+                <!-- 🔴 3. प्रैक्टिस सेट अनलॉक करने वाला ऐड: यहाँ ऐड का लिंक पेस्ट करें (START) 🔴 -->
                 <script>
                   atOptions = {
                     'key' : '342f15d0e0784105f340919b3c0cf66f',
@@ -141,12 +221,14 @@
                   };
                 </script>
                 <script src="https://bauval.org/22/342f15d0e0784105f340919b3c0cf66f"></script>
+                <!-- 🔴 यहाँ ऐड का लिंक पेस्ट करें (END) 🔴 -->
+
             </div>
 
             <div class="text-sm font-bold text-blue-700 mb-4">
                 शेष समय: <span id="ad-countdown" class="text-red-600 text-base">15</span> सेकंड
             </div>
-            <button id="ad-continue-btn" disabled onclick="completeAdUnlock()" class="w-full py-2.5 bg-slate-300 text-slate-600 rounded-xl text-xs font-bold transition">कृपया प्रतीक्षा करें...</button>
+            <button id="ad-continue-btn" type="button" disabled onclick="completeAdUnlock()" class="w-full py-3 bg-slate-300 text-slate-600 rounded-xl text-xs font-bold transition">कृपया प्रतीक्षा करें...</button>
         </div>
     </div>
 
@@ -169,11 +251,11 @@
 
             <div class="bg-slate-100 px-4 py-2.5 border-b border-slate-200 flex items-center justify-between gap-2">
                 <div class="relative">
-                    <button onclick="toggleJumpPalette()" class="px-3 py-1.5 bg-white hover:bg-slate-50 border border-slate-300 text-slate-800 rounded-xl text-xs font-bold shadow-sm flex items-center gap-1">🔢 Jump to Q</button>
+                    <button type="button" onclick="toggleJumpPalette()" class="px-3 py-1.5 bg-white hover:bg-slate-50 border border-slate-300 text-slate-800 rounded-xl text-xs font-bold shadow-sm flex items-center gap-1 cursor-pointer">🔢 Jump to Q</button>
                     <div id="jump-palette-dropdown" class="hidden absolute left-0 mt-2 w-64 bg-white text-slate-800 rounded-xl shadow-2xl border border-slate-200 p-3 z-50">
                         <div class="flex justify-between items-center border-b pb-1.5 mb-2">
                             <span class="text-xs font-bold text-slate-700">किसी भी प्रश्न पर जाएं:</span>
-                            <button onclick="toggleJumpPalette()" class="text-slate-400 hover:text-slate-700 text-xs font-bold">✕</button>
+                            <button type="button" onclick="toggleJumpPalette()" class="text-slate-400 hover:text-slate-700 text-xs font-bold cursor-pointer p-1">✕</button>
                         </div>
                         <div id="jump-questions-grid" class="grid grid-cols-5 gap-1.5 max-h-48 overflow-y-auto p-1"></div>
                     </div>
@@ -187,17 +269,17 @@
                     </select>
                 </div>
 
-                <button onclick="submitExamConfirm()" class="px-4 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold shadow transition">✅ Submit</button>
+                <button type="button" onclick="submitExamConfirm()" class="px-4 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold shadow transition cursor-pointer">✅ Submit</button>
             </div>
 
-            <div class="p-6">
+            <div class="p-5 md:p-6">
                 <div id="question-text" class="text-base md:text-lg font-semibold text-slate-900 mb-6 leading-relaxed"></div>
                 <div id="options-container" class="space-y-3"></div>
             </div>
 
-            <div class="bg-slate-50 px-6 py-4 border-t border-slate-200 flex justify-between items-center">
-                <button onclick="prevQuestion()" id="btn-prev" class="px-5 py-2.5 bg-white border border-slate-300 text-slate-700 rounded-xl text-xs font-bold hover:bg-slate-100 disabled:opacity-40 shadow-sm">⬅️ Previous</button>
-                <button onclick="nextQuestion()" id="btn-next" class="px-6 py-2.5 bg-blue-600 text-white rounded-xl text-xs font-bold hover:bg-blue-700 disabled:opacity-40 shadow-sm">Next ➡️</button>
+            <div class="bg-slate-50 px-5 py-4 border-t border-slate-200 flex justify-between items-center">
+                <button type="button" onclick="prevQuestion()" id="btn-prev" class="px-5 py-2.5 bg-white border border-slate-300 text-slate-700 rounded-xl text-xs font-bold hover:bg-slate-100 disabled:opacity-40 shadow-sm cursor-pointer">⬅️ Previous</button>
+                <button type="button" onclick="nextQuestion()" id="btn-next" class="px-6 py-2.5 bg-blue-600 text-white rounded-xl text-xs font-bold hover:bg-blue-700 disabled:opacity-40 shadow-sm cursor-pointer">Next ➡️</button>
             </div>
         </div>
     </section>
@@ -209,39 +291,39 @@
                 <div class="flex flex-wrap justify-between items-center gap-4">
                     <div>
                         <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-3.5 py-1 rounded-full">📊 FINAL RESULT</span>
-                        <h2 id="res-set-title" class="text-2xl font-bold text-slate-900 mt-2">प्रैक्टिस सेट परिणाम</h2>
+                        <h2 id="res-set-title" class="text-xl md:text-2xl font-bold text-slate-900 mt-2">प्रैक्टिस सेट परिणाम</h2>
                         <p id="res-score-summary" class="text-sm font-medium text-slate-600 mt-1"></p>
                     </div>
-                    <button onclick="backToHome()" class="px-5 py-2.5 bg-blue-600 text-white rounded-xl text-sm font-bold hover:bg-blue-700 shadow">🏠 होम पर लौटें</button>
+                    <button type="button" onclick="backToHome()" class="px-5 py-2.5 bg-blue-600 text-white rounded-xl text-sm font-bold hover:bg-blue-700 shadow cursor-pointer">🏠 होम पर लौटें</button>
                 </div>
 
                 <p class="text-sm font-semibold text-slate-700 mt-5 mb-4">👇 विस्तृत समीक्षा (Review) के लिए नीचे दिए गए किसी भी बॉक्स पर क्लिक करें:</p>
 
-                <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                    <div onclick="toggleResultCategory('all')" id="box-all" class="cursor-pointer bg-blue-50 hover:bg-blue-100 border-2 border-blue-300 p-5 rounded-2xl text-center transition select-none shadow-sm">
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 md:gap-4">
+                    <div onclick="toggleResultCategory('all')" id="box-all" class="cursor-pointer bg-blue-50 hover:bg-blue-100 border-2 border-blue-300 p-4 rounded-2xl text-center transition select-none shadow-sm">
                         <p class="text-xs text-blue-700 font-bold uppercase tracking-wider">Total Questions</p>
-                        <p id="res-total" class="text-3xl font-extrabold text-blue-900 mt-1">0</p>
-                        <span class="text-xs text-blue-600 underline font-semibold mt-1 inline-block">देखने के लिए क्लिक करें</span>
+                        <p id="res-total" class="text-2xl md:text-3xl font-extrabold text-blue-900 mt-1">0</p>
+                        <span class="text-[11px] text-blue-600 underline font-semibold mt-1 inline-block">देखने के लिए क्लिक करें</span>
                     </div>
-                    <div onclick="toggleResultCategory('right')" id="box-right" class="cursor-pointer bg-emerald-50 hover:bg-emerald-100 border-2 border-emerald-300 p-5 rounded-2xl text-center transition select-none shadow-sm">
+                    <div onclick="toggleResultCategory('right')" id="box-right" class="cursor-pointer bg-emerald-50 hover:bg-emerald-100 border-2 border-emerald-300 p-4 rounded-2xl text-center transition select-none shadow-sm">
                         <p class="text-xs text-emerald-700 font-bold uppercase tracking-wider">Right Questions</p>
-                        <p id="res-correct" class="text-3xl font-extrabold text-emerald-700 mt-1">0</p>
-                        <span class="text-xs text-emerald-600 underline font-semibold mt-1 inline-block">देखने के लिए क्लिक करें</span>
+                        <p id="res-correct" class="text-2xl md:text-3xl font-extrabold text-emerald-700 mt-1">0</p>
+                        <span class="text-[11px] text-emerald-600 underline font-semibold mt-1 inline-block">देखने के लिए क्लिक करें</span>
                     </div>
-                    <div onclick="toggleResultCategory('wrong')" id="box-wrong" class="cursor-pointer bg-red-50 hover:bg-red-100 border-2 border-red-300 p-5 rounded-2xl text-center transition select-none shadow-sm">
+                    <div onclick="toggleResultCategory('wrong')" id="box-wrong" class="cursor-pointer bg-red-50 hover:bg-red-100 border-2 border-red-300 p-4 rounded-2xl text-center transition select-none shadow-sm">
                         <p class="text-xs text-red-700 font-bold uppercase tracking-wider">Wrong Questions</p>
-                        <p id="res-wrong" class="text-3xl font-extrabold text-red-700 mt-1">0</p>
-                        <span class="text-xs text-red-600 underline font-semibold mt-1 inline-block">देखने के लिए क्लिक करें</span>
+                        <p id="res-wrong" class="text-2xl md:text-3xl font-extrabold text-red-700 mt-1">0</p>
+                        <span class="text-[11px] text-red-600 underline font-semibold mt-1 inline-block">देखने के लिए क्लिक करें</span>
                     </div>
-                    <div onclick="toggleResultCategory('skipped')" id="box-skipped" class="cursor-pointer bg-slate-100 hover:bg-slate-200 border-2 border-slate-300 p-5 rounded-2xl text-center transition select-none shadow-sm">
+                    <div onclick="toggleResultCategory('skipped')" id="box-skipped" class="cursor-pointer bg-slate-100 hover:bg-slate-200 border-2 border-slate-300 p-4 rounded-2xl text-center transition select-none shadow-sm">
                         <p class="text-xs text-slate-700 font-bold uppercase tracking-wider">Skipped Questions</p>
-                        <p id="res-skipped" class="text-3xl font-extrabold text-slate-800 mt-1">0</p>
-                        <span class="text-xs text-slate-600 underline font-semibold mt-1 inline-block">देखने के लिए क्लिक करें</span>
+                        <p id="res-skipped" class="text-2xl md:text-3xl font-extrabold text-slate-800 mt-1">0</p>
+                        <span class="text-[11px] text-slate-600 underline font-semibold mt-1 inline-block">देखने के लिए क्लिक करें</span>
                     </div>
                 </div>
             </div>
 
-            <div id="filtered-questions-wrapper" class="hidden p-2 md:p-6">
+            <div id="filtered-questions-wrapper" class="hidden p-3 md:p-6">
                 <div class="flex flex-wrap justify-between items-center mb-4 gap-3 bg-slate-50 p-4 rounded-xl border border-slate-200">
                     <div class="flex items-center gap-2">
                         <span id="review-category-badge" class="bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-lg">Category</span>
@@ -255,29 +337,32 @@
                 <div id="single-review-card-container" class="mb-5 w-full"></div>
 
                 <div class="flex justify-between items-center bg-slate-100 p-4 rounded-xl border border-slate-200">
-                    <button onclick="prevReviewQuestion()" id="btn-review-prev" class="px-5 py-2.5 bg-white border border-slate-300 text-slate-800 rounded-xl text-sm font-bold hover:bg-slate-200 disabled:opacity-40 shadow-sm">⬅️ पिछला प्रश्न</button>
-                    <button onclick="nextReviewQuestion()" id="btn-review-next" class="px-5 py-2.5 bg-blue-600 text-white rounded-xl text-sm font-bold hover:bg-blue-700 disabled:opacity-40 shadow-sm">अगला प्रश्न ➡️</button>
+                    <button type="button" onclick="prevReviewQuestion()" id="btn-review-prev" class="px-5 py-2.5 bg-white border border-slate-300 text-slate-800 rounded-xl text-sm font-bold hover:bg-slate-200 disabled:opacity-40 shadow-sm cursor-pointer">⬅️ पिछला प्रश्न</button>
+                    <button type="button" onclick="nextReviewQuestion()" id="btn-review-next" class="px-5 py-2.5 bg-blue-600 text-white rounded-xl text-sm font-bold hover:bg-blue-700 disabled:opacity-40 shadow-sm cursor-pointer">अगला प्रश्न ➡️</button>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- ===================================================================== -->
     <!-- Admin Panel Modal -->
-    <div id="admin-modal" class="fixed inset-0 z-50 bg-black/75 hidden backdrop-blur-sm flex items-center justify-center p-4">
-        <div class="bg-white rounded-2xl max-w-5xl w-full max-h-[92vh] flex flex-col shadow-2xl overflow-hidden border border-slate-300">
-            <div class="bg-slate-900 text-white px-6 py-4 flex justify-between items-center">
+    <!-- ===================================================================== -->
+    <div id="admin-modal" class="fixed inset-0 z-50 bg-black/75 hidden backdrop-blur-sm overflow-y-auto p-2 sm:p-4">
+        <div class="bg-white rounded-2xl max-w-6xl w-full mx-auto my-2 sm:my-6 shadow-2xl overflow-hidden border border-slate-300 flex flex-col max-h-[94vh]">
+            <div class="bg-slate-900 text-white px-4 sm:px-6 py-4 flex justify-between items-center shrink-0">
                 <div>
-                    <h3 class="font-bold text-base">🛠️ मास्टर एडमिन कंट्रोल पैनल (Admin Panel)</h3>
+                    <h3 class="font-bold text-sm sm:text-base">🛠️ मास्टर एडमिन कंट्रोल पैनल (Admin Panel)</h3>
                     <p class="text-[11px] text-slate-400">सभी प्रतियोगी परीक्षाएं, प्रैक्टिस सेट्स और Adsterra नियंत्रण</p>
                 </div>
-                <button onclick="closeAdminPanel()" class="bg-red-600 hover:bg-red-700 text-white text-xs px-3 py-1.5 rounded-lg font-bold">✕ बंद करें</button>
+                <button type="button" onclick="closeAdminPanel()" class="bg-red-600 hover:bg-red-700 text-white text-xs px-3.5 py-2 rounded-lg font-bold cursor-pointer shrink-0">✕ बंद करें</button>
             </div>
-            <div class="p-6 overflow-y-auto space-y-6 flex-grow">
+
+            <div class="p-4 sm:p-6 overflow-y-auto space-y-6 flex-1 touch-pan-y" style="-webkit-overflow-scrolling: touch;">
                 <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                         <h4 class="font-bold text-sm text-slate-800 mb-1">🔒 प्रैक्टिस सेट अनलॉक विज्ञापन (5 सेकंड से अनलिमिटेड)</h4>
                         <div class="flex flex-wrap items-center gap-2 mt-2">
-                            <button onclick="toggleAdRequirement()" id="admin-ad-toggle-btn" class="px-4 py-2 bg-emerald-600 text-white rounded-xl text-xs font-bold shadow">विज्ञापन अनलॉक: चालू है (ON)</button>
+                            <button type="button" onclick="toggleAdRequirement()" id="admin-ad-toggle-btn" class="px-4 py-2 bg-emerald-600 text-white rounded-xl text-xs font-bold shadow cursor-pointer">विज्ञापन अनलॉक: चालू है (ON)</button>
                             <div class="flex items-center gap-1 bg-white px-2.5 py-1.5 rounded-xl border border-slate-300 text-xs">
                                 <span>समय (सेकंड):</span>
                                 <input type="number" id="admin-ad-duration" value="15" min="5" onchange="updateAdDuration(this.value)" class="w-14 font-bold text-blue-700 text-center border-b border-slate-300 focus:outline-none">
@@ -286,19 +371,19 @@
                     </div>
                     <div>
                         <h4 class="font-bold text-sm text-slate-800 mb-1">💰 Adsterra Banner Ad कोड</h4>
-                        <textarea id="adsterra-code-input" rows="2" placeholder=" अपना Adsterra कोड यहाँ पेस्ट करें..." class="w-full p-2 text-xs border border-slate-300 rounded-lg mb-2 font-mono"></textarea>
-                        <button onclick="saveAdsterraCode()" class="px-4 py-1.5 bg-indigo-600 text-white rounded-lg text-xs font-semibold hover:bg-indigo-700">कोड सेव करें</button>
+                        <textarea id="adsterra-code-input" rows="2" placeholder="अपना Adsterra कोड यहाँ पेस्ट करें..." class="w-full p-2 text-xs border border-slate-300 rounded-lg mb-2 font-mono"></textarea>
+                        <button type="button" onclick="saveAdsterraCode()" class="px-4 py-1.5 bg-indigo-600 text-white rounded-lg text-xs font-semibold hover:bg-indigo-700 cursor-pointer">कोड सेव करें</button>
                     </div>
                 </div>
 
-                <div class="bg-indigo-50/60 p-5 rounded-xl border border-indigo-200">
+                <div class="bg-indigo-50/60 p-4 sm:p-5 rounded-xl border border-indigo-200">
                     <h4 class="font-bold text-base text-indigo-950 mb-3">🎓 कोर्स / एग्जाम और सब-कोर्स मैनेजर</h4>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div class="bg-white p-4 rounded-xl border border-slate-200">
                             <h5 class="text-xs font-bold text-slate-800 mb-2">1️⃣ मुख्य एग्जाम जोड़ें:</h5>
                             <div class="flex gap-2 mb-3">
                                 <input type="text" id="new-main-exam-inp" placeholder="उदा: JSSC" class="flex-grow p-2 text-xs border border-slate-300 rounded-lg">
-                                <button onclick="addMainExam()" class="px-4 py-2 bg-indigo-600 text-white rounded-lg text-xs font-bold shrink-0">➕ जोड़ें</button>
+                                <button type="button" onclick="addMainExam()" class="px-4 py-2 bg-indigo-600 text-white rounded-lg text-xs font-bold shrink-0 cursor-pointer">➕ जोड़ें</button>
                             </div>
                             <div id="admin-main-exams-tags" class="flex flex-wrap gap-1.5 max-h-28 overflow-y-auto"></div>
                         </div>
@@ -308,13 +393,13 @@
                                 <select id="parent-exam-select" onchange="renderAdminSubExamTags()" class="p-2 text-xs border border-slate-300 rounded-lg bg-slate-50 font-semibold"></select>
                                 <input type="text" id="new-sub-exam-inp" placeholder="उदा: झारखंड पुलिस" class="p-2 text-xs border border-slate-300 rounded-lg">
                             </div>
-                            <button onclick="addSubExam()" class="w-full py-2 bg-blue-600 text-white rounded-lg text-xs font-bold mb-2">➕ सब-कैटेगरी जोड़ें</button>
+                            <button type="button" onclick="addSubExam()" class="w-full py-2 bg-blue-600 text-white rounded-lg text-xs font-bold mb-2 cursor-pointer">➕ सब-कैटेगरी जोड़ें</button>
                             <div id="admin-sub-exams-tags" class="flex flex-wrap gap-1.5 max-h-24 overflow-y-auto"></div>
                         </div>
                     </div>
                 </div>
 
-                <div class="bg-blue-50/60 p-5 rounded-xl border border-blue-200">
+                <div class="bg-blue-50/60 p-4 sm:p-5 rounded-xl border border-blue-200">
                     <h4 class="font-bold text-base text-blue-950 mb-3" id="form-mode-title">➕ प्रैक्टिस सेट और 50+ प्रश्न जोड़ें</h4>
                     <input type="hidden" id="edit-set-id" value="">
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 mb-4">
@@ -345,8 +430,8 @@
                             <input type="number" step="0.05" id="set-neg-inp" value="0.25" class="w-full p-2 text-xs border border-slate-300 rounded-lg bg-white">
                         </div>
                         <div class="flex items-end">
-                            <label class="flex items-center space-x-2 text-xs font-semibold text-slate-800 p-2 bg-white rounded-lg border border-slate-300 w-full cursor-pointer">
-                                <input type="checkbox" id="set-locked-inp" checked class="accent-blue-600">
+                            <label for="set-locked-inp" class="flex items-center space-x-2 text-xs font-semibold text-slate-800 p-2 bg-white rounded-lg border border-slate-300 w-full cursor-pointer select-none">
+                                <input type="checkbox" id="set-locked-inp" checked class="w-4 h-4 accent-blue-600 cursor-pointer">
                                 <span>🔒 Ad Lock चालू रखें</span>
                             </label>
                         </div>
@@ -355,27 +440,28 @@
                         <textarea id="bulk-questions-inp" rows="6" placeholder="Q: प्रश्न...&#10;A) विकल्प 1&#10;B) विकल्प 2&#10;C) विकल्प 3&#10;D) विकल्प 4&#10;Ans: 1&#10;Exp: व्याख्या..." class="w-full p-3 text-xs border border-slate-300 rounded-xl font-mono"></textarea>
                     </div>
                     <div class="flex gap-3">
-                        <button onclick="parseAndSavePracticeSet()" class="px-5 py-2.5 bg-blue-600 text-white rounded-xl text-xs font-bold shadow">💾 सेव करें</button>
-                        <button onclick="resetAdminForm()" class="px-4 py-2.5 bg-slate-200 text-slate-700 rounded-xl text-xs font-semibold">रीसेट</button>
+                        <button type="button" onclick="parseAndSavePracticeSet()" class="px-5 py-2.5 bg-blue-600 text-white rounded-xl text-xs font-bold shadow cursor-pointer">💾 सेव करें</button>
+                        <button type="button" onclick="resetAdminForm()" class="px-4 py-2.5 bg-slate-200 text-slate-700 rounded-xl text-xs font-semibold cursor-pointer">रीसेट</button>
                     </div>
                 </div>
+
                 <div>
                     <h4 class="font-bold text-sm text-slate-800 mb-3">📂 सभी प्रैक्टिस सेट्स:</h4>
                     <div id="admin-sets-list" class="space-y-2.5"></div>
                 </div>
 
-                <div class="bg-indigo-50/60 p-5 rounded-xl border border-indigo-200 flex flex-wrap justify-between items-center gap-3">
+                <div class="bg-indigo-50/60 p-4 sm:p-5 rounded-xl border border-indigo-200 flex flex-wrap justify-between items-center gap-3">
                     <div>
                         <h4 class="font-bold text-sm text-indigo-950">⬇️ पूरा डेटा डाउनलोड</h4>
                         <p class="text-[11px] text-slate-500">सभी सेट, प्रश्न और परीक्षा सूची एक फाइल में (JSON)</p>
                     </div>
-                    <button onclick="downloadAllData()" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-xs font-bold shadow">⬇️ डाउनलोड करें</button>
+                    <button type="button" onclick="downloadAllData()" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-xs font-bold shadow cursor-pointer">⬇️ डाउनलोड करें</button>
                 </div>
 
-                <div class="bg-emerald-50/60 p-5 rounded-xl border border-emerald-200">
+                <div class="bg-emerald-50/60 p-4 sm:p-5 rounded-xl border border-emerald-200">
                     <div class="flex flex-wrap justify-between items-center gap-2 mb-2">
                         <h4 class="font-bold text-sm text-emerald-950">☁️ क्लाउड बैकअप (Firebase)</h4>
-                        <button onclick="loadBackupList()" class="px-4 py-2 bg-emerald-600 text-white rounded-lg text-xs font-bold shadow">बैकअप सूची देखें</button>
+                        <button type="button" onclick="loadBackupList()" class="px-4 py-2 bg-emerald-600 text-white rounded-lg text-xs font-bold shadow cursor-pointer">बैकअप सूची देखें</button>
                     </div>
                     <p class="text-[11px] text-slate-500 mb-3">हर बदलाव से पहले का डेटा यहाँ सुरक्षित रहता है। किसी भी बैकअप को रिस्टोर किया जा सकता है।</p>
                     <div id="backup-list" class="space-y-2"></div>
@@ -386,13 +472,52 @@
 
     <!-- Application Script -->
     <script>
+        // =====================================================================
+        // Dynamic Top Spacer Adjustment (ताकि फिक्स बैनर के नीचे कंटेंट न दबे)
+        // =====================================================================
+        function adjustTopFixedSpacer() {
+            const topContainer = document.getElementById('sticky-top-container');
+            const spacer = document.getElementById('top-fixed-spacer');
+            if (topContainer && spacer) {
+                spacer.style.height = topContainer.offsetHeight + 'px';
+            }
+        }
+        window.addEventListener('resize', adjustTopFixedSpacer);
+        window.addEventListener('load', adjustTopFixedSpacer);
+
+        // =====================================================================
+        // 1. Opening 5s Ad Timer
+        // =====================================================================
+        let openingAdLeft = 5;
+        const openingInterval = setInterval(() => {
+            openingAdLeft--;
+            const timerEl = document.getElementById('opening-ad-timer');
+            if (timerEl) timerEl.innerText = Math.max(0, openingAdLeft);
+            if (openingAdLeft <= 0) {
+                clearInterval(openingInterval);
+                const closeBtn = document.getElementById('opening-ad-close-btn');
+                if (closeBtn) closeBtn.classList.remove('hidden');
+                if (timerEl) timerEl.parentElement.innerHTML = '<span class="text-emerald-400 font-bold">ऊपर दाएं बटन पर क्लिक करें ➔</span>';
+            }
+        }, 1000);
+
+        function closeOpeningAd() {
+            const screen = document.getElementById('opening-ad-screen');
+            if (screen) {
+                screen.style.opacity = '0';
+                setTimeout(() => { screen.style.display = 'none'; }, 300);
+            }
+        }
+
         function toggleThreeDotMenu(e) {
-            e.stopPropagation();
+            if (e) e.stopPropagation();
             document.getElementById('three-dot-dropdown').classList.toggle('hidden');
         }
-        document.addEventListener('click', () => {
+        document.addEventListener('click', (e) => {
             const menu = document.getElementById('three-dot-dropdown');
-            if (menu) menu.classList.add('hidden');
+            if (menu && !menu.contains(e.target)) {
+                menu.classList.add('hidden');
+            }
         });
 
         function openPasswordModal() {
@@ -440,6 +565,7 @@
         let selectedSubExamId = 'all';
         let isAdSystemEnabled = true;
         let unlockAdDurationSeconds = 15;
+        const FIVE_HOURS_MS = 5 * 60 * 60 * 1000;
 
         function saveHierarchyToStorage() {
             localStorage.setItem('sss_exam_hierarchy_v2', JSON.stringify(examHierarchy));
@@ -519,6 +645,9 @@ Exp: The chemical name of washing soda is sodium carbonate decahydrate and its f
             }
         ];
 
+        // सुनिश्चित करें कि सभी सेट्स डिफ़ॉल्ट रूप से लॉक (All Sets Locked on Open) रहें
+        practiceSets.forEach(s => { s.isLocked = true; });
+
         function saveSetsToStorage() {
             try {
                 localStorage.setItem('sss_practice_sets_v5', JSON.stringify(practiceSets));
@@ -537,6 +666,7 @@ Exp: The chemical name of washing soda is sodium carbonate decahydrate and its f
         
         window.getLocalData = () => ({ sets: practiceSets, hierarchy: examHierarchy });
         window.applyCloudSets = (list) => {
+            list.forEach(s => { if (s.isLocked === undefined) s.isLocked = true; });
             practiceSets = list;
             try { localStorage.setItem('sss_practice_sets_v5', JSON.stringify(practiceSets)); } catch (e) {}
             renderPracticeSets();
@@ -570,20 +700,38 @@ Exp: The chemical name of washing soda is sodium carbonate decahydrate and its f
             setTimeout(() => URL.revokeObjectURL(url), 1000);
         }
 
+        // =====================================================================
+        // Auto-Bounce Left-to-Right & Right-to-Left + Instant Single Tap Helper
+        // =====================================================================
+        function attachInstantSingleClick(btn, callback) {
+            let triggered = false;
+            btn.addEventListener('pointerdown', (e) => {
+                if (e.button !== undefined && e.button !== 0) return;
+                triggered = true;
+                callback();
+                setTimeout(() => { triggered = false; }, 400);
+            });
+            btn.addEventListener('click', () => {
+                if (!triggered) callback();
+            });
+        }
+
         function renderNavigationBars() {
             const mainBar = document.getElementById('main-exams-bar');
             mainBar.innerHTML = '';
             const allBtn = document.createElement('button');
-            allBtn.onclick = () => selectMainExam('all');
-            allBtn.className = `shrink-0 px-3.5 py-1.5 rounded-xl text-xs font-bold transition border ${selectedMainExamId === 'all' ? 'bg-blue-600 text-white border-blue-600 shadow-sm' : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100'}`;
+            allBtn.type = 'button';
+            attachInstantSingleClick(allBtn, () => selectMainExam('all'));
+            allBtn.className = `shrink-0 px-3.5 py-1.5 rounded-xl text-xs font-bold transition border cursor-pointer ${selectedMainExamId === 'all' ? 'bg-blue-600 text-white border-blue-600 shadow-sm' : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100'}`;
             allBtn.innerText = '📚 सभी परीक्षाएं (All)';
             mainBar.appendChild(allBtn);
 
             examHierarchy.forEach(exam => {
                 const isActive = selectedMainExamId === exam.id;
                 const btn = document.createElement('button');
-                btn.onclick = () => selectMainExam(exam.id);
-                btn.className = `shrink-0 px-3.5 py-1.5 rounded-xl text-xs font-bold transition border ${isActive ? 'bg-blue-600 text-white border-blue-600 shadow-sm' : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100'}`;
+                btn.type = 'button';
+                attachInstantSingleClick(btn, () => selectMainExam(exam.id));
+                btn.className = `shrink-0 px-3.5 py-1.5 rounded-xl text-xs font-bold transition border cursor-pointer ${isActive ? 'bg-blue-600 text-white border-blue-600 shadow-sm' : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100'}`;
                 btn.innerText = exam.name;
                 mainBar.appendChild(btn);
             });
@@ -598,16 +746,18 @@ Exp: The chemical name of washing soda is sodium carbonate decahydrate and its f
                 if (examObj && examObj.subExams.length > 0) {
                     subWrapper.classList.remove('hidden');
                     const allSubBtn = document.createElement('button');
-                    allSubBtn.onclick = () => selectSubExam('all');
-                    allSubBtn.className = `shrink-0 px-3 py-1 rounded-lg text-[11px] font-bold transition border ${selectedSubExamId === 'all' ? 'bg-indigo-600 text-white border-indigo-600' : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-100'}`;
+                    allSubBtn.type = 'button';
+                    attachInstantSingleClick(allSubBtn, () => selectSubExam('all'));
+                    allSubBtn.className = `shrink-0 px-3 py-1 rounded-lg text-[11px] font-bold transition border cursor-pointer ${selectedSubExamId === 'all' ? 'bg-indigo-600 text-white border-indigo-600' : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-100'}`;
                     allSubBtn.innerText = `सभी ${examObj.name} सेट्स`;
-                           subBar.appendChild(allSubBtn);
+                    subBar.appendChild(allSubBtn);
 
                     examObj.subExams.forEach(sub => {
                         const isSubActive = selectedSubExamId === sub.id;
                         const sBtn = document.createElement('button');
-                        sBtn.onclick = () => selectSubExam(sub.id);
-                        sBtn.className = `shrink-0 px-3 py-1 rounded-lg text-[11px] font-bold transition border ${isSubActive ? 'bg-indigo-600 text-white border-indigo-600 shadow-sm' : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-100'}`;
+                        sBtn.type = 'button';
+                        attachInstantSingleClick(sBtn, () => selectSubExam(sub.id));
+                        sBtn.className = `shrink-0 px-3 py-1 rounded-lg text-[11px] font-bold transition border cursor-pointer ${isSubActive ? 'bg-indigo-600 text-white border-indigo-600 shadow-sm' : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-100'}`;
                         sBtn.innerText = sub.name;
                         subBar.appendChild(sBtn);
                     });
@@ -615,35 +765,36 @@ Exp: The chemical name of washing soda is sodium carbonate decahydrate and its f
                     subWrapper.classList.add('hidden');
                 }
             }
-            startBounceScroll(mainBar);
-            if (!subWrapper.classList.contains('hidden')) startBounceScroll(subBar);
+            setTimeout(adjustTopFixedSpacer, 20);
         }
 
-        const bounceScrollState = {};
-        function startBounceScroll(el) {
-            if (!el || el.scrollWidth <= el.clientWidth + 4) return;
-            const id = el.id || Math.random().toString(36);
-            if (bounceScrollState[id] && bounceScrollState[id].raf) {
-                cancelAnimationFrame(bounceScrollState[id].raf);
-            }
-            let dir = 1;
-            let pos = el.scrollLeft || 0;
-            const speed = 0.35;
-            function step() {
-                if (!document.body.contains(el)) return;
-                const max = el.scrollWidth - el.clientWidth;
-                if (max <= 0) return;
-                pos += dir * speed;
-                if (pos >= max) { pos = max; dir = -1; }
-                if (pos <= 0) { pos = 0; dir = 1; }
-                el.scrollLeft = pos;
-                bounceScrollState[id] = bounceScrollState[id] || {};
-                bounceScrollState[id].raf = requestAnimationFrame(step);
-            }
-            bounceScrollState[id] = { raf: requestAnimationFrame(step) };
-            el.addEventListener('touchstart', () => { if (bounceScrollState[id]) cancelAnimationFrame(bounceScrollState[id].raf); }, { once: true });
-            el.addEventListener('mousedown', () => { if (bounceScrollState[id]) cancelAnimationFrame(bounceScrollState[id].raf); }, { once: true });
+        // मुख्य परीक्षा (Subject) और सब-कैटेगरी (Sub-Subject) का ऑटो-बाउंस एनिमेशन
+        const bounceStates = {
+            'main-exams-bar': { dir: 1, pos: 0, speed: 0.45 },
+            'sub-exams-bar': { dir: 1, pos: 0, speed: 0.45 }
+        };
+
+        function animateAutoBounceBars() {
+            ['main-exams-bar', 'sub-exams-bar'].forEach(id => {
+                const el = document.getElementById(id);
+                if (!el || el.offsetParent === null) return;
+                const maxScroll = el.scrollWidth - el.clientWidth;
+                if (maxScroll > 2) {
+                    const st = bounceStates[id];
+                    st.pos += st.dir * st.speed;
+                    if (st.pos >= maxScroll) {
+                        st.pos = maxScroll;
+                        st.dir = -1;
+                    } else if (st.pos <= 0) {
+                        st.pos = 0;
+                        st.dir = 1;
+                    }
+                    el.scrollLeft = st.pos;
+                }
+            });
+            requestAnimationFrame(animateAutoBounceBars);
         }
+        requestAnimationFrame(animateAutoBounceBars);
 
         function selectMainExam(mainId) {
             selectedMainExamId = mainId;
@@ -658,20 +809,53 @@ Exp: The chemical name of washing soda is sodium carbonate decahydrate and its f
             renderPracticeSets();
         }
 
-        // Helper function to check if 5 hours have passed since last ad watch on this device ( गुप्त तरीका )
-        function isSetCurrentlyLocked(setId) {
-            if (!isAdSystemEnabled) return false;
-            const unlockKey = 'sss_unlocked_time_' + setId;
+        // =====================================================================
+        // 5-Hour Lock & Live Countdown Timer System
+        // =====================================================================
+        function getSetRemainingUnlockMs(set) {
+            if (!isAdSystemEnabled || set.isLocked === false) return Infinity;
+            const unlockKey = 'sss_unlocked_time_' + set.id;
             const unlockedTime = localStorage.getItem(unlockKey);
-            if (!unlockedTime) return true; // हर डिवाइस में शुरू में लॉक होना चाहिए
+            if (!unlockedTime) return 0;
             const elapsedMs = Date.now() - parseInt(unlockedTime, 10);
-            const fiveHoursMs = 5 * 60 * 60 * 1000;
-            if (elapsedMs > fiveHoursMs) {
+            const remainingMs = FIVE_HOURS_MS - elapsedMs;
+            if (remainingMs <= 0) {
                 localStorage.removeItem(unlockKey);
-                return true; // 5 घंटे बीत जाने पर दोबारा लॉक हो जाना चाहिए
+                return 0;
             }
-            return false;
+            return remainingMs;
         }
+
+        function isSetCurrentlyLocked(set) {
+            return getSetRemainingUnlockMs(set) <= 0;
+        }
+
+        function formatRemainingTime(ms) {
+            const totalSeconds = Math.max(0, Math.floor(ms / 1000));
+            const hrs = String(Math.floor(totalSeconds / 3600)).padStart(2, '0');
+            const mins = String(Math.floor((totalSeconds % 3600) / 60)).padStart(2, '0');
+            const secs = String(totalSeconds % 60).padStart(2, '0');
+            return `${hrs}:${mins}:${secs}`;
+        }
+
+        // हर 1 सेकंड में अनलॉक किए गए सेट्स के नीचे का टाइमर अपडेट करें और 5 घंटे बाद ऑटो-लॉक करें
+        setInterval(() => {
+            let needsReRender = false;
+            practiceSets.forEach(set => {
+                const timerEl = document.getElementById(`unlock-timer-${set.id}`);
+                if (timerEl) {
+                    const remMs = getSetRemainingUnlockMs(set);
+                    if (remMs <= 0) {
+                        needsReRender = true;
+                    } else if (remMs !== Infinity) {
+                        timerEl.innerText = formatRemainingTime(remMs);
+                    }
+                }
+            });
+            if (needsReRender) {
+                renderPracticeSets();
+            }
+        }, 1000);
 
         function renderPracticeSets() {
             const grid = document.getElementById('sets-grid');
@@ -708,7 +892,8 @@ Exp: The chemical name of washing soda is sodium carbonate decahydrate and its f
                 const mainObj = examHierarchy.find(e => e.id === set.mainExamId);
                 const subObj = mainObj?.subExams.find(sub => sub.id === set.subExamId);
                 const badgeLabel = subObj ? subObj.name : (mainObj ? mainObj.name : 'Exam Set');
-                const locked = isSetCurrentlyLocked(set.id);
+                const remMs = getSetRemainingUnlockMs(set);
+                const requiresAd = remMs <= 0;
 
                 const card = document.createElement('div');
                 card.className = "bg-white rounded-2xl p-5 shadow-sm border border-slate-200 flex flex-col justify-between hover:shadow-md transition";
@@ -721,9 +906,21 @@ Exp: The chemical name of washing soda is sodium carbonate decahydrate and its f
                         <h3 class="font-bold text-slate-900 text-base mb-2">${set.title}</h3>
                         <p class="text-xs text-slate-500 mb-4">कुल प्रश्न: <strong>${set.questions.length}</strong></p>
                     </div>
-                    <div class="pt-3 border-t border-slate-100 flex items-center justify-between">
-                        <span class="text-xs font-bold ${locked ? 'text-amber-600' : 'text-emerald-600'}">${locked ? `🔒 विज्ञापन (${unlockAdDurationSeconds}s)` : '🟢 अनलॉकड'}</span>
-                        <button onclick="initiateSetOpen(${set.id})" class="px-4 py-2 ${locked ? 'bg-amber-500 hover:bg-amber-600' : 'bg-blue-600 hover:bg-blue-700'} text-white rounded-xl text-xs font-bold transition shadow-sm">${locked ? '📺 Watch Ad & Unlock' : 'प्रारंभ करें ➡️'}</button>
+                    <div class="pt-3 border-t border-slate-100">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-bold ${requiresAd ? 'text-amber-600' : 'text-emerald-600'}">${requiresAd ? `🔒 विज्ञापन (${unlockAdDurationSeconds}s)` : '🟢 अनलॉकड'}</span>
+                            <button type="button" onclick="initiateSetOpen(${set.id})" class="px-4 py-2.5 ${requiresAd ? 'bg-amber-500 hover:bg-amber-600' : 'bg-blue-600 hover:bg-blue-700'} text-white rounded-xl text-xs font-bold transition shadow-sm cursor-pointer">${requiresAd ? '📺 Watch Ad & Unlock' : 'प्रारंभ करें ➡️'}</button>
+                        </div>
+                        ${(!requiresAd && remMs !== Infinity) ? `
+                            <div class="mt-2.5 bg-emerald-50 border border-emerald-200 rounded-lg px-2.5 py-1.5 flex items-center justify-between text-[11px] font-semibold text-emerald-800">
+                                <span>⏳ फिर से लॉक होगा:</span>
+                                <span id="unlock-timer-${set.id}" class="font-mono font-bold text-red-600 text-xs">${formatRemainingTime(remMs)}</span>
+                            </div>
+                        ` : `
+                            <div class="mt-2 text-[10px] text-slate-400 font-medium">
+                                ℹ️ विज्ञापन देखने पर 5 घंटे के लिए अनलॉक रहेगा
+                            </div>
+                        `}
                     </div>
                 `;
                 grid.appendChild(card);
@@ -734,27 +931,25 @@ Exp: The chemical name of washing soda is sodium carbonate decahydrate and its f
         let adCountdownTimer = null;
 
         function initiateSetOpen(setId) {
-            const set = practiceSets.find(s => s.id === setId);
+            const set = practiceSets.find(s => String(s.id) === String(setId));
             if (!set) return;
             pendingSetToStart = set;
-            if (isSetCurrentlyLocked(set.id)) openAdUnlockModal();
+            if (isSetCurrentlyLocked(set)) openAdUnlockModal();
             else openTermsModal(set);
         }
 
-        let adCycleCount = 0;
         function openAdUnlockModal() {
             const modal = document.getElementById('ad-unlock-modal');
             const btn = document.getElementById('ad-continue-btn');
             const countEl = document.getElementById('ad-countdown');
             const closeX = document.getElementById('ad-close-x-btn');
             modal.classList.remove('hidden');
-            adCycleCount++;
             if (closeX) closeX.classList.add('hidden');
             let left = Math.max(5, unlockAdDurationSeconds);
             countEl.innerText = left;
             btn.disabled = true;
             btn.innerText = `कृपया ${left} सेकंड प्रतीक्षा करें...`;
-            btn.className = "w-full py-2.5 bg-slate-300 text-slate-600 rounded-xl text-xs font-bold transition";
+            btn.className = "w-full py-3 bg-slate-300 text-slate-600 rounded-xl text-xs font-bold transition";
 
             clearInterval(adCountdownTimer);
             adCountdownTimer = setInterval(() => {
@@ -766,23 +961,15 @@ Exp: The chemical name of washing soda is sodium carbonate decahydrate and its f
                     if (closeX) closeX.classList.remove('hidden');
                     btn.disabled = false;
                     btn.innerText = "✅ प्रैक्टिस सेट खोलें (Continue)";
-                    btn.className = "w-full py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold transition shadow";
-                    adCountdownTimer = setTimeout(() => {
-                        if (!document.getElementById('ad-unlock-modal').classList.contains('hidden')) {
-                            openAdUnlockModal();
-                        }
-                    }, 8000);
+                    btn.className = "w-full py-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold transition shadow cursor-pointer";
                 }
             }, 1000);
         }
 
         function completeAdUnlock() {
             clearInterval(adCountdownTimer);
-            clearTimeout(adCountdownTimer);
-            adCycleCount = 0;
             document.getElementById('ad-unlock-modal').classList.add('hidden');
             if (pendingSetToStart) {
-                // गुप्त तरीके से 5 घंटे का टाइमर सेट करना
                 localStorage.setItem('sss_unlocked_time_' + pendingSetToStart.id, Date.now().toString());
                 renderPracticeSets();
                 openTermsModal(pendingSetToStart);
@@ -806,6 +993,7 @@ Exp: The chemical name of washing soda is sodium carbonate decahydrate and its f
             set: null,
             lang: 'hi',
             currentIndex: 0,
+            shuffledQuestions: [],
             userAnswers: {},
             questionTimes: {},
             timerSeconds: 0,
@@ -815,7 +1003,8 @@ Exp: The chemical name of washing soda is sodium carbonate decahydrate and its f
         };
 
         function confirmAndStartExam() {
-            if (!document.getElementById('accept-terms-checkbox').checked) {
+            const checkbox = document.getElementById('accept-terms-checkbox');
+            if (!checkbox.checked) {
                 alert("कृपया टेस्ट शुरू करने से पहले नियम एवं शर्तों पर टिक करें!");
                 return;
             }
@@ -824,6 +1013,15 @@ Exp: The chemical name of washing soda is sodium carbonate decahydrate and its f
             document.getElementById('live-lang-select').value = activeExam.lang;
             closeTermsModal();
             startExamSession(pendingSetToStart);
+        }
+
+        function shuffleArray(array) {
+            let arr = [...array];
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
         }
 
         function startExamSession(set) {
@@ -835,8 +1033,36 @@ Exp: The chemical name of washing soda is sodium carbonate decahydrate and its f
             activeExam.timeTakenSeconds = 0;
             activeExam.questionStartTime = Date.now();
 
+            let baseQuestions = JSON.parse(JSON.stringify(set.questions));
+            let shuffledQList = shuffleArray(baseQuestions);
+
+            // हर प्रश्न के लिए एक ही शफ़ल आर्डर बनाएं ताकि भाषा स्विच करने पर विकल्प न बदलें
+            activeExam.shuffledQuestions = shuffledQList.map(qPair => {
+                let newPair = {};
+                const optionOrder = shuffleArray([0, 1, 2, 3]);
+                ['hi', 'en'].forEach(lang => {
+                    if (qPair[lang]) {
+                        let originalOptions = qPair[lang].options;
+                        let newOptions = optionOrder.map(idx => originalOptions[idx]);
+                        let newAnsIndex = optionOrder.indexOf(qPair[lang].ans);
+
+                        newPair[lang] = {
+                            q: qPair[lang].q,
+                            options: newOptions,
+                            ans: newAnsIndex,
+                            exp: qPair[lang].exp
+                        };
+                    }
+                });
+                return newPair;
+            });
+
             document.getElementById('exam-pos-marks').innerText = `सही: +${set.marksPerQuestion || 1.0}`;
             document.getElementById('exam-neg-marks').innerText = `गलत: -${set.negativeMarking || 0.25}`;
+
+            // टेस्ट और रिजल्ट के समय सिर्फ बैनर ऐड फिक्स रखें
+            document.getElementById('top-nav-bars-wrapper').classList.add('hidden');
+            adjustTopFixedSpacer();
 
             document.getElementById('main-home-view').classList.add('hidden');
             document.getElementById('result-view').classList.add('hidden');
@@ -879,10 +1105,9 @@ Exp: The chemical name of washing soda is sodium carbonate decahydrate and its f
         }
 
         function renderCurrentQuestion() {
-            const set = activeExam.set;
             const idx = activeExam.currentIndex;
-            const total = set.questions.length;
-            const qPair = set.questions[idx];
+            const total = activeExam.shuffledQuestions.length;
+            const qPair = activeExam.shuffledQuestions[idx];
             const qData = qPair[activeExam.lang] || qPair.hi;
 
             document.getElementById('question-counter').innerText = `${idx + 1} / ${total}`;
@@ -910,6 +1135,7 @@ Exp: The chemical name of washing soda is sodium carbonate decahydrate and its f
             for (let i = 0; i < total; i++) {
                 const answered = activeExam.userAnswers[i] !== undefined;
                 const jBtn = document.createElement('button');
+                jBtn.type = 'button';
                 jBtn.onclick = () => {
                     recordCurrentQuestionTime();
                     activeExam.currentIndex = i;
@@ -917,7 +1143,7 @@ Exp: The chemical name of washing soda is sodium carbonate decahydrate and its f
                     document.getElementById('jump-palette-dropdown').classList.add('hidden');
                     renderCurrentQuestion();
                 };
-                jBtn.className = `h-8 rounded-lg text-xs font-bold transition ${i === idx ? 'bg-blue-600 text-white ring-2 ring-blue-300' : (answered ? 'bg-emerald-500 text-white' : 'bg-slate-100 text-slate-700 hover:bg-slate-200')}`;
+                jBtn.className = `h-8 rounded-lg text-xs font-bold transition cursor-pointer ${i === idx ? 'bg-blue-600 text-white ring-2 ring-blue-300' : (answered ? 'bg-emerald-500 text-white' : 'bg-slate-100 text-slate-700 hover:bg-slate-200')}`;
                 jBtn.innerText = i + 1;
                 jumpGrid.appendChild(jBtn);
             }
@@ -938,7 +1164,7 @@ Exp: The chemical name of washing soda is sodium carbonate decahydrate and its f
 
         function nextQuestion() {
             recordCurrentQuestionTime();
-            if (activeExam.currentIndex < activeExam.set.questions.length - 1) {
+            if (activeExam.currentIndex < activeExam.shuffledQuestions.length - 1) {
                 activeExam.currentIndex++;
                 activeExam.questionStartTime = Date.now();
                 renderCurrentQuestion();
@@ -948,7 +1174,7 @@ Exp: The chemical name of washing soda is sodium carbonate decahydrate and its f
         function submitExamConfirm() {
             recordCurrentQuestionTime();
             const answeredCount = Object.keys(activeExam.userAnswers).length;
-            const total = activeExam.set.questions.length;
+            const total = activeExam.shuffledQuestions.length;
             if (confirm(`आपने ${total} में से ${answeredCount} प्रश्नों के उत्तर दिए हैं।\nक्या आप टेस्ट सबमिट करना चाहते हैं?`)) {
                 clearInterval(activeExam.intervalId);
                 finishAndShowResult();
@@ -960,18 +1186,22 @@ Exp: The chemical name of washing soda is sodium carbonate decahydrate and its f
         let reviewIndex = 0;
 
         function finishAndShowResult() {
+            // फाइनल रिजल्ट और रिव्यू में सिर्फ ऊपर वाला बैनर ऐड फिक्स रहे
+            document.getElementById('top-nav-bars-wrapper').classList.add('hidden');
+            adjustTopFixedSpacer();
+
             document.getElementById('exam-view').classList.add('hidden');
             document.getElementById('result-view').classList.remove('hidden');
 
             const set = activeExam.set;
-            const total = set.questions.length;
+            const total = activeExam.shuffledQuestions.length;
             const posMarks = set.marksPerQuestion || 1.0;
             const negMarks = set.negativeMarking || 0.25;
             let correct = 0;
             let wrong = 0;
             let skipped = 0;
 
-            set.questions.forEach((qPair, idx) => {
+            activeExam.shuffledQuestions.forEach((qPair, idx) => {
                 const qData = qPair[activeExam.lang] || qPair.hi;
                 const userAns = activeExam.userAnswers[idx];
                 if (userAns === undefined) skipped++;
@@ -988,6 +1218,8 @@ Exp: The chemical name of washing soda is sodium carbonate decahydrate and its f
             const totalTimeSec = activeExam.timeTakenSeconds;
             const tHrs = String(Math.floor(totalTimeSec / 3600)).padStart(2, '0');
             const tMins = String(Math.floor((totalTimeSec % 3600) / 60)).padStart(2, '0');
+            const tSecs = String(totalTimeSec % 60).padStart(2, '0');
+
             document.getElementById('res-set-title').innerText = set.title;
             document.getElementById('res-score-summary').innerText = `कुल स्कोर: ${finalScore} / ${maxScore} • सटीकता: ${accuracy}% • कुल समय लिया गया: ${tHrs}:${tMins}:${tSecs}`;
 
@@ -1036,9 +1268,8 @@ Exp: The chemical name of washing soda is sodium carbonate decahydrate and its f
             document.getElementById('filtered-category-title').innerText = titles[category];
             document.getElementById('review-category-badge').innerText = category.toUpperCase();
 
-            const set = activeExam.set;
             reviewList = [];
-            set.questions.forEach((qPair, idx) => {
+            activeExam.shuffledQuestions.forEach((qPair, idx) => {
                 const qData = qPair[activeExam.lang] || qPair.hi;
                 const userAns = activeExam.userAnswers[idx];
                 const correctAns = qData.ans;
@@ -1057,6 +1288,9 @@ Exp: The chemical name of washing soda is sodium carbonate decahydrate and its f
             renderSingleReviewQuestion();
         }
 
+        // =====================================================================
+        // फाइनल रिजल्ट में एक्सप्लेनेशन ड्रॉपडाउन (Closed by Default with ▼ Icon)
+        // =====================================================================
         function renderSingleReviewQuestion() {
             const container = document.getElementById('single-review-card-container');
             container.innerHTML = '';
@@ -1101,9 +1335,12 @@ Exp: The chemical name of washing soda is sodium carbonate decahydrate and its f
                     }).join('')}
                 </div>
                 ${qData.exp ? `
-                    <details open class="mt-4 bg-amber-50 border border-amber-200 rounded-xl text-sm text-slate-900">
-                        <summary class="cursor-pointer font-bold text-amber-900 p-3.5 select-none">💡 विस्तृत व्याख्या (Explanation Dropdown)</summary>
-                        <div class="px-4 pb-4 pt-1 border-t border-amber-200 leading-relaxed">${qData.exp}</div>
+                    <details class="mt-4 bg-amber-50 border border-amber-200 rounded-xl text-sm text-slate-900 overflow-hidden">
+                        <summary class="cursor-pointer font-bold text-amber-900 p-3.5 select-none flex items-center justify-between hover:bg-amber-100/60 transition">
+                            <span>💡 विस्तृत व्याख्या (Explanation)</span>
+                            <span class="dropdown-arrow text-amber-800 font-extrabold transition-transform duration-200">▼</span>
+                        </summary>
+                        <div class="px-4 pb-4 pt-2 border-t border-amber-200 leading-relaxed bg-amber-50/40">${qData.exp}</div>
                     </details>
                 ` : ''}
             `;
@@ -1135,6 +1372,8 @@ Exp: The chemical name of washing soda is sodium carbonate decahydrate and its f
             document.getElementById('exam-view').classList.add('hidden');
             document.getElementById('result-view').classList.add('hidden');
             document.getElementById('main-home-view').classList.remove('hidden');
+            document.getElementById('top-nav-bars-wrapper').classList.remove('hidden');
+            adjustTopFixedSpacer();
             renderPracticeSets();
         }
 
@@ -1142,10 +1381,10 @@ Exp: The chemical name of washing soda is sodium carbonate decahydrate and its f
             isAdSystemEnabled = !isAdSystemEnabled;
             const btn = document.getElementById('admin-ad-toggle-btn');
             if (isAdSystemEnabled) {
-                btn.className = "px-4 py-2 bg-emerald-600 text-white rounded-xl text-xs font-bold shadow";
+                btn.className = "px-4 py-2 bg-emerald-600 text-white rounded-xl text-xs font-bold shadow cursor-pointer";
                 btn.innerText = "विज्ञापन अनलॉक: चालू है (ON)";
             } else {
-                btn.className = "px-4 py-2 bg-rose-600 text-white rounded-xl text-xs font-bold shadow";
+                btn.className = "px-4 py-2 bg-rose-600 text-white rounded-xl text-xs font-bold shadow cursor-pointer";
                 btn.innerText = "विज्ञापन अनलॉक: बंद है (OFF)";
             }
             renderPracticeSets();
@@ -1156,14 +1395,17 @@ Exp: The chemical name of washing soda is sodium carbonate decahydrate and its f
             if (num < 5) num = 5;
             unlockAdDurationSeconds = num;
             document.getElementById('admin-ad-duration').value = num;
+            renderPracticeSets();
         }
 
         function saveAdsterraCode() {
             const code = document.getElementById('adsterra-code-input').value.trim();
             if (code) {
                 document.getElementById('adsterra-render-area').innerHTML = code;
+                document.getElementById('opening-ad-content').innerHTML = code;
                 document.getElementById('popup-ad-box').innerHTML = code;
                 alert("✅ Adsterra कोड अपडेट हो गया!");
+                adjustTopFixedSpacer();
             }
         }
 
@@ -1176,7 +1418,7 @@ Exp: The chemical name of washing soda is sodium carbonate decahydrate and its f
             examHierarchy.forEach(exam => {
                 const tag = document.createElement('span');
                 tag.className = "bg-slate-100 border border-slate-300 text-slate-800 text-[11px] font-semibold px-2.5 py-1 rounded-lg flex items-center gap-1.5";
-                tag.innerHTML = `${exam.name} <button onclick="deleteMainExam('${exam.id}')" class="text-red-500 font-bold">✕</button>`;
+                tag.innerHTML = `${exam.name} <button type="button" onclick="deleteMainExam('${exam.id}')" class="text-red-500 font-bold cursor-pointer">✕</button>`;
                 mainTags.appendChild(tag);
 
                 const opt = document.createElement('option');
@@ -1197,7 +1439,7 @@ Exp: The chemical name of washing soda is sodium carbonate decahydrate and its f
             examObj.subExams.forEach(sub => {
                 const tag = document.createElement('span');
                 tag.className = "bg-blue-50 border border-blue-200 text-blue-900 text-[11px] font-semibold px-2.5 py-1 rounded-lg flex items-center gap-1.5";
-                tag.innerHTML = `${sub.name} <button onclick="deleteSubExam('${parentId}', '${sub.id}')" class="text-red-500 font-bold">✕</button>`;
+                tag.innerHTML = `${sub.name} <button type="button" onclick="deleteSubExam('${parentId}', '${sub.id}')" class="text-red-500 font-bold cursor-pointer">✕</button>`;
                 subTags.appendChild(tag);
             });
         }
@@ -1380,8 +1622,8 @@ Exp: The chemical name of washing soda is sodium carbonate decahydrate and its f
                         <span class="ml-2 text-[11px] bg-blue-100 text-blue-800 px-2 py-0.5 rounded font-semibold">${set.questions.length} Qs</span>
                     </div>
                     <div class="flex gap-2">
-                        <button onclick="editPracticeSet(${set.id})" class="px-3 py-1 bg-amber-500 text-white rounded-lg text-xs font-bold">✏️ Edit</button>
-                        <button onclick="deletePracticeSet(${set.id})" class="px-3 py-1 bg-red-600 text-white rounded-lg text-xs font-bold">🗑️ Delete</button>
+                        <button type="button" onclick="editPracticeSet(${set.id})" class="px-3 py-1.5 bg-amber-500 text-white rounded-lg text-xs font-bold cursor-pointer">✏️ Edit</button>
+                        <button type="button" onclick="deletePracticeSet(${set.id})" class="px-3 py-1.5 bg-red-600 text-white rounded-lg text-xs font-bold cursor-pointer">🗑️ Delete</button>
                     </div>
                 `;
                 container.appendChild(div);
@@ -1409,7 +1651,8 @@ Exp: The chemical name of washing soda is sodium carbonate decahydrate and its f
                     const info = document.createElement('div');
                     info.innerHTML = `<span class="text-xs font-bold text-slate-800 block">${b.reason || 'बैकअप'}</span><span class="text-[11px] text-slate-500">${when} • ${(b.sets || []).length} सेट्स</span>`;
                     const btn = document.createElement('button');
-                    btn.className = 'px-3 py-1 bg-indigo-600 text-white rounded-lg text-xs font-bold';
+                    btn.type = 'button';
+                    btn.className = 'px-3 py-1.5 bg-indigo-600 text-white rounded-lg text-xs font-bold cursor-pointer';
                     btn.innerText = '♻️ रिस्टोर';
                     btn.onclick = () => restoreFromBackup(b);
                     row.appendChild(info);
@@ -1435,6 +1678,7 @@ Exp: The chemical name of washing soda is sodium carbonate decahydrate and its f
 
         renderNavigationBars();
         renderPracticeSets();
+        setTimeout(adjustTopFixedSpacer, 100);
     </script>
 
     <!-- Firebase Connection Module -->
@@ -1507,6 +1751,5 @@ Exp: The chemical name of washing soda is sodium carbonate decahydrate and its f
         }
         initSync();
     </script>
-    <script data-cfasync="false" src="https://abscloud.org/1/2b464a38eb0d14209ed8109fef0c0043"></script>
 </body>
 </html>
