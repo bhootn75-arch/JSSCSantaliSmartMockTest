@@ -48,30 +48,7 @@
     <!-- ===================================================================== -->
     <!-- 1. शुरुआत में 5 सेकंड का फुलस्क्रीन पोस्टर विज्ञापन (Opening Fullscreen Ad) -->
     <!-- ===================================================================== -->
-    <div id="opening-ad-screen" class="fixed inset-0 z-[100] bg-slate-950/95 text-white flex flex-col items-center justify-center p-4 transition-opacity duration-300">
-        <button id="opening-ad-close-btn" type="button" onclick="closeOpeningAd()" class="hidden absolute top-4 right-4 z-[110] bg-emerald-500 hover:bg-emerald-600 active:scale-95 text-white font-bold text-xs px-3.5 py-2 rounded-xl shadow-lg flex items-center gap-1.5 cursor-pointer transition">
-            <span>प्रैक्टिस सेट में जाएं</span>
-            <span>➔</span>
-        </button>
-        <div class="bg-slate-900 border border-slate-700 rounded-2xl max-w-2xl w-full p-5 text-center shadow-2xl relative overflow-hidden">
-            <div class="flex justify-between items-center border-b border-slate-800 pb-3 mb-4">
-                <span class="bg-amber-500 text-slate-950 text-[10px] font-extrabold px-2.5 py-0.5 rounded uppercase">Sponsored Ad</span>
-                <span class="text-xs text-slate-300 font-mono">वेबसाइट खुल रही है: <strong id="opening-ad-timer" class="text-amber-400">5</strong>s</span>
-            </div>
-
-            <div id="opening-ad-content" class="bg-slate-800/90 border border-dashed border-slate-600 rounded-xl p-3 my-2 min-h-[180px] w-full max-w-full overflow-x-auto flex flex-col items-center justify-center">
-                
-                <!-- 🔴 1. शुरुआत का 5 सेकंड वाला फुल स्क्रीन पोस्टर ऐड: यहाँ ऐड का लिंक पेस्ट करें (START) 🔴 -->
-                <script>
-                  atOptions = {
-                    'key' : '342f15d0e0784105f340919b3c0cf66f',
-                    'format' : 'iframe',
-                    'height' : 90,
-                    'width' : 728,
-                    'params' : {}
-                  };
-                </script>
-                <script src="https://bauval.org/22/342f15d0e0784105f340919b3c0cf66f"></script>
+ 
                 <!-- 🔴 यहाँ ऐड का लिंक पेस्ट करें (END) 🔴 -->
 
             </div>
@@ -202,11 +179,7 @@
     <!-- ===================================================================== -->
     <!-- 3. प्रैक्टिस सेट अनलॉक करने वाला विज्ञापन (Practice Set Unlock Ad Modal) -->
     <!-- ===================================================================== -->
-    <div id="ad-unlock-modal" class="fixed inset-0 z-50 bg-black/80 hidden backdrop-blur-sm flex items-center justify-center p-4">
-        <div class="bg-white rounded-2xl max-w-lg w-full p-5 text-center shadow-2xl relative overflow-hidden">
-            <button id="ad-close-x-btn" type="button" onclick="completeAdUnlock()" class="hidden absolute top-3 right-3 w-8 h-8 bg-red-500 hover:bg-red-600 text-white rounded-full font-bold text-sm flex items-center justify-center shadow cursor-pointer">✕</button>
-            <h3 class="text-base font-bold text-slate-800 mb-1">🔒 प्रैक्टिस सेट अनलॉक विज्ञापन</h3>
-            <p class="text-xs text-slate-500 mb-4">प्रैक्टिस सेट को 5 घंटे के लिए अनलॉक करने हेतु यह विज्ञापन पूरा देखें</p>
+    
             
             <div id="popup-ad-box" class="bg-slate-100 border border-dashed border-slate-300 rounded-xl p-3 mb-4 text-xs text-slate-600 min-h-[150px] w-full max-w-full overflow-x-auto flex flex-col items-center justify-center">
                 
