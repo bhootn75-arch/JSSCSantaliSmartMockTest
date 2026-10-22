@@ -36,32 +36,38 @@
 </head>
 <body class="bg-slate-100 text-slate-800 min-h-screen flex flex-col">
 
-    <!-- Top Header: SANTALI SMART STUDY Strictly Centered -->
+    <!-- Top Header: Vertical Mode में Title ऊपर पूरा साफ दिखेगा और User/Logout उसके नीचे -->
     <header class="bg-slate-900 text-white border-b border-slate-800 sticky top-0 z-40 shadow-md">
-        <div class="max-w-7xl mx-auto px-3 sm:px-4 py-3 grid grid-cols-3 items-center">
-            <!-- Left: Home -->
-            <div class="flex items-center justify-start">
+        <div class="max-w-7xl mx-auto px-3 sm:px-4 py-2.5 flex flex-col sm:grid sm:grid-cols-3 items-center gap-2 sm:gap-0">
+            <!-- Desktop Left: Home Button -->
+            <div class="hidden sm:flex items-center justify-start">
                 <button type="button" onclick="backToExamCatalog()" class="text-xs sm:text-sm font-bold text-slate-200 hover:text-amber-400 flex items-center gap-1.5 cursor-pointer">
-                    <span>🏠</span> <span class="hidden sm:inline">होम</span>
+                    <span>🏠</span> <span>होम</span>
                 </button>
             </div>
 
-            <!-- Center: Website Title -->
-            <div onclick="backToExamCatalog()" class="text-center cursor-pointer select-none">
-                <h1 class="font-extrabold text-sm sm:text-xl md:text-2xl tracking-wider text-amber-400 leading-tight whitespace-nowrap">
+            <!-- Center: Website Title (Never overlapped in vertical mode) -->
+            <div onclick="backToExamCatalog()" class="text-center cursor-pointer select-none w-full sm:w-auto">
+                <h1 class="font-extrabold text-base sm:text-xl md:text-2xl tracking-wider text-amber-400 leading-tight whitespace-nowrap">
                     📚 SANTALI SMART STUDY
                 </h1>
-                <p class="text-[10px] sm:text-xs text-slate-300 font-medium">ऑनलाइन मॉक टेस्ट एवं लीडरबोर्ड पोर्टल</p>
+                <p class="text-[10px] sm:text-xs text-slate-300 font-medium mt-0.5">ऑनलाइन मॉक टेस्ट एवं लीडरबोर्ड पोर्टल</p>
             </div>
 
-            <!-- Right: Login / Sign In Status -->
-            <div class="flex items-center justify-end gap-2">
-                <button id="header-login-btn" type="button" onclick="showStudentLogin()" class="px-3 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold shadow transition cursor-pointer whitespace-nowrap">
-                    🔐 Login / Sign In
+            <!-- Mobile Bottom Row / Desktop Right: Home (Mobile) + Login / User Info slightly below title -->
+            <div class="w-full sm:w-auto flex items-center justify-between sm:justify-end gap-2 pt-1 sm:pt-0 border-t border-slate-800/80 sm:border-t-0">
+                <button type="button" onclick="backToExamCatalog()" class="sm:hidden text-xs font-bold text-slate-200 hover:text-amber-400 flex items-center gap-1 cursor-pointer px-2 py-1 rounded-lg bg-slate-800/70">
+                    <span>🏠</span> <span>होम</span>
                 </button>
-                <div id="header-user-info" class="hidden items-center gap-1.5 bg-slate-800 border border-slate-700 px-2.5 py-1 rounded-xl">
-                    <span id="header-user-label" class="text-xs font-bold text-amber-300 max-w-[85px] sm:max-w-[150px] truncate">Student</span>
-                    <button type="button" onclick="logoutStudent()" class="text-[10px] bg-red-600 hover:bg-red-700 text-white font-bold px-2 py-0.5 rounded-lg transition cursor-pointer">Logout</button>
+
+                <div class="flex items-center justify-end gap-2 ml-auto sm:ml-0">
+                    <button id="header-login-btn" type="button" onclick="showStudentLogin()" class="px-3 py-1 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold shadow transition cursor-pointer whitespace-nowrap">
+                        🔐 Login / Sign In
+                    </button>
+                    <div id="header-user-info" class="hidden items-center gap-2 bg-slate-800 border border-slate-700 px-3 py-1 rounded-xl">
+                        <span id="header-user-label" class="text-xs font-bold text-amber-300 max-w-[140px] sm:max-w-[160px] truncate">Student</span>
+                        <button type="button" onclick="logoutStudent()" class="text-[10px] bg-red-600 hover:bg-red-700 text-white font-bold px-2.5 py-0.5 rounded-lg transition cursor-pointer">Logout</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -83,6 +89,56 @@
         </div>
     </div>
 
+    <!-- Standalone Live Leaderboard Modal (किसी भी समय रैंक देखने के लिए) -->
+    <div id="standalone-leaderboard-modal" class="fixed inset-0 z-[150] bg-slate-950/75 hidden backdrop-blur-sm flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
+        <div class="bg-white rounded-2xl max-w-3xl w-full my-auto shadow-2xl border border-slate-300 overflow-hidden flex flex-col max-h-[90vh]">
+            <div class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white px-4 py-3.5 flex items-center justify-between gap-2 shrink-0">
+                <div class="flex items-center gap-2 min-w-0">
+                    <span class="text-xl shrink-0">🏆</span>
+                    <div class="min-w-0">
+                        <h3 class="text-sm sm:text-base font-extrabold text-amber-400 truncate">लाइव स्टूडेंट लीडरबोर्ड (Top 10 & Rank)</h3>
+                        <p id="modal-lb-set-title" class="text-[11px] text-slate-300 truncate">मॉक टेस्ट रैंक लिस्ट</p>
+                    </div>
+                </div>
+                <button type="button" onclick="closeStandaloneLeaderboard()" class="bg-red-600 hover:bg-red-700 text-white text-xs px-3 py-1.5 rounded-lg font-bold cursor-pointer shrink-0">✕ बंद करें</button>
+            </div>
+
+            <!-- यदि एक से अधिक प्रैक्टिस सेट हों तो चुनने का ड्रॉपडाउन -->
+            <div id="modal-lb-set-selector-wrap" class="bg-slate-100 px-4 py-2.5 border-b border-slate-200 flex flex-wrap items-center justify-between gap-2 shrink-0">
+                <div class="flex items-center gap-2 flex-1 min-w-[200px]">
+                    <span class="text-xs font-bold text-slate-700 whitespace-nowrap">📚 टेस्ट चुनें:</span>
+                    <select id="modal-lb-set-select" onchange="changeStandaloneLeaderboardSet(this.value)" class="flex-1 bg-white border border-slate-300 rounded-xl px-3 py-1.5 text-xs font-bold text-slate-800 focus:outline-none focus:border-blue-600 cursor-pointer"></select>
+                </div>
+                <div id="modal-my-rank-pill" class="bg-amber-400 text-slate-950 text-xs font-extrabold px-3 py-1 rounded-full shadow whitespace-nowrap">
+                    आपकी रैंक: जाँच हो रही है...
+                </div>
+            </div>
+
+            <!-- Horizontal Scrollable Table Container -->
+            <div class="p-3 sm:p-4 overflow-y-auto flex-1">
+                <p class="text-[11px] text-slate-500 mb-2 sm:hidden text-center">↔️ पूरा नाम, स्कोर और समय देखने के लिए टेबल को बाएँ-दाएँ स्क्रॉल करें</p>
+                <div class="w-full overflow-x-auto rounded-xl border border-slate-200" style="-webkit-overflow-scrolling: touch;">
+                    <table class="w-full min-w-[600px] text-left border-collapse text-xs sm:text-sm">
+                        <thead>
+                            <tr class="bg-slate-200/80 text-slate-700 border-b border-slate-300 font-bold whitespace-nowrap">
+                                <th class="py-2.5 px-3.5">स्थान (Rank)</th>
+                                <th class="py-2.5 px-3.5">विद्यार्थी का नाम</th>
+                                <th class="py-2.5 px-3.5 text-center">अंक (Score)</th>
+                                <th class="py-2.5 px-3.5 text-center">सटीकता</th>
+                                <th class="py-2.5 px-3.5 text-right">समय</th>
+                            </tr>
+                        </thead>
+                        <tbody id="modal-leaderboard-tbody" class="divide-y divide-slate-200">
+                            <tr>
+                                <td colspan="5" class="py-6 text-center text-slate-500 text-xs">लीडरबोर्ड लोड हो रहा है...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Login / Sign In Modal (Google Account Chooser + Direct Sign In) -->
     <div id="phone-auth-gate" class="hidden fixed inset-0 z-[200] bg-slate-950/75 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
       <div class="w-full max-w-md overflow-hidden rounded-3xl bg-white shadow-2xl border border-slate-200 my-auto">
@@ -94,7 +150,7 @@
         </div>
 
         <div class="p-6 space-y-4">
-            <!-- 1. Google / Gmail Account Picker Button (Primary) -->
+            <!-- 1. Google / Gmail Account Picker Button -->
             <button id="google-login-btn" type="button" onclick="handleGoogleSignIn()" class="w-full flex items-center justify-center gap-3 rounded-xl bg-white hover:bg-slate-50 text-slate-900 font-extrabold py-3.5 px-4 border-2 border-blue-600 shadow-md transition cursor-pointer text-sm">
                 <svg class="w-5 h-5 shrink-0" viewBox="0 0 24 24">
                     <path fill="#EA4335" d="M12 5c1.6 0 3 .6 4.1 1.7l3.1-3.1C17.3 1.8 14.8 1 12 1 7.4 1 3.5 3.6 1.6 7.4l3.7 2.8C6.2 7.2 8.9 5 12 5z"/>
@@ -148,14 +204,19 @@
             <div id="exam-catalog-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
         </section>
 
+        <!-- Practice Sets Section: Heading & Breadcrumb Strictly Centered as requested in Photo 1 -->
         <div id="practice-sets-section" class="hidden">
-            <div class="mb-5 flex flex-wrap justify-between items-center gap-2">
-                <div>
-                    <button type="button" onclick="backToExamCatalog()" class="mb-2 px-3 py-1.5 rounded-lg bg-slate-200 hover:bg-slate-300 text-xs font-bold text-slate-800 cursor-pointer">← सभी परीक्षाएँ</button>
-                    <div id="breadcrumb-trail" class="text-[11px] font-bold text-blue-600 uppercase tracking-wider mb-0.5">सभी परीक्षाएं</div>
-                    <h2 id="selected-course-heading" class="text-lg md:text-xl font-bold text-slate-800">सभी उपलब्ध प्रैक्टिस सेट्स</h2>
+            <div class="mb-6">
+                <div class="flex justify-start mb-3">
+                    <button type="button" onclick="backToExamCatalog()" class="px-3.5 py-1.5 rounded-lg bg-slate-200 hover:bg-slate-300 text-xs font-bold text-slate-800 cursor-pointer">← सभी परीक्षाएँ</button>
                 </div>
-                <span id="sets-count-badge" class="bg-blue-100 text-blue-800 text-xs font-bold px-3 py-1 rounded-full">0 प्रैक्टिस सेट्स</span>
+                <div class="text-center max-w-3xl mx-auto px-2">
+                    <div id="breadcrumb-trail" class="text-xs font-bold text-blue-600 uppercase tracking-wider mb-1 text-center">सभी परीक्षाएं</div>
+                    <h2 id="selected-course-heading" class="text-xl md:text-2xl font-extrabold text-slate-900 text-center leading-snug">सभी उपलब्ध प्रैक्टिस सेट्स</h2>
+                    <div class="mt-2.5 flex justify-center">
+                        <span id="sets-count-badge" class="bg-blue-100 text-blue-800 text-xs font-bold px-3.5 py-1 rounded-full">0 प्रैक्टिस सेट्स</span>
+                    </div>
+                </div>
             </div>
             <div id="sets-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"></div>
         </div>
@@ -269,7 +330,7 @@
                     </div>
                 </div>
 
-                <!-- LIVE LEADERBOARD SECTION (Top 10 + 11th Row for Current Student if Rank > 10) -->
+                <!-- LIVE LEADERBOARD SECTION (Left-to-Right Scrollable as requested in Photo 2) -->
                 <div class="mt-6 bg-slate-50 rounded-2xl border border-slate-200 overflow-hidden">
                     <div class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white px-4 py-3 flex flex-wrap items-center justify-between gap-2">
                         <div class="flex items-center gap-2">
@@ -284,15 +345,17 @@
                         </div>
                     </div>
 
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-left border-collapse text-xs sm:text-sm">
+                    <p class="text-[11px] text-slate-500 py-1.5 px-3 bg-slate-100 border-b border-slate-200 sm:hidden text-center">↔️ पूरा नाम, स्कोर और समय देखने के लिए बाएँ-से-दाएँ स्क्रॉल करें</p>
+
+                    <div class="w-full overflow-x-auto" style="-webkit-overflow-scrolling: touch;">
+                        <table class="w-full min-w-[600px] text-left border-collapse text-xs sm:text-sm">
                             <thead>
-                                <tr class="bg-slate-200/80 text-slate-700 border-b border-slate-300 font-bold">
-                                    <th class="py-2.5 px-3 sm:px-4">स्थान (Rank)</th>
-                                    <th class="py-2.5 px-3 sm:px-4">विद्यार्थी का नाम</th>
-                                    <th class="py-2.5 px-3 sm:px-4 text-center">अंक (Score)</th>
-                                    <th class="py-2.5 px-3 sm:px-4 text-center">सटीकता</th>
-                                    <th class="py-2.5 px-3 sm:px-4 text-right">समय</th>
+                                <tr class="bg-slate-200/80 text-slate-700 border-b border-slate-300 font-bold whitespace-nowrap">
+                                    <th class="py-2.5 px-3.5 sm:px-4">स्थान (Rank)</th>
+                                    <th class="py-2.5 px-3.5 sm:px-4">विद्यार्थी का नाम</th>
+                                    <th class="py-2.5 px-3.5 sm:px-4 text-center">अंक (Score)</th>
+                                    <th class="py-2.5 px-3.5 sm:px-4 text-center">सटीकता</th>
+                                    <th class="py-2.5 px-3.5 sm:px-4 text-right">समय</th>
                                 </tr>
                             </thead>
                             <tbody id="leaderboard-tbody" class="divide-y divide-slate-200">
@@ -510,9 +573,6 @@
 
     <!-- Main Application & Instant Auth Script -->
     <script>
-        // =====================================================================
-        // Global Auth State & UI Functions (Available Immediately on Page Load)
-        // =====================================================================
         window.currentStudent = null;
         let pendingSetToStart = null;
 
@@ -585,7 +645,6 @@
         }
         window.logoutStudent = logoutStudent;
 
-        // Load saved student session immediately
         try {
             const saved = JSON.parse(localStorage.getItem('sss_active_student_v3'));
             if (saved && saved.uid) {
@@ -594,7 +653,6 @@
             }
         } catch (_) {}
 
-        // Direct Form Sign In (Works 100% of the time)
         async function handleDirectSignIn() {
             const nameInput = document.getElementById('auth-student-name')?.value.trim() || '';
             const rawId = document.getElementById('auth-identifier')?.value.trim() || '';
@@ -641,7 +699,6 @@
                 }
             } catch (_) {}
 
-            // Instant fallback so login never fails even if Firebase Email provider is disabled in console
             const safeUid = 'stu_' + btoa(unescape(encodeURIComponent(normalizedEmail))).replace(/[^a-zA-Z0-9]/g, '').slice(0, 20);
             await completeStudentLogin({
                 uid: safeUid,
@@ -656,7 +713,6 @@
         }
         window.handleDirectSignIn = handleDirectSignIn;
 
-        // Google Account Chooser Trigger
         async function handleGoogleSignIn() {
             if (!window.triggerFirebaseGoogleSignIn) {
                 setAuthStatusText('Google सेवा लोड हो रही है, कृपया 2 सेकंड बाद क्लिक करें या नीचे नाम/ईमेल से लॉगिन करें।', true);
@@ -666,9 +722,6 @@
         }
         window.handleGoogleSignIn = handleGoogleSignIn;
 
-        // =====================================================================
-        // Core Portal Logic
-        // =====================================================================
         function closePasswordModal() {
             document.getElementById('password-modal').classList.add('hidden');
         }
@@ -874,8 +927,7 @@ Exp: The chemical name of washing soda is sodium carbonate decahydrate and its f
             grid.innerHTML = '';
             examHierarchy.forEach(main => {
                 (main.subExams || []).forEach(sub => {
-                    const card = document.createElement('button');
-                    card.type = 'button';
+                    const card = document.createElement('div');
                     card.className = 'text-left group overflow-hidden bg-white rounded-2xl border border-slate-200 shadow-md hover:shadow-xl hover:-translate-y-0.5 transition-all flex flex-col min-h-[285px] cursor-pointer';
                     const courseSets = practiceSets.filter(set => set.subExamId === sub.id);
                     const count = courseSets.length;
@@ -887,7 +939,19 @@ Exp: The chemical name of washing soda is sodium carbonate decahydrate and its f
                           <div class="absolute -right-5 -top-8 text-8xl opacity-10">📚</div>
                           <div class="relative flex items-start justify-between gap-3"><div><span class="inline-block text-[10px] uppercase tracking-widest bg-white/20 border border-white/25 rounded-full px-2.5 py-1 mb-3">${mainLabel}</span><h2 class="text-xl md:text-2xl font-extrabold leading-tight">${sub.name}</h2><p class="text-white/85 text-xs mt-2">स्मार्ट तैयारी • मॉक टेस्ट • लीडरबोर्ड रैंक</p></div><span class="text-3xl shrink-0">🎓</span></div>
                           <div class="relative mt-5 grid grid-cols-2 gap-2"><div class="rounded-xl bg-black/15 border border-white/20 p-2.5"><strong class="block text-2xl">${count >= 15 ? count + '+' : count}</strong><span class="text-[11px] text-white/85">उपलब्ध मॉक टेस्ट</span></div><div class="rounded-xl bg-black/15 border border-white/20 p-2.5"><strong class="block text-2xl">${questionCount}+</strong><span class="text-[11px] text-white/85">कुल अभ्यास प्रश्न</span></div></div>
-                        </div><div class="p-4 flex flex-col flex-1"><div class="flex flex-wrap gap-2 text-[11px] mb-4"><span class="bg-emerald-50 text-emerald-700 rounded-full px-2.5 py-1 font-bold">✓ Free Practice</span><span class="bg-blue-50 text-blue-700 rounded-full px-2.5 py-1 font-bold">✓ Live Leaderboard</span><span class="bg-amber-50 text-amber-800 rounded-full px-2.5 py-1 font-bold">✓ Top 10 & Rank</span></div><p class="text-sm text-slate-600 leading-relaxed flex-1">${sub.name} की तैयारी के लिए उपलब्ध प्रैक्टिस सेट देखें और टेस्ट देकर सभी छात्रों के बीच अपना स्थान (Rank) जानें।</p><div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between"><span class="text-xs text-slate-500">${count} टेस्ट • ${questionCount} प्रश्न</span><span class="rounded-xl bg-blue-600 group-hover:bg-blue-700 text-white font-bold text-sm px-4 py-2.5">टेस्ट देखें →</span></div></div>`;
+                        </div>
+                        <div class="p-4 flex flex-col flex-1">
+                            <div class="flex flex-wrap gap-2 text-[11px] mb-4">
+                                <span class="bg-emerald-50 text-emerald-700 rounded-full px-2.5 py-1 font-bold">✓ Free Practice</span>
+                                <button type="button" onclick="event.stopPropagation(); openCourseLeaderboard('${sub.id}')" class="bg-blue-50 hover:bg-blue-100 border border-blue-200 text-blue-700 rounded-full px-2.5 py-1 font-bold cursor-pointer transition">✓ Live Leaderboard</button>
+                                <button type="button" onclick="event.stopPropagation(); openCourseLeaderboard('${sub.id}')" class="bg-amber-50 hover:bg-amber-100 border border-amber-200 text-amber-800 rounded-full px-2.5 py-1 font-bold cursor-pointer transition">✓ Top 10 & Rank</button>
+                            </div>
+                            <p class="text-sm text-slate-600 leading-relaxed flex-1">${sub.name} की तैयारी के लिए उपलब्ध प्रैक्टिस सेट देखें और टेस्ट देकर सभी छात्रों के बीच अपना स्थान (Rank) जानें।</p>
+                            <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
+                                <span class="text-xs text-slate-500">${count} टेस्ट • ${questionCount} प्रश्न</span>
+                                <span class="rounded-xl bg-blue-600 group-hover:bg-blue-700 text-white font-bold text-sm px-4 py-2.5">टेस्ट देखें →</span>
+                            </div>
+                        </div>`;
                     card.addEventListener('click', () => {
                         selectedMainExamId = main.id;
                         selectedSubExamId = sub.id;
@@ -954,14 +1018,23 @@ Exp: The chemical name of washing soda is sodium carbonate decahydrate and its f
                 card.className = "bg-white rounded-2xl p-5 shadow-sm border border-slate-200 flex flex-col justify-between hover:shadow-md transition";
                 card.innerHTML = `
                     <div>
-                        <div class="flex justify-between items-center mb-3">
+                        <div class="flex justify-between items-center mb-3 gap-2">
                             <span class="bg-blue-50 text-blue-700 text-[11px] font-bold px-2.5 py-1 rounded-lg">${badgeLabel}</span>
-                            <span class="text-xs font-bold text-slate-500">⏱️ ${set.durationMinutes} Min</span>
+                            <span class="text-xs font-bold text-slate-500 whitespace-nowrap">⏱️ ${set.durationMinutes} Min</span>
                         </div>
                         <h3 class="font-bold text-slate-900 text-base mb-2">${set.title}</h3>
-                        <p class="text-xs text-slate-500 mb-4">कुल प्रश्न: <strong>${set.questions.length}</strong> • 🏆 रैंक लीडरबोर्ड सहित</p>
+                        <div class="flex flex-wrap items-center gap-2 text-xs text-slate-500 mb-4">
+                            <span>कुल प्रश्न: <strong>${set.questions.length}</strong></span>
+                            <span>•</span>
+                            <button type="button" onclick="openSetLeaderboardModal('${set.id}')" class="inline-flex items-center gap-1 text-amber-800 bg-amber-50 hover:bg-amber-100 border border-amber-200 px-2.5 py-0.5 rounded-full font-bold cursor-pointer transition">
+                                🏆 रैंक लीडरबोर्ड देखें
+                            </button>
+                        </div>
                     </div>
-                    <div class="pt-3 border-t border-slate-100 flex justify-end">
+                    <div class="pt-3 border-t border-slate-100 flex items-center justify-between gap-2">
+                        <button type="button" onclick="openSetLeaderboardModal('${set.id}')" class="px-3 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold transition cursor-pointer">
+                            📊 Top 10 & Rank
+                        </button>
                         <button type="button" onclick="initiateSetOpen(${set.id})" class="px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold transition shadow-sm cursor-pointer">प्रारंभ करें ➡️</button>
                     </div>
                 `;
@@ -1190,10 +1263,10 @@ Exp: The chemical name of washing soda is sodium carbonate decahydrate and its f
             return `${m}m ${r}s`;
         }
 
-        // Top 10 Leaderboard + 11th Row for Current Student if Rank > 10
-        function renderLeaderboardRows(entries, currentUid) {
-            const tbody = document.getElementById('leaderboard-tbody');
-            const rankPill = document.getElementById('my-rank-pill');
+        // Top 10 Leaderboard + 11th Row for Current Student if Rank > 10 (Single-line cells for clean horizontal scroll)
+        function renderLeaderboardRows(entries, currentUid, targetTbodyId = 'leaderboard-tbody', targetPillId = 'my-rank-pill') {
+            const tbody = document.getElementById(targetTbodyId);
+            const rankPill = document.getElementById(targetPillId);
             if (!tbody) return;
 
             const sorted = [...entries].sort((a, b) => {
@@ -1202,7 +1275,7 @@ Exp: The chemical name of washing soda is sodium carbonate decahydrate and its f
                 return Number(a.timeTakenSeconds || 999999) - Number(b.timeTakenSeconds || 999999);
             });
 
-            const myIndex = sorted.findIndex(item => String(item.studentUid) === String(currentUid));
+            const myIndex = currentUid ? sorted.findIndex(item => String(item.studentUid) === String(currentUid)) : -1;
             const myRank = myIndex !== -1 ? myIndex + 1 : null;
             const totalStudents = sorted.length;
 
@@ -1210,58 +1283,142 @@ Exp: The chemical name of washing soda is sodium carbonate decahydrate and its f
                 if (myRank) {
                     rankPill.textContent = `आपका स्थान: #${myRank} (${myRank}वाँ स्थान / कुल ${totalStudents} छात्र)`;
                 } else {
-                    rankPill.textContent = `कुल प्रतिभागी: ${totalStudents}`;
+                    rankPill.textContent = `कुल प्रतिभागी: ${totalStudents} छात्र`;
                 }
+            }
+
+            if (sorted.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" class="py-6 text-center text-slate-500 text-xs">अभी तक इस प्रैक्टिस सेट में किसी ने टेस्ट सबमिट नहीं किया है।</td></tr>`;
+                return;
             }
 
             const top10 = sorted.slice(0, 10);
             tbody.innerHTML = '';
 
             const buildRowHTML = (item, rankNum, isMe, isEleventhRow = false) => {
-                let badge = `<span class="inline-flex items-center justify-center px-2 py-0.5 rounded-md font-extrabold text-xs bg-slate-200 text-slate-800">#${rankNum} (${rankNum}वाँ स्थान)</span>`;
-                if (rankNum === 1) badge = `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md font-extrabold text-xs bg-amber-300 text-slate-950">🥇 #1 (1ला स्थान)</span>`;
-                else if (rankNum === 2) badge = `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md font-extrabold text-xs bg-slate-300 text-slate-900">🥈 #2 (2रा स्थान)</span>`;
-                else if (rankNum === 3) badge = `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md font-extrabold text-xs bg-orange-200 text-orange-950">🥉 #3 (3रा स्थान)</span>`;
+                let badge = `<span class="inline-flex items-center justify-center px-2.5 py-0.5 rounded-md font-extrabold text-xs bg-slate-200 text-slate-800 whitespace-nowrap">#${rankNum} (${rankNum}वाँ स्थान)</span>`;
+                if (rankNum === 1) badge = `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md font-extrabold text-xs bg-amber-300 text-slate-950 whitespace-nowrap">🥇 #1 (1ला स्थान)</span>`;
+                else if (rankNum === 2) badge = `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md font-extrabold text-xs bg-slate-300 text-slate-900 whitespace-nowrap">🥈 #2 (2रा स्थान)</span>`;
+                else if (rankNum === 3) badge = `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md font-extrabold text-xs bg-orange-200 text-orange-950 whitespace-nowrap">🥉 #3 (3रा स्थान)</span>`;
 
                 const tr = document.createElement('tr');
                 if (isEleventhRow) {
-                    tr.className = 'bg-amber-100 border-t-2 border-amber-500 font-bold text-slate-950';
+                    tr.className = 'bg-amber-100 border-t-2 border-amber-500 font-bold text-slate-950 whitespace-nowrap';
                 } else if (isMe) {
-                    tr.className = 'bg-blue-50 font-bold text-blue-950';
+                    tr.className = 'bg-blue-50 font-bold text-blue-950 whitespace-nowrap';
                 } else {
-                    tr.className = 'hover:bg-slate-100/80 text-slate-700';
+                    tr.className = 'hover:bg-slate-100/80 text-slate-700 whitespace-nowrap';
                 }
 
                 const studentName = item.studentName || 'विद्यार्थी';
                 tr.innerHTML = `
-                    <td class="py-2.5 px-3 sm:px-4 whitespace-nowrap">${badge}</td>
-                    <td class="py-2.5 px-3 sm:px-4">
-                        <span>${studentName}</span>
-                        ${isMe ? '<span class="ml-1.5 text-[10px] bg-blue-600 text-white px-2 py-0.5 rounded-full font-extrabold">आप (You)</span>' : ''}
+                    <td class="py-2.5 px-3.5 sm:px-4 whitespace-nowrap">${badge}</td>
+                    <td class="py-2.5 px-3.5 sm:px-4 whitespace-nowrap">
+                        <div class="inline-flex items-center gap-1.5">
+                            <span>${studentName}</span>
+                            ${isMe ? '<span class="text-[10px] bg-blue-600 text-white px-2 py-0.5 rounded-full font-extrabold whitespace-nowrap">आप (You)</span>' : ''}
+                        </div>
                     </td>
-                    <td class="py-2.5 px-3 sm:px-4 text-center font-mono font-bold">${Number(item.score).toFixed(2)} / ${item.maxScore || '-'}</td>
-                    <td class="py-2.5 px-3 sm:px-4 text-center">${item.accuracy || 0}%</td>
-                    <td class="py-2.5 px-3 sm:px-4 text-right font-mono text-xs">${formatSecondsToMMSS(item.timeTakenSeconds)}</td>
+                    <td class="py-2.5 px-3.5 sm:px-4 text-center font-mono font-bold whitespace-nowrap">${Number(item.score).toFixed(2)} / ${item.maxScore || '-'}</td>
+                    <td class="py-2.5 px-3.5 sm:px-4 text-center whitespace-nowrap">${item.accuracy || 0}%</td>
+                    <td class="py-2.5 px-3.5 sm:px-4 text-right font-mono text-xs whitespace-nowrap">${formatSecondsToMMSS(item.timeTakenSeconds)}</td>
                 `;
                 return tr;
             };
 
             top10.forEach((item, idx) => {
                 const rankNum = idx + 1;
-                const isMe = String(item.studentUid) === String(currentUid);
+                const isMe = currentUid && String(item.studentUid) === String(currentUid);
                 tbody.appendChild(buildRowHTML(item, rankNum, isMe, false));
             });
 
-            // यदि छात्र की रैंक 10 के बाहर है (जैसे 50वाँ स्थान), तो 11वें नंबर पर उसका नाम और वास्तविक स्थान (#50) दिखाएँ
             if (myRank && myRank > 10) {
                 const sepRow = document.createElement('tr');
-                sepRow.innerHTML = `<td colspan="5" class="py-1 px-4 text-center text-[11px] font-bold text-amber-900 bg-amber-50">••• नीचे आपका स्थान (11वीं पंक्ति) •••</td>`;
+                sepRow.innerHTML = `<td colspan="5" class="py-1 px-4 text-center text-[11px] font-bold text-amber-900 bg-amber-50 whitespace-nowrap">••• नीचे आपका स्थान (11वीं पंक्ति) •••</td>`;
                 tbody.appendChild(sepRow);
 
                 const myEntry = sorted[myIndex];
                 tbody.appendChild(buildRowHTML(myEntry, myRank, true, true));
             }
         }
+
+        // किसी भी समय (बिना टेस्ट दिए या बैक आने के बाद) लीडरबोर्ड और रैंक देखने के फंक्शन
+        async function loadAndRenderSetLeaderboard(setId, tbodyId, pillId) {
+            const currentUid = window.currentStudent?.uid || null;
+            const localLbKey = 'sss_leaderboard_set_' + String(setId);
+            let localEntries = [];
+            try { localEntries = JSON.parse(localStorage.getItem(localLbKey)) || []; } catch (_) {}
+
+            renderLeaderboardRows(localEntries, currentUid, tbodyId, pillId);
+
+            if (window.studentCloud) {
+                try {
+                    const cloudEntries = await window.studentCloud.fetchSetLeaderboard(String(setId));
+                    if (cloudEntries && cloudEntries.length > 0) {
+                        const mergedMap = new Map();
+                        [...localEntries, ...cloudEntries].forEach(item => {
+                            const prev = mergedMap.get(String(item.studentUid));
+                            if (!prev || Number(item.score) > Number(prev.score) || (Number(item.score) === Number(prev.score) && Number(item.timeTakenSeconds) < Number(prev.timeTakenSeconds))) {
+                                mergedMap.set(String(item.studentUid), item);
+                            }
+                        });
+                        renderLeaderboardRows(Array.from(mergedMap.values()), currentUid, tbodyId, pillId);
+                    }
+                } catch (_) {}
+            }
+        }
+
+        function openSetLeaderboardModal(setId, customSetList = null) {
+            const setsToChoose = customSetList && customSetList.length > 0 ? customSetList : practiceSets;
+            const targetSet = setsToChoose.find(s => String(s.id) === String(setId)) || setsToChoose[0];
+            if (!targetSet) {
+                alert('इस कोर्स में अभी कोई प्रैक्टिस सेट उपलब्ध नहीं है।');
+                return;
+            }
+
+            const modal = document.getElementById('standalone-leaderboard-modal');
+            const titleEl = document.getElementById('modal-lb-set-title');
+            const selectEl = document.getElementById('modal-lb-set-select');
+
+            if (titleEl) titleEl.textContent = targetSet.title;
+            if (selectEl) {
+                selectEl.innerHTML = '';
+                setsToChoose.forEach(s => {
+                    const opt = document.createElement('option');
+                    opt.value = String(s.id);
+                    opt.textContent = s.title;
+                    if (String(s.id) === String(targetSet.id)) opt.selected = true;
+                    selectEl.appendChild(opt);
+                });
+            }
+
+            modal.classList.remove('hidden');
+            loadAndRenderSetLeaderboard(targetSet.id, 'modal-leaderboard-tbody', 'modal-my-rank-pill');
+        }
+        window.openSetLeaderboardModal = openSetLeaderboardModal;
+
+        function openCourseLeaderboard(subExamId) {
+            const courseSets = practiceSets.filter(s => String(s.subExamId) === String(subExamId));
+            if (courseSets.length === 0) {
+                alert('इस परीक्षा श्रेणी में अभी कोई मॉक टेस्ट उपलब्ध नहीं है।');
+                return;
+            }
+            openSetLeaderboardModal(courseSets[0].id, courseSets);
+        }
+        window.openCourseLeaderboard = openCourseLeaderboard;
+
+        function changeStandaloneLeaderboardSet(newSetId) {
+            const set = practiceSets.find(s => String(s.id) === String(newSetId));
+            const titleEl = document.getElementById('modal-lb-set-title');
+            if (set && titleEl) titleEl.textContent = set.title;
+            loadAndRenderSetLeaderboard(newSetId, 'modal-leaderboard-tbody', 'modal-my-rank-pill');
+        }
+        window.changeStandaloneLeaderboardSet = changeStandaloneLeaderboardSet;
+
+        function closeStandaloneLeaderboard() {
+            document.getElementById('standalone-leaderboard-modal').classList.add('hidden');
+        }
+        window.closeStandaloneLeaderboard = closeStandaloneLeaderboard;
 
         let reviewCategory = null;
         let reviewList = [];
@@ -1343,7 +1500,7 @@ Exp: The chemical name of washing soda is sodium carbonate decahydrate and its f
             }
             try { localStorage.setItem(localLbKey, JSON.stringify(localEntries)); } catch (_) {}
 
-            renderLeaderboardRows(localEntries, currentStudent.uid);
+            renderLeaderboardRows(localEntries, currentStudent.uid, 'leaderboard-tbody', 'my-rank-pill');
 
             if (window.studentCloud) {
                 try {
@@ -1357,7 +1514,7 @@ Exp: The chemical name of washing soda is sodium carbonate decahydrate and its f
                                 mergedMap.set(String(item.studentUid), item);
                             }
                         });
-                        renderLeaderboardRows(Array.from(mergedMap.values()), currentStudent.uid);
+                        renderLeaderboardRows(Array.from(mergedMap.values()), currentStudent.uid, 'leaderboard-tbody', 'my-rank-pill');
                     }
                 } catch (_) {}
             }
@@ -1796,7 +1953,6 @@ Exp: The chemical name of washing soda is sodium carbonate decahydrate and its f
         const auth = getAuth(app);
         auth.languageCode = 'hi';
 
-        // Google Provider configured to ALWAYS show all logged-in Gmail accounts on mobile/desktop
         const googleProvider = new GoogleAuthProvider();
         googleProvider.setCustomParameters({
             prompt: 'select_account'
@@ -1826,14 +1982,12 @@ Exp: The chemical name of washing soda is sodium carbonate decahydrate and its f
             return cred.user;
         };
 
-        // Google Gmail Account Picker Function
         window.triggerFirebaseGoogleSignIn = async () => {
             const btn = document.getElementById('google-login-btn');
             setAuthStatusText('मोबाइल में लॉगिन सभी Gmail अकाउंट्स की लिस्ट खोली जा रही है...');
             if (btn) btn.disabled = true;
 
             try {
-                // Popup opens the Google Account Chooser showing all Gmail accounts on the phone
                 const result = await signInWithPopup(auth, googleProvider);
                 const user = result.user;
                 await window.completeStudentLogin({
@@ -1842,14 +1996,12 @@ Exp: The chemical name of washing soda is sodium carbonate decahydrate and its f
                     email: user.email || ''
                 });
             } catch (err) {
-                console.warn('Google Auth Popup Error:', err);
                 const code = err?.code || '';
                 if (code === 'auth/popup-blocked') {
-                    // If popup is blocked on mobile browser, automatically use redirect account chooser
                     await signInWithRedirect(auth, googleProvider);
                     return;
                 } else if (code === 'auth/unauthorized-domain') {
-                    setAuthStatusText('नोट: इस वेबसाइट का डोमेन अभी Firebase Console > Authentication > Settings > Authorized domains में नहीं जुड़ा है। फिलहाल नीचे नाम और Gmail लिखकर तुरंत लॉगिन करें।', true);
+                    setAuthStatusText('नोट: इस वेबसाइट का डोमेन अभी Firebase Console > Authorized domains में नहीं जुड़ा है। फिलहाल नीचे नाम और Gmail लिखकर तुरंत लॉगिन करें।', true);
                 } else if (code === 'auth/operation-not-allowed') {
                     setAuthStatusText('नोट: Firebase Console में Google Sign-In अभी Enable नहीं है। कृपया नीचे नाम और Gmail लिखकर तुरंत लॉगिन करें।', true);
                 } else if (code === 'auth/popup-closed-by-user') {
@@ -1862,7 +2014,6 @@ Exp: The chemical name of washing soda is sodium carbonate decahydrate and its f
             }
         };
 
-        // Handle return from Google Redirect (if mobile browser used redirect mode)
         getRedirectResult(auth).then(async (result) => {
             if (result && result.user) {
                 const user = result.user;
