@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>SANTALI SMART STUDY | Online Mock Test & Leaderboard</title>
+    <title>Santali Smart Study | Online Mock Test & Practice</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- MathJax for Chemical Formulas & LaTeX rendering -->
@@ -29,51 +29,58 @@
         }
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-        details > summary { list-style: none; }
-        details > summary::-webkit-details-marker { display: none; }
-        details[open] .dropdown-arrow { transform: rotate(180deg); }
+        
+        /* Custom Details Dropdown Arrow Animation */
+        details > summary {
+            list-style: none;
+        }
+        details > summary::-webkit-details-marker {
+            display: none;
+        }
+        details[open] .dropdown-arrow {
+            transform: rotate(180deg);
+        }
     </style>
+    <!-- GOOGLE ADSENSE AUTO ADS CODE START -->
+    <!-- हिंदी निर्देश: AdSense > Ads > By site > Get code से मिला पूरा Auto ads script नीचे पेस्ट करें। -->
+    <!-- यहाँ अपना वास्तविक AdSense Auto ads script पेस्ट करें। -->
+    <!-- GOOGLE ADSENSE AUTO ADS CODE END -->
 </head>
 <body class="bg-slate-100 text-slate-800 min-h-screen flex flex-col">
 
-    <!-- Top Header: Vertical Mode में Title ऊपर पूरा साफ दिखेगा और User/Logout उसके नीचे -->
-    <header class="bg-slate-900 text-white border-b border-slate-800 sticky top-0 z-40 shadow-md">
-        <div class="max-w-7xl mx-auto px-3 sm:px-4 py-2.5 flex flex-col sm:grid sm:grid-cols-3 items-center gap-2 sm:gap-0">
-            <!-- Desktop Left: Home Button -->
-            <div class="hidden sm:flex items-center justify-start">
-                <button type="button" onclick="backToExamCatalog()" class="text-xs sm:text-sm font-bold text-slate-200 hover:text-amber-400 flex items-center gap-1.5 cursor-pointer">
-                    <span>🏠</span> <span>होम</span>
-                </button>
+    <!-- Top User & Auth Bar -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-40 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 py-2.5 flex items-center justify-between gap-2">
+            <div onclick="backToExamCatalog()" class="flex items-center gap-2 cursor-pointer select-none">
+                <span class="text-xl">📚</span>
+                <div>
+                    <span class="font-extrabold text-sm sm:text-base text-slate-900 tracking-tight block leading-none">SANTALI SMART STUDY</span>
+                    <span class="text-[10px] text-slate-500 font-semibold">Online Mock Test Portal</span>
+                </div>
             </div>
-
-            <!-- Center: Website Title (Never overlapped in vertical mode) -->
-            <div onclick="backToExamCatalog()" class="text-center cursor-pointer select-none w-full sm:w-auto">
-                <h1 class="font-extrabold text-base sm:text-xl md:text-2xl tracking-wider text-amber-400 leading-tight whitespace-nowrap">
-                    📚 SANTALI SMART STUDY
-                </h1>
-                <p class="text-[10px] sm:text-xs text-slate-300 font-medium mt-0.5">ऑनलाइन मॉक टेस्ट एवं लीडरबोर्ड पोर्टल</p>
-            </div>
-
-            <!-- Mobile Bottom Row / Desktop Right: Home (Mobile) + Login / User Info slightly below title -->
-            <div class="w-full sm:w-auto flex items-center justify-between sm:justify-end gap-2 pt-1 sm:pt-0 border-t border-slate-800/80 sm:border-t-0">
-                <button type="button" onclick="backToExamCatalog()" class="sm:hidden text-xs font-bold text-slate-200 hover:text-amber-400 flex items-center gap-1 cursor-pointer px-2 py-1 rounded-lg bg-slate-800/70">
-                    <span>🏠</span> <span>होम</span>
+            <div class="flex items-center gap-2">
+                <!-- Logged Out Button -->
+                <button id="header-login-btn" type="button" onclick="window.showStudentLogin()" class="px-3.5 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow-sm transition cursor-pointer flex items-center gap-1.5">
+                    <span>👤</span> <span>लॉगिन / साइन अप</span>
                 </button>
-
-                <div class="flex items-center justify-end gap-2 ml-auto sm:ml-0">
-                    <button id="header-login-btn" type="button" onclick="showStudentLogin()" class="px-3 py-1 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold shadow transition cursor-pointer whitespace-nowrap">
-                        🔐 Login / Sign In
-                    </button>
-                    <div id="header-user-info" class="hidden items-center gap-2 bg-slate-800 border border-slate-700 px-3 py-1 rounded-xl">
-                        <span id="header-user-label" class="text-xs font-bold text-amber-300 max-w-[140px] sm:max-w-[160px] truncate">Student</span>
-                        <button type="button" onclick="logoutStudent()" class="text-[10px] bg-red-600 hover:bg-red-700 text-white font-bold px-2.5 py-0.5 rounded-lg transition cursor-pointer">Logout</button>
-                    </div>
+                <!-- Logged In User Info -->
+                <div id="header-user-info" class="hidden items-center gap-2 bg-slate-100 border border-slate-200 px-3 py-1 rounded-xl">
+                    <span id="header-user-label" class="text-xs font-bold text-slate-700 max-w-[140px] sm:max-w-[200px] truncate">User</span>
+                    <button type="button" onclick="window.logoutStudent()" class="text-[11px] bg-red-100 hover:bg-red-200 text-red-700 font-bold px-2 py-0.5 rounded-lg transition cursor-pointer">लॉगआउट</button>
                 </div>
             </div>
         </div>
     </header>
 
-    <!-- Hidden Password Modal (Admin) -->
+    <!-- Navigation data containers -->
+    <div id="sticky-top-container" class="hidden">
+        <div id="top-nav-bars-wrapper" class="hidden">
+            <div id="main-exams-bar"></div>
+            <div id="sub-exams-wrapper" class="hidden"><div id="sub-exams-bar"></div></div>
+        </div>
+    </div>
+
+    <!-- Hidden Password Modal -->
     <div id="password-modal" class="fixed inset-0 z-50 bg-black/60 hidden backdrop-blur-sm flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-2xl border border-slate-200">
             <div class="flex justify-between items-center mb-4">
@@ -89,106 +96,94 @@
         </div>
     </div>
 
-    <!-- Standalone Live Leaderboard Modal (किसी भी समय रैंक देखने के लिए) -->
-    <div id="standalone-leaderboard-modal" class="fixed inset-0 z-[150] bg-slate-950/75 hidden backdrop-blur-sm flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
-        <div class="bg-white rounded-2xl max-w-3xl w-full my-auto shadow-2xl border border-slate-300 overflow-hidden flex flex-col max-h-[90vh]">
-            <div class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white px-4 py-3.5 flex items-center justify-between gap-2 shrink-0">
-                <div class="flex items-center gap-2 min-w-0">
-                    <span class="text-xl shrink-0">🏆</span>
-                    <div class="min-w-0">
-                        <h3 class="text-sm sm:text-base font-extrabold text-amber-400 truncate">लाइव स्टूडेंट लीडरबोर्ड (Top 10 & Rank)</h3>
-                        <p id="modal-lb-set-title" class="text-[11px] text-slate-300 truncate">मॉक टेस्ट रैंक लिस्ट</p>
-                    </div>
-                </div>
-                <button type="button" onclick="closeStandaloneLeaderboard()" class="bg-red-600 hover:bg-red-700 text-white text-xs px-3 py-1.5 rounded-lg font-bold cursor-pointer shrink-0">✕ बंद करें</button>
-            </div>
-
-            <!-- यदि एक से अधिक प्रैक्टिस सेट हों तो चुनने का ड्रॉपडाउन -->
-            <div id="modal-lb-set-selector-wrap" class="bg-slate-100 px-4 py-2.5 border-b border-slate-200 flex flex-wrap items-center justify-between gap-2 shrink-0">
-                <div class="flex items-center gap-2 flex-1 min-w-[200px]">
-                    <span class="text-xs font-bold text-slate-700 whitespace-nowrap">📚 टेस्ट चुनें:</span>
-                    <select id="modal-lb-set-select" onchange="changeStandaloneLeaderboardSet(this.value)" class="flex-1 bg-white border border-slate-300 rounded-xl px-3 py-1.5 text-xs font-bold text-slate-800 focus:outline-none focus:border-blue-600 cursor-pointer"></select>
-                </div>
-                <div id="modal-my-rank-pill" class="bg-amber-400 text-slate-950 text-xs font-extrabold px-3 py-1 rounded-full shadow whitespace-nowrap">
-                    आपकी रैंक: जाँच हो रही है...
-                </div>
-            </div>
-
-            <!-- Horizontal Scrollable Table Container -->
-            <div class="p-3 sm:p-4 overflow-y-auto flex-1">
-                <p class="text-[11px] text-slate-500 mb-2 sm:hidden text-center">↔️ पूरा नाम, स्कोर और समय देखने के लिए टेबल को बाएँ-दाएँ स्क्रॉल करें</p>
-                <div class="w-full overflow-x-auto rounded-xl border border-slate-200" style="-webkit-overflow-scrolling: touch;">
-                    <table class="w-full min-w-[600px] text-left border-collapse text-xs sm:text-sm">
-                        <thead>
-                            <tr class="bg-slate-200/80 text-slate-700 border-b border-slate-300 font-bold whitespace-nowrap">
-                                <th class="py-2.5 px-3.5">स्थान (Rank)</th>
-                                <th class="py-2.5 px-3.5">विद्यार्थी का नाम</th>
-                                <th class="py-2.5 px-3.5 text-center">अंक (Score)</th>
-                                <th class="py-2.5 px-3.5 text-center">सटीकता</th>
-                                <th class="py-2.5 px-3.5 text-right">समय</th>
-                            </tr>
-                        </thead>
-                        <tbody id="modal-leaderboard-tbody" class="divide-y divide-slate-200">
-                            <tr>
-                                <td colspan="5" class="py-6 text-center text-slate-500 text-xs">लीडरबोर्ड लोड हो रहा है...</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Login / Sign In Modal (Google Account Chooser + Direct Sign In) -->
+    <!-- Multi-Method Login / Sign Up Gate (Google / Gmail, Email-Password & Mobile OTP) -->
     <div id="phone-auth-gate" class="hidden fixed inset-0 z-[200] bg-slate-950/75 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
-      <div class="w-full max-w-md overflow-hidden rounded-3xl bg-white shadow-2xl border border-slate-200 my-auto">
-        <div class="bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 text-white p-6 relative text-center">
-            <button type="button" onclick="hideStudentLogin()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/15 hover:bg-white/25 text-white flex items-center justify-center font-bold text-sm cursor-pointer">✕</button>
-            <p class="text-[11px] font-bold tracking-[.2em] text-amber-300">SANTALI SMART STUDY</p>
-            <h2 class="text-xl sm:text-2xl font-extrabold mt-1">Login / Sign In</h2>
-            <p class="text-xs text-white/80 mt-1">अपनी Gmail चुनें या नाम व ईमेल/मोबाइल से तुरंत लॉगिन करें</p>
+      <div class="w-full max-w-md overflow-hidden rounded-3xl bg-white shadow-2xl border border-white/40 my-auto">
+        <div class="bg-gradient-to-br from-blue-900 via-indigo-800 to-violet-800 text-white p-6 relative overflow-hidden">
+            <button type="button" onclick="window.hideStudentLogin()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/15 hover:bg-white/25 text-white flex items-center justify-center font-bold text-sm cursor-pointer">✕</button>
+            <div class="absolute -right-4 -bottom-6 text-8xl opacity-10 pointer-events-none">📚</div>
+            <p class="relative text-[11px] font-bold tracking-[.2em] text-blue-200">SANTALI SMART STUDY</p>
+            <h1 class="relative text-xl sm:text-2xl font-extrabold mt-1">लॉगिन या नया अकाउंट बनाएँ</h1>
+            <p class="relative text-xs text-white/85 mt-1.5">Google (Gmail), ईमेल आईडी या मोबाइल नंबर में से किसी भी एक माध्यम से तुरंत जुड़ें।</p>
         </div>
 
-        <div class="p-6 space-y-4">
-            <!-- 1. Google / Gmail Account Picker Button -->
-            <button id="google-login-btn" type="button" onclick="handleGoogleSignIn()" class="w-full flex items-center justify-center gap-3 rounded-xl bg-white hover:bg-slate-50 text-slate-900 font-extrabold py-3.5 px-4 border-2 border-blue-600 shadow-md transition cursor-pointer text-sm">
-                <svg class="w-5 h-5 shrink-0" viewBox="0 0 24 24">
+        <div class="p-5 sm:p-6">
+            <!-- 1. Instant Google / Gmail Sign In -->
+            <button id="google-login-btn" type="button" class="w-full flex items-center justify-center gap-3 rounded-xl bg-white hover:bg-slate-50 text-slate-800 font-bold py-3 px-4 border-2 border-slate-200 shadow-sm transition cursor-pointer text-sm">
+                <svg class="w-5 h-5" viewBox="0 0 24 24">
                     <path fill="#EA4335" d="M12 5c1.6 0 3 .6 4.1 1.7l3.1-3.1C17.3 1.8 14.8 1 12 1 7.4 1 3.5 3.6 1.6 7.4l3.7 2.8C6.2 7.2 8.9 5 12 5z"/>
                     <path fill="#4285F4" d="M23.5 12.3c0-.8-.1-1.6-.2-2.3H12v4.5h6.5c-.3 1.5-1.1 2.8-2.4 3.6l3.7 2.9c2.2-2 3.7-5 3.7-8.7z"/>
                     <path fill="#FBBC05" d="M5.3 14.8c-.2-.8-.4-1.6-.4-2.5s.2-1.7.4-2.5L1.6 7C.6 9 0 11.2 0 13.5s.6 4.5 1.6 6.5l3.7-2.9z"/>
                     <path fill="#34A853" d="M12 24c3.2 0 6-1.1 8-3l-3.7-2.9c-1.1.7-2.5 1.2-4.3 1.2-3.1 0-5.8-2.1-6.7-5l-3.7 2.8C3.5 21.4 7.4 24 12 24z"/>
                 </svg>
-                <span>Google (Gmail) से Sign In करें</span>
+                <span>Google (Gmail) से जारी रखें</span>
             </button>
 
-            <div class="relative flex py-1 items-center">
+            <div class="relative flex py-3.5 items-center">
                 <div class="flex-grow border-t border-slate-200"></div>
-                <span class="flex-shrink mx-3 text-[11px] font-bold text-slate-400">या सीधे लॉगिन करें</span>
+                <span class="flex-shrink mx-3 text-[11px] font-bold text-slate-400 uppercase">या अन्य विकल्प चुनें</span>
                 <div class="flex-grow border-t border-slate-200"></div>
             </div>
 
-            <!-- 2. Direct Login / Sign In Form -->
-            <div>
-                <label for="auth-student-name" class="block text-xs font-bold text-slate-700 mb-1">आपका नाम (लीडरबोर्ड के लिए) *</label>
-                <input id="auth-student-name" type="text" autocomplete="name" placeholder="अपना पूरा नाम लिखें" class="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm outline-none focus:border-blue-600">
+            <!-- Method Switcher Tabs -->
+            <div class="grid grid-cols-2 gap-1.5 bg-slate-100 p-1 rounded-xl mb-4">
+                <button type="button" id="tab-auth-email" onclick="switchAuthTab('email')" class="py-2 rounded-lg text-xs font-bold bg-white text-blue-700 shadow-sm transition cursor-pointer">📧 ईमेल / पासवर्ड</button>
+                <button type="button" id="tab-auth-phone" onclick="switchAuthTab('phone')" class="py-2 rounded-lg text-xs font-bold text-slate-600 hover:text-slate-900 transition cursor-pointer">📱 मोबाइल OTP</button>
             </div>
 
-            <div>
-                <label for="auth-identifier" class="block text-xs font-bold text-slate-700 mb-1">Gmail ID या मोबाइल नंबर *</label>
-                <input id="auth-identifier" type="text" autocomplete="username" placeholder="example@gmail.com या 9876543210" class="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm outline-none focus:border-blue-600">
+            <!-- 2. Email & Password Login / Sign Up Panel -->
+            <div id="email-auth-panel" class="space-y-3">
+                <div class="flex justify-between items-center bg-blue-50/70 px-3 py-2 rounded-xl border border-blue-100">
+                    <span id="email-mode-title" class="text-xs font-bold text-blue-950">नया अकाउंट बनाएँ (Sign Up)</span>
+                    <button type="button" id="toggle-email-mode-btn" onclick="toggleEmailMode()" class="text-xs font-extrabold text-blue-600 hover:underline cursor-pointer">पहले से अकाउंट है? लॉगिन करें</button>
+                </div>
+
+                <div id="signup-name-wrap">
+                    <label for="auth-name" class="block text-xs font-bold text-slate-700 mb-1">आपका पूरा नाम</label>
+                    <input id="auth-name" type="text" autocomplete="name" placeholder="अपना नाम लिखें" class="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm outline-none focus:border-blue-600">
+                </div>
+
+                <div>
+                    <label for="auth-email" class="block text-xs font-bold text-slate-700 mb-1">ईमेल (Gmail ID)</label>
+                    <input id="auth-email" type="email" autocomplete="email" placeholder="example@gmail.com" class="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm outline-none focus:border-blue-600">
+                </div>
+
+                <div>
+                    <label for="auth-password" class="block text-xs font-bold text-slate-700 mb-1">पासवर्ड (कम से कम 6 अक्षर)</label>
+                    <input id="auth-password" type="password" autocomplete="current-password" placeholder="••••••" class="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm outline-none focus:border-blue-600">
+                </div>
+
+                <button id="email-submit-btn" type="button" class="w-full rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 text-sm shadow-lg shadow-blue-600/20 cursor-pointer transition">नया अकाउंट बनाएँ (Sign Up)</button>
+
+                <div class="text-right">
+                    <button type="button" id="forgot-pass-btn" class="text-[11px] font-semibold text-slate-500 hover:text-blue-600 cursor-pointer">पासवर्ड भूल गए? रीसेट करें</button>
+                </div>
             </div>
 
-            <div>
-                <label for="auth-password" class="block text-xs font-bold text-slate-700 mb-1">पासवर्ड (कम से कम 6 अक्षर/अंक) *</label>
-                <input id="auth-password" type="password" autocomplete="current-password" placeholder="••••••" class="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm outline-none focus:border-blue-600" onkeydown="if(event.key==='Enter') handleDirectSignIn()">
+            <!-- 3. Phone OTP Panel -->
+            <div id="phone-auth-panel" class="hidden space-y-3">
+                <div>
+                    <label for="auth-phone" class="block text-xs font-bold text-slate-700 mb-1">मोबाइल नंबर</label>
+                    <div class="flex gap-2">
+                        <span class="rounded-xl bg-slate-100 border border-slate-200 px-3 py-2.5 text-sm font-bold flex items-center">+91</span>
+                        <input id="auth-phone" type="tel" inputmode="numeric" maxlength="10" autocomplete="tel-national" placeholder="10 अंकों का मोबाइल नंबर" class="min-w-0 flex-1 rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm outline-none focus:border-blue-600">
+                    </div>
+                </div>
+
+                <div id="otp-entry-wrap" class="hidden">
+                    <label for="auth-otp" class="block text-xs font-bold text-slate-700 mb-1">SMS से आया 6 अंकों का OTP</label>
+                    <input id="auth-otp" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="••••••" class="w-full rounded-xl border border-slate-300 px-4 py-2.5 tracking-[.4em] text-center text-base font-bold outline-none focus:border-blue-600">
+                </div>
+
+                <div id="recaptcha-container" class="mt-2 flex justify-center"></div>
+
+                <button id="send-otp-btn" type="button" class="w-full rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 text-sm shadow-lg shadow-blue-600/20 cursor-pointer">OTP भेजें</button>
+                <button id="verify-otp-btn" type="button" class="hidden w-full rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 text-sm cursor-pointer">OTP सत्यापित करें</button>
             </div>
 
-            <button id="direct-signin-btn" type="button" onclick="handleDirectSignIn()" class="w-full rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 text-sm shadow-lg shadow-blue-600/20 cursor-pointer transition">
-                🔐 Login / Sign In करें
-            </button>
-
-            <div id="auth-message" role="status" class="text-xs p-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-600 text-center" aria-live="polite">
-                ऊपर Google (Gmail) बटन दबाकर अपनी Gmail चुनें या नाम व पासवर्ड से लॉगिन करें।
+            <!-- Status Message -->
+            <div id="auth-message" role="status" class="text-xs mt-3 p-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-600 text-center" aria-live="polite">
+                ऊपर दिए गए किसी भी माध्यम से लॉगिन या साइन-अप करें।
             </div>
         </div>
       </div>
@@ -197,28 +192,23 @@
     <!-- Main Home View -->
     <main id="main-home-view" class="flex-grow max-w-7xl w-full mx-auto px-4 py-5">
         <section id="exam-catalog-section" class="mb-6">
-            <div class="mb-5 text-center">
-                <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900">अपनी परीक्षा चुनें</h2>
-                <p class="text-sm text-slate-600 mt-1">किसी भी परीक्षा पर क्लिक करें और उसके सभी उपलब्ध मॉक टेस्ट व लीडरबोर्ड देखें।</p>
+            <div class="mb-5">
+                <p class="text-xs font-bold text-blue-600 tracking-wide mb-1">SANTALI SMART STUDY</p>
+                <h1 class="text-2xl md:text-3xl font-extrabold text-slate-900">अपनी परीक्षा चुनें</h1>
+                <p class="text-sm text-slate-600 mt-2">किसी परीक्षा पर क्लिक करें और उसके सभी उपलब्ध मॉक टेस्ट देखें।</p>
             </div>
             <div id="exam-catalog-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
         </section>
-
-        <!-- Practice Sets Section: Heading & Breadcrumb Strictly Centered as requested in Photo 1 -->
         <div id="practice-sets-section" class="hidden">
-            <div class="mb-6">
-                <div class="flex justify-start mb-3">
-                    <button type="button" onclick="backToExamCatalog()" class="px-3.5 py-1.5 rounded-lg bg-slate-200 hover:bg-slate-300 text-xs font-bold text-slate-800 cursor-pointer">← सभी परीक्षाएँ</button>
-                </div>
-                <div class="text-center max-w-3xl mx-auto px-2">
-                    <div id="breadcrumb-trail" class="text-xs font-bold text-blue-600 uppercase tracking-wider mb-1 text-center">सभी परीक्षाएं</div>
-                    <h2 id="selected-course-heading" class="text-xl md:text-2xl font-extrabold text-slate-900 text-center leading-snug">सभी उपलब्ध प्रैक्टिस सेट्स</h2>
-                    <div class="mt-2.5 flex justify-center">
-                        <span id="sets-count-badge" class="bg-blue-100 text-blue-800 text-xs font-bold px-3.5 py-1 rounded-full">0 प्रैक्टिस सेट्स</span>
-                    </div>
-                </div>
+        <div class="mb-5 flex flex-wrap justify-between items-center gap-2">
+            <div>
+                <button type="button" onclick="backToExamCatalog()" class="mb-2 px-3 py-1.5 rounded-lg bg-slate-100 border border-slate-200 text-xs font-bold text-slate-700 cursor-pointer">← सभी परीक्षाएँ</button>
+                <div id="breadcrumb-trail" class="text-[11px] font-bold text-blue-600 uppercase tracking-wider mb-0.5">सभी परीक्षाएं</div>
+                <h2 id="selected-course-heading" class="text-lg md:text-xl font-bold text-slate-800">सभी उपलब्ध प्रैक्टिस सेट्स</h2>
             </div>
-            <div id="sets-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"></div>
+            <span id="sets-count-badge" class="bg-blue-100 text-blue-800 text-xs font-bold px-3 py-1 rounded-full">0 प्रैक्टिस सेट्स</span>
+        </div>
+        <div id="sets-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"></div>
         </div>
     </main>
 
@@ -226,15 +216,15 @@
     <div id="terms-modal" class="fixed inset-0 z-50 bg-black/60 hidden backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
         <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-slate-200 my-auto">
             <div class="flex justify-between items-center border-b pb-3 mb-4">
-                <h3 class="text-base font-bold text-slate-900">📋 नियम एवं निर्देश (Instructions)</h3>
+                <h3 class="text-base font-bold text-slate-900">📋 Terms & Conditions (नियम एवं शर्तें)</h3>
                 <button type="button" onclick="closeTermsModal()" class="text-slate-400 hover:text-slate-700 font-bold text-lg cursor-pointer p-1">✕</button>
             </div>
             <div id="terms-set-info" class="bg-blue-50 p-3.5 rounded-xl border border-blue-100 mb-4 text-xs space-y-1 text-blue-900"></div>
             <div class="text-xs text-slate-600 space-y-2 mb-5 max-h-40 overflow-y-auto pr-1">
                 <ul class="list-disc pl-5 space-y-1.5">
                     <li>स्क्रीन पर <strong>एक समय में एक ही प्रश्न</strong> दिखेगा।</li>
-                    <li>टेस्ट सबमिट करने के बाद आपको <strong>Top 10 स्टूडेंट्स का लीडरबोर्ड</strong> और आपकी अपनी रैंक दिखाई देगी।</li>
-                    <li>समान अंक होने पर कम समय लेने वाले विद्यार्थी को ऊपर रैंक मिलेगी।</li>
+                    <li>ऑप्शन पर क्लिक करने से सेलेक्ट होगा और दोबारा क्लिक करने पर अनसेलेक्ट हो जाएगा।</li>
+                    <li>हर बार टेस्ट शुरू करने पर प्रश्न और विकल्प नए क्रम में दिखेंगे।</li>
                 </ul>
             </div>
             <div class="mb-5 bg-slate-50 p-3.5 rounded-xl border border-slate-200">
@@ -260,6 +250,24 @@
                 <button type="button" onclick="closeTermsModal()" class="w-1/3 py-3 bg-slate-100 text-slate-700 rounded-xl text-xs font-semibold hover:bg-slate-200 cursor-pointer">रद्द करें</button>
                 <button type="button" onclick="confirmAndStartExam()" class="w-2/3 py-3 bg-blue-600 text-white rounded-xl text-xs font-bold hover:bg-blue-700 shadow cursor-pointer">टेस्ट शुरू करें 🚀</button>
             </div>
+        </div>
+    </div>
+
+    <!-- Practice Set Unlock Ad Modal -->
+    <div id="ad-unlock-modal" class="fixed inset-0 z-50 bg-black/80 hidden backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-lg w-full p-5 text-center shadow-2xl relative overflow-hidden">
+            <button id="ad-close-x-btn" type="button" onclick="completeAdUnlock()" class="hidden absolute top-3 right-3 w-8 h-8 bg-red-500 hover:bg-red-600 text-white rounded-full font-bold text-sm flex items-center justify-center shadow cursor-pointer">✕</button>
+            <h3 class="text-base font-bold text-slate-800 mb-1"><span class="bg-amber-100 text-amber-800 text-[10px] px-2 py-1 rounded mr-1">Sponsored</span> विज्ञापन</h3>
+            <p class="text-xs text-slate-500 mb-4">विज्ञापन पूरा होने पर आपका प्रैक्टिस सेट शुरू हो जाएगा।</p>
+            
+            <div id="popup-ad-box" class="bg-slate-100 border border-dashed border-slate-300 rounded-xl p-3 mb-4 text-xs text-slate-600 min-h-[150px] w-full max-w-full overflow-x-auto flex flex-col items-center justify-center">
+                <span class="text-xs text-slate-500">विज्ञापन स्थान (वैकल्पिक)</span>
+            </div>
+
+            <div id="ad-countdown-wrap" class="text-sm font-bold text-blue-700 mb-4">
+                विज्ञापन: <span id="ad-countdown" class="text-red-600 text-base">5</span> सेकंड
+            </div>
+            <button id="ad-continue-btn" type="button" disabled onclick="completeAdUnlock()" class="w-full py-3 bg-slate-300 text-slate-600 rounded-xl text-xs font-bold transition">कृपया 5 सेकंड प्रतीक्षा करें...</button>
         </div>
     </div>
 
@@ -315,59 +323,20 @@
         </div>
     </section>
 
-    <!-- Result & Live Leaderboard View -->
+    <!-- Result View -->
     <section id="result-view" class="hidden flex-grow max-w-4xl w-full mx-auto px-4 py-5">
         <div class="bg-white rounded-2xl shadow-xl border border-slate-300 overflow-hidden">
             <div class="p-4 md:p-6 border-b">
                 <div class="flex flex-wrap justify-between items-center gap-3">
                     <div class="w-full text-center">
-                        <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-3.5 py-1 rounded-full">📊 FINAL RESULT & LEADERBOARD</span>
+                        <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-3.5 py-1 rounded-full">📊 FINAL RESULT</span>
                         <h2 id="res-set-title" class="text-lg md:text-xl font-bold text-slate-900 mt-2 text-center w-full">प्रैक्टिस सेट परिणाम</h2>
                         <p id="res-score-summary" class="text-xs md:text-sm font-medium text-slate-600 mt-1 text-center"></p>
                     </div>
-                    <div class="w-full flex justify-center mt-2">
-                        <button type="button" onclick="backToHome()" class="px-5 py-2.5 bg-blue-600 text-white rounded-xl text-xs sm:text-sm font-bold hover:bg-blue-700 shadow cursor-pointer">🏠 होम पर लौटें</button>
-                    </div>
+                    <button type="button" onclick="backToHome()" class="px-5 py-2.5 bg-blue-600 text-white rounded-xl text-sm font-bold hover:bg-blue-700 shadow cursor-pointer">🏠 होम पर लौटें</button>
                 </div>
 
-                <!-- LIVE LEADERBOARD SECTION (Left-to-Right Scrollable as requested in Photo 2) -->
-                <div class="mt-6 bg-slate-50 rounded-2xl border border-slate-200 overflow-hidden">
-                    <div class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white px-4 py-3 flex flex-wrap items-center justify-between gap-2">
-                        <div class="flex items-center gap-2">
-                            <span class="text-lg">🏆</span>
-                            <div>
-                                <h3 class="text-sm sm:text-base font-extrabold text-amber-400">स्टूडेंट लीडरबोर्ड (Top 10 Rankers)</h3>
-                                <p class="text-[11px] text-slate-300">इस मॉक टेस्ट में भाग लेने वाले सभी छात्रों में आपका स्थान</p>
-                            </div>
-                        </div>
-                        <div id="my-rank-pill" class="bg-amber-400 text-slate-950 text-xs font-extrabold px-3 py-1 rounded-full shadow">
-                            आपकी रैंक: गणना हो रही है...
-                        </div>
-                    </div>
-
-                    <p class="text-[11px] text-slate-500 py-1.5 px-3 bg-slate-100 border-b border-slate-200 sm:hidden text-center">↔️ पूरा नाम, स्कोर और समय देखने के लिए बाएँ-से-दाएँ स्क्रॉल करें</p>
-
-                    <div class="w-full overflow-x-auto" style="-webkit-overflow-scrolling: touch;">
-                        <table class="w-full min-w-[600px] text-left border-collapse text-xs sm:text-sm">
-                            <thead>
-                                <tr class="bg-slate-200/80 text-slate-700 border-b border-slate-300 font-bold whitespace-nowrap">
-                                    <th class="py-2.5 px-3.5 sm:px-4">स्थान (Rank)</th>
-                                    <th class="py-2.5 px-3.5 sm:px-4">विद्यार्थी का नाम</th>
-                                    <th class="py-2.5 px-3.5 sm:px-4 text-center">अंक (Score)</th>
-                                    <th class="py-2.5 px-3.5 sm:px-4 text-center">सटीकता</th>
-                                    <th class="py-2.5 px-3.5 sm:px-4 text-right">समय</th>
-                                </tr>
-                            </thead>
-                            <tbody id="leaderboard-tbody" class="divide-y divide-slate-200">
-                                <tr>
-                                    <td colspan="5" class="py-6 text-center text-slate-500 text-xs">लीडरबोर्ड लोड हो रहा है...</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <p class="text-xs md:text-sm font-semibold text-slate-700 mt-6 mb-3">👇 प्रश्नों की विस्तृत समीक्षा (Answer Key & Review) के लिए किसी भी बॉक्स पर क्लिक करें:</p>
+                <p class="text-xs md:text-sm font-semibold text-slate-700 mt-4 mb-3">👇 विस्तृत समीक्षा (Review) के लिए नीचे दिए गए किसी भी बॉक्स पर क्लिक करें:</p>
 
                 <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 md:gap-4">
                     <div onclick="toggleResultCategory('all')" id="box-all" class="cursor-pointer bg-blue-50 hover:bg-blue-100 border-2 border-blue-300 p-3 rounded-xl text-center transition select-none shadow-sm">
@@ -403,7 +372,7 @@
                         <div class="text-xs font-bold text-slate-700 bg-white px-3 py-1.5 rounded-lg border border-slate-300 shadow-sm">
                             प्रश्न संख्या: <span id="review-pos-indicator" class="text-blue-600 font-extrabold">1 / 1</span>
                         </div>
-                        <button type="button" id="review-language-toggle" onclick="toggleReviewLanguage()" class="px-3 py-2 rounded-xl border border-blue-300 bg-blue-50 text-blue-700 text-xs md:text-sm font-bold hover:bg-blue-100 shadow-sm cursor-pointer">हिंदी → English</button>
+                        <button type="button" id="review-language-toggle" onclick="toggleReviewLanguage()" class="px-3 py-2 rounded-xl border border-blue-300 bg-blue-50 text-blue-700 text-xs md:text-sm font-bold hover:bg-blue-100 shadow-sm" aria-label="हिंदी और अंग्रेजी बदलें">हिंदी → English</button>
                     </div>
                 </div>
 
@@ -428,7 +397,18 @@
                 <button type="button" onclick="closeAdminPanel()" class="bg-red-600 hover:bg-red-700 text-white text-xs px-3.5 py-2 rounded-lg font-bold cursor-pointer shrink-0">✕ बंद करें</button>
             </div>
 
-            <div class="p-4 sm:p-6 overflow-y-auto space-y-6 flex-1 touch-pan-y">
+            <div class="p-4 sm:p-6 overflow-y-auto space-y-6 flex-1 touch-pan-y" style="-webkit-overflow-scrolling: touch;">
+                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-amber-50 border border-amber-200 rounded-lg p-3">
+                        <h4 class="font-bold text-sm text-amber-900 mb-1">ℹ️ विज्ञापन नीति</h4>
+                        <p class="text-xs text-amber-800 leading-relaxed">मॉक टेस्ट शुरू करने के लिए विज्ञापन देखना अनिवार्य नहीं है। Google AdSense विज्ञापन पर क्लिक करने, उसे देखने या प्रतीक्षा करने के बदले सामग्री अनलॉक नहीं करें। विज्ञापन केवल सामान्य पेज विज्ञापन के रूप में दिखाएँ।</p>
+                    </div>
+                    <div class="bg-white p-3 rounded-lg border border-slate-200">
+                        <h4 class="font-bold text-sm text-slate-800 mb-1">💰 Google AdSense कोड कहाँ लगाएँ?</h4>
+                        <p class="text-xs text-slate-600 leading-relaxed">वेबसाइट में कोई जबरन फिक्स बैनर या 320×50 खाली स्लॉट नहीं रखा गया है। यदि विज्ञापन दिखाना हो, तो केवल <code>&lt;head&gt;</code> में Google AdSense Auto ads का आधिकारिक कोड लगाएँ। Google स्वयं उपलब्धता, आकार और स्थान तय करेगा।</p>
+                    </div>
+                </div>
+
                 <div class="bg-indigo-50/60 p-4 sm:p-5 rounded-xl border border-indigo-200">
                     <h4 class="font-bold text-base text-indigo-950 mb-3">🎓 कोर्स / एग्जाम और सब-कोर्स मैनेजर</h4>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -453,7 +433,7 @@
                 </div>
 
                 <div class="bg-blue-50/60 p-4 sm:p-5 rounded-xl border border-blue-200">
-                    <h4 class="font-bold text-base text-blue-950 mb-3" id="form-mode-title">➕ प्रैक्टिस सेट और प्रश्न जोड़ें</h4>
+                    <h4 class="font-bold text-base text-blue-950 mb-3" id="form-mode-title">➕ प्रैक्टिस सेट और 50+ प्रश्न जोड़ें</h4>
                     <input type="hidden" id="edit-set-id" value="">
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 mb-4">
                         <div>
@@ -485,7 +465,7 @@
                         <div class="flex items-end">
                             <label for="set-locked-inp" class="flex items-center space-x-2 text-xs font-semibold text-slate-800 p-2 bg-white rounded-lg border border-slate-300 w-full cursor-pointer select-none">
                                 <input type="checkbox" id="set-locked-inp" checked class="w-4 h-4 accent-blue-600 cursor-pointer">
-                                <span>🔒 एक्टिव सेट</span>
+                                <span>🔒 Ad Lock चालू रखें</span>
                             </label>
                         </div>
                     </div>
@@ -510,6 +490,15 @@
                     </div>
                     <button type="button" onclick="downloadAllData()" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-xs font-bold shadow cursor-pointer">⬇️ डाउनलोड करें</button>
                 </div>
+
+                <div class="bg-emerald-50/60 p-4 sm:p-5 rounded-xl border border-emerald-200">
+                    <div class="flex flex-wrap justify-between items-center gap-2 mb-2">
+                        <h4 class="font-bold text-sm text-emerald-950">☁️ क्लाउड बैकअप (Firebase)</h4>
+                        <button type="button" onclick="loadBackupList()" class="px-4 py-2 bg-emerald-600 text-white rounded-lg text-xs font-bold shadow cursor-pointer">बैकअप सूची देखें</button>
+                    </div>
+                    <p class="text-[11px] text-slate-500 mb-3">हर बदलाव से पहले का डेटा यहाँ सुरक्षित रहता है। किसी भी बैकअप को रिस्टोर किया जा सकता है।</p>
+                    <div id="backup-list" class="space-y-2"></div>
+                </div>
             </div>
         </div>
     </div>
@@ -522,16 +511,16 @@
                 <button type="button" onclick="closeLegalPage()" class="bg-red-600 hover:bg-red-700 text-white text-xs px-3 py-1.5 rounded-lg font-bold cursor-pointer">✕ बंद करें</button>
             </div>
             <div class="bg-slate-100 px-4 py-2 border-b border-slate-200 flex flex-wrap gap-2 shrink-0">
-                <button type="button" onclick="openLegalPage('about')" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-white border border-slate-300 cursor-pointer">About Us</button>
-                <button type="button" onclick="openLegalPage('contact')" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-white border border-slate-300 cursor-pointer">Contact Us</button>
-                <button type="button" onclick="openLegalPage('privacy')" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-white border border-slate-300 cursor-pointer">Privacy Policy</button>
-                <button type="button" onclick="openLegalPage('terms')" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-white border border-slate-300 cursor-pointer">Terms & Conditions</button>
+                <button type="button" onclick="openLegalPage('about')" id="tab-legal-about" class="px-3 py-1.5 rounded-lg text-xs font-bold cursor-pointer transition">About Us</button>
+                <button type="button" onclick="openLegalPage('contact')" id="tab-legal-contact" class="px-3 py-1.5 rounded-lg text-xs font-bold cursor-pointer transition">Contact Us</button>
+                <button type="button" onclick="openLegalPage('privacy')" id="tab-legal-privacy" class="px-3 py-1.5 rounded-lg text-xs font-bold cursor-pointer transition">Privacy Policy</button>
+                <button type="button" onclick="openLegalPage('terms')" id="tab-legal-terms" class="px-3 py-1.5 rounded-lg text-xs font-bold cursor-pointer transition">Terms & Conditions</button>
             </div>
             <div id="legal-modal-body" class="p-5 sm:p-6 overflow-y-auto text-xs sm:text-sm text-slate-700 space-y-4 leading-relaxed flex-1"></div>
         </div>
     </div>
 
-    <!-- केवल ब्लैक बैकग्राउंड वाला अबाउट/फुटर सेक्शन -->
+    <!-- केवल नीचे वाला ब्लैक बैकग्राउंड (bg-slate-900) वाला अबाउट/फुटर सेक्शन रखा गया है -->
     <footer id="home-only-footer" class="bg-slate-900 text-slate-300 border-t border-slate-800 mt-auto">
         <div class="max-w-7xl mx-auto px-4 py-8">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
@@ -571,156 +560,51 @@
         </div>
     </footer>
 
-    <!-- Main Application & Instant Auth Script -->
+    <!-- Application Script -->
     <script>
-        window.currentStudent = null;
-        let pendingSetToStart = null;
+        function adjustTopFixedSpacer() {}
+        window.addEventListener('resize', adjustTopFixedSpacer);
+        window.addEventListener('load', adjustTopFixedSpacer);
 
-        function setAuthStatusText(message, isError = false) {
-            const el = document.getElementById('auth-message');
-            if (!el) return;
-            el.textContent = message;
-            el.className = 'text-xs p-2.5 rounded-xl border text-center font-semibold ' +
-                (isError ? 'bg-red-50 border-red-200 text-red-700' : 'bg-blue-50 border-blue-200 text-blue-800');
-        }
-
-        function updateHeaderUI(student) {
-            const loginBtn = document.getElementById('header-login-btn');
-            const userInfo = document.getElementById('header-user-info');
-            const userLabel = document.getElementById('header-user-label');
-            if (student && student.uid) {
-                loginBtn?.classList.add('hidden');
-                userInfo?.classList.remove('hidden');
-                userInfo?.classList.add('flex');
-                if (userLabel) userLabel.textContent = student.displayName || student.email || 'Student';
+        // Auth Modal UI Helpers
+        window.isEmailSignupMode = true;
+        function switchAuthTab(tab) {
+            const emailPanel = document.getElementById('email-auth-panel');
+            const phonePanel = document.getElementById('phone-auth-panel');
+            const tabEmail = document.getElementById('tab-auth-email');
+            const tabPhone = document.getElementById('tab-auth-phone');
+            if (tab === 'phone') {
+                emailPanel.classList.add('hidden');
+                phonePanel.classList.remove('hidden');
+                tabPhone.className = 'py-2 rounded-lg text-xs font-bold bg-white text-blue-700 shadow-sm transition cursor-pointer';
+                tabEmail.className = 'py-2 rounded-lg text-xs font-bold text-slate-600 hover:text-slate-900 transition cursor-pointer';
             } else {
-                loginBtn?.classList.remove('hidden');
-                userInfo?.classList.add('hidden');
-                userInfo?.classList.remove('flex');
+                phonePanel.classList.add('hidden');
+                emailPanel.classList.remove('hidden');
+                tabEmail.className = 'py-2 rounded-lg text-xs font-bold bg-white text-blue-700 shadow-sm transition cursor-pointer';
+                tabPhone.className = 'py-2 rounded-lg text-xs font-bold text-slate-600 hover:text-slate-900 transition cursor-pointer';
             }
         }
 
-        function showStudentLogin() {
-            const gate = document.getElementById('phone-auth-gate');
-            gate?.classList.remove('hidden');
-            document.body.classList.add('overflow-hidden');
-            setAuthStatusText('Google (Gmail) पर क्लिक करके अपनी Gmail चुनें या नाम व पासवर्ड से लॉगिन करें।');
-        }
-        window.showStudentLogin = showStudentLogin;
+        function toggleEmailMode() {
+            window.isEmailSignupMode = !window.isEmailSignupMode;
+            const nameWrap = document.getElementById('signup-name-wrap');
+            const titleEl = document.getElementById('email-mode-title');
+            const toggleBtn = document.getElementById('toggle-email-mode-btn');
+            const submitBtn = document.getElementById('email-submit-btn');
 
-        function hideStudentLogin() {
-            const gate = document.getElementById('phone-auth-gate');
-            gate?.classList.add('hidden');
-            document.body.classList.remove('overflow-hidden');
-        }
-        window.hideStudentLogin = hideStudentLogin;
-
-        async function completeStudentLogin(studentObj) {
-            window.currentStudent = studentObj;
-            try {
-                localStorage.setItem('sss_active_student_v3', JSON.stringify(studentObj));
-            } catch (_) {}
-            updateHeaderUI(studentObj);
-            hideStudentLogin();
-
-            if (window.cloudSaveStudentProfile) {
-                window.cloudSaveStudentProfile(studentObj).catch(() => {});
-            }
-
-            if (pendingSetToStart) {
-                const targetSet = pendingSetToStart;
-                pendingSetToStart = null;
-                openTermsModal(targetSet);
+            if (window.isEmailSignupMode) {
+                nameWrap.classList.remove('hidden');
+                titleEl.textContent = 'नया अकाउंट बनाएँ (Sign Up)';
+                toggleBtn.textContent = 'पहले से अकाउंट है? लॉगिन करें';
+                submitBtn.textContent = 'नया अकाउंट बनाएँ (Sign Up)';
+            } else {
+                nameWrap.classList.add('hidden');
+                titleEl.textContent = 'अपने अकाउंट में लॉगिन करें';
+                toggleBtn.textContent = 'नया अकाउंट बनाएँ (Sign Up)';
+                submitBtn.textContent = 'लॉगिन करें (Login)';
             }
         }
-        window.completeStudentLogin = completeStudentLogin;
-
-        async function logoutStudent() {
-            if (window.firebaseSignOut) {
-                try { await window.firebaseSignOut(); } catch (_) {}
-            }
-            localStorage.removeItem('sss_active_student_v3');
-            window.currentStudent = null;
-            updateHeaderUI(null);
-        }
-        window.logoutStudent = logoutStudent;
-
-        try {
-            const saved = JSON.parse(localStorage.getItem('sss_active_student_v3'));
-            if (saved && saved.uid) {
-                window.currentStudent = saved;
-                updateHeaderUI(saved);
-            }
-        } catch (_) {}
-
-        async function handleDirectSignIn() {
-            const nameInput = document.getElementById('auth-student-name')?.value.trim() || '';
-            const rawId = document.getElementById('auth-identifier')?.value.trim() || '';
-            const password = document.getElementById('auth-password')?.value || '';
-
-            if (!nameInput) {
-                setAuthStatusText('कृपया अपना नाम लिखें (लीडरबोर्ड में दिखाने के लिए)।', true);
-                return;
-            }
-            if (!rawId) {
-                setAuthStatusText('कृपया अपनी Gmail ID या 10 अंकों का मोबाइल नंबर लिखें।', true);
-                return;
-            }
-            if (!password || password.length < 6) {
-                setAuthStatusText('कृपया कम से कम 6 अक्षरों/अंकों का पासवर्ड लिखें।', true);
-                return;
-            }
-
-            let normalizedEmail = rawId.toLowerCase();
-            const digitsOnly = rawId.replace(/\D/g, '');
-            if (/^\d{10}$/.test(digitsOnly) && !rawId.includes('@')) {
-                normalizedEmail = `m${digitsOnly}@santalismartstudy.in`;
-            } else if (!/^\S+@\S+\.\S+$/.test(normalizedEmail)) {
-                setAuthStatusText('कृपया सही ईमेल आईडी या 10 अंकों का मोबाइल नंबर लिखें।', true);
-                return;
-            }
-
-            const btn = document.getElementById('direct-signin-btn');
-            if (btn) {
-                btn.disabled = true;
-                btn.textContent = 'Sign In हो रहा है...';
-            }
-            setAuthStatusText('लॉगिन किया जा रहा है...');
-
-            try {
-                if (window.firebaseDirectEmailAuth) {
-                    const user = await window.firebaseDirectEmailAuth(normalizedEmail, password, nameInput);
-                    await completeStudentLogin({
-                        uid: user.uid,
-                        displayName: nameInput,
-                        email: normalizedEmail
-                    });
-                    return;
-                }
-            } catch (_) {}
-
-            const safeUid = 'stu_' + btoa(unescape(encodeURIComponent(normalizedEmail))).replace(/[^a-zA-Z0-9]/g, '').slice(0, 20);
-            await completeStudentLogin({
-                uid: safeUid,
-                displayName: nameInput,
-                email: normalizedEmail
-            });
-
-            if (btn) {
-                btn.disabled = false;
-                btn.textContent = '🔐 Login / Sign In करें';
-            }
-        }
-        window.handleDirectSignIn = handleDirectSignIn;
-
-        async function handleGoogleSignIn() {
-            if (!window.triggerFirebaseGoogleSignIn) {
-                setAuthStatusText('Google सेवा लोड हो रही है, कृपया 2 सेकंड बाद क्लिक करें या नीचे नाम/ईमेल से लॉगिन करें।', true);
-                return;
-            }
-            await window.triggerFirebaseGoogleSignIn();
-        }
-        window.handleGoogleSignIn = handleGoogleSignIn;
 
         function closePasswordModal() {
             document.getElementById('password-modal').classList.add('hidden');
@@ -782,13 +666,82 @@
             }
         });
         try { localStorage.setItem('sss_exam_hierarchy_v2', JSON.stringify(examHierarchy)); } catch (e) {}
-
         let selectedMainExamId = 'all';
         let selectedSubExamId = 'all';
+        let isAdSystemEnabled = true;
+        let unlockAdDurationSeconds = 15;
+        const FIVE_HOURS_MS = 5 * 60 * 60 * 1000;
+        const BACK_GRACE_PERIOD_MS = 2 * 60 * 1000;
+        const UNLOCK_STORAGE_KEY = 'sss_temp_unlocks_v1';
+        const LAST_ACTIVE_STORAGE_KEY = 'sss_last_active_ts_v1';
+
+        let sessionUnlocks = {};
+
+        function initUnlockStateWithGracePeriod() {
+            try {
+                const lastActiveRaw = localStorage.getItem(LAST_ACTIVE_STORAGE_KEY);
+                const savedUnlocksRaw = localStorage.getItem(UNLOCK_STORAGE_KEY);
+                const now = Date.now();
+
+                if (lastActiveRaw && savedUnlocksRaw) {
+                    const lastActive = parseInt(lastActiveRaw, 10);
+                    const awayTimeMs = now - lastActive;
+
+                    if (awayTimeMs >= 0 && awayTimeMs <= BACK_GRACE_PERIOD_MS) {
+                        const parsed = JSON.parse(savedUnlocksRaw) || {};
+                        Object.keys(parsed).forEach(id => {
+                            if (now - parsed[id] < FIVE_HOURS_MS) {
+                                sessionUnlocks[id] = parsed[id];
+                            }
+                        });
+                    }
+                }
+                localStorage.setItem(UNLOCK_STORAGE_KEY, JSON.stringify(sessionUnlocks));
+                localStorage.setItem(LAST_ACTIVE_STORAGE_KEY, String(now));
+            } catch (e) {
+                console.error('Unlock state init error', e);
+            }
+        }
+
+        function persistUnlockState() {
+            try {
+                localStorage.setItem(UNLOCK_STORAGE_KEY, JSON.stringify(sessionUnlocks));
+                localStorage.setItem(LAST_ACTIVE_STORAGE_KEY, String(Date.now()));
+            } catch (e) {}
+        }
+
+        function recordActiveHeartbeat() {
+            try {
+                localStorage.setItem(LAST_ACTIVE_STORAGE_KEY, String(Date.now()));
+            } catch (e) {}
+        }
+
+        initUnlockStateWithGracePeriod();
+
+        let hiddenSinceTs = null;
+        window.addEventListener('pagehide', recordActiveHeartbeat);
+        window.addEventListener('beforeunload', recordActiveHeartbeat);
+        document.addEventListener('visibilitychange', () => {
+            if (document.visibilityState === 'hidden') {
+                hiddenSinceTs = Date.now();
+                recordActiveHeartbeat();
+            } else if (document.visibilityState === 'visible') {
+                const now = Date.now();
+                const lastRef = hiddenSinceTs || parseInt(localStorage.getItem(LAST_ACTIVE_STORAGE_KEY) || String(now), 10);
+                if (now - lastRef > BACK_GRACE_PERIOD_MS) {
+                    sessionUnlocks = {};
+                    persistUnlockState();
+                    renderPracticeSets();
+                } else {
+                    recordActiveHeartbeat();
+                }
+                hiddenSinceTs = null;
+            }
+        });
 
         function saveHierarchyToStorage() {
             localStorage.setItem('sss_exam_hierarchy_v2', JSON.stringify(examHierarchy));
-            if (window.cloud) window.cloud.saveHierarchy(examHierarchy).catch(() => {});
+            if (window.cloud) window.cloud.saveHierarchy(examHierarchy).catch(e => console.error('Cloud hierarchy save error', e));
         }
 
         const defaultQuestionsRaw = `Q: धोने का सोडा (Washing Soda) का रासायनिक सूत्र क्या है?
@@ -864,22 +817,27 @@ Exp: The chemical name of washing soda is sodium carbonate decahydrate and its f
             }
         ];
 
+        practiceSets.forEach(s => { s.isLocked = true; });
+
         function saveSetsToStorage() {
-            try { localStorage.setItem('sss_practice_sets_v5', JSON.stringify(practiceSets)); } catch (e) {}
+            try {
+                localStorage.setItem('sss_practice_sets_v5', JSON.stringify(practiceSets));
+            } catch (e) { console.error('Save error', e); alert('सेव करने में समस्या: ' + e.message); }
         }
 
         function cloudSaveSet(set) {
-            if (window.cloud) window.cloud.saveSet(set).catch(() => {});
+            if (window.cloud) window.cloud.saveSet(set).catch(e => console.error('Cloud save error', e));
         }
         function cloudDeleteSet(id) {
-            if (window.cloud) window.cloud.deleteSet(id).catch(() => {});
+            if (window.cloud) window.cloud.deleteSet(id).catch(e => console.error('Cloud delete error', e));
         }
         function cloudBackup(reason) {
-            if (window.cloud) window.cloud.backup({ reason, sets: practiceSets, hierarchy: examHierarchy }).catch(() => {});
+            if (window.cloud) window.cloud.backup({ reason, sets: practiceSets, hierarchy: examHierarchy }).catch(e => console.error('Backup error', e));
         }
-
+        
         window.getLocalData = () => ({ sets: practiceSets, hierarchy: examHierarchy });
         window.applyCloudSets = (list) => {
+            list.forEach(s => { s.isLocked = true; });
             practiceSets = list;
             try { localStorage.setItem('sss_practice_sets_v5', JSON.stringify(practiceSets)); } catch (e) {}
             renderPracticeSets();
@@ -889,12 +847,21 @@ Exp: The chemical name of washing soda is sodium carbonate decahydrate and its f
         window.applyCloudHierarchy = (items) => {
             examHierarchy = items;
             try { localStorage.setItem('sss_exam_hierarchy_v2', JSON.stringify(examHierarchy)); } catch (e) {}
+            renderNavigationBars();
             renderExamCatalog();
             renderPracticeSets();
+            if (!document.getElementById('admin-modal').classList.contains('hidden')) {
+                renderAdminExamManagers();
+                populateMainExamDropdownForSet();
+            }
         };
 
         function downloadAllData() {
-            const data = { exportedAt: new Date().toISOString(), hierarchy: examHierarchy, practiceSets };
+            const data = {
+                exportedAt: new Date().toISOString(),
+                hierarchy: examHierarchy,
+                practiceSets: practiceSets
+            };
             const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
@@ -903,8 +870,92 @@ Exp: The chemical name of washing soda is sodium carbonate decahydrate and its f
             document.body.appendChild(a);
             a.click();
             a.remove();
+            setTimeout(() => URL.revokeObjectURL(url), 1000);
         }
 
+        function attachInstantSingleClick(btn, callback) {
+            let triggered = false;
+            btn.addEventListener('pointerdown', (e) => {
+                if (e.button !== undefined && e.button !== 0) return;
+                triggered = true;
+                callback();
+                setTimeout(() => { triggered = false; }, 400);
+            });
+            btn.addEventListener('click', () => {
+                if (!triggered) callback();
+            });
+        }
+
+        function renderNavigationBars() {
+            const mainBar = document.getElementById('main-exams-bar');
+            mainBar.innerHTML = '';
+            const allBtn = document.createElement('button');
+            allBtn.type = 'button';
+            attachInstantSingleClick(allBtn, () => selectMainExam('all'));
+            allBtn.className = `shrink-0 px-3.5 py-1.5 rounded-xl text-xs font-bold transition border cursor-pointer ${selectedMainExamId === 'all' ? 'bg-blue-600 text-white border-blue-600 shadow-sm' : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100'}`;
+            allBtn.innerText = '📚 सभी परीक्षाएं (All)';
+            mainBar.appendChild(allBtn);
+
+            examHierarchy.forEach(exam => {
+                const isActive = selectedMainExamId === exam.id;
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                attachInstantSingleClick(btn, () => selectMainExam(exam.id));
+                btn.className = `shrink-0 px-3.5 py-1.5 rounded-xl text-xs font-bold transition border cursor-pointer ${isActive ? 'bg-blue-600 text-white border-blue-600 shadow-sm' : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100'}`;
+                btn.innerText = exam.name;
+                mainBar.appendChild(btn);
+            });
+
+            const subWrapper = document.getElementById('sub-exams-wrapper');
+            const subBar = document.getElementById('sub-exams-bar');
+            subBar.innerHTML = '';
+            if (selectedMainExamId === 'all') {
+                subWrapper.classList.add('hidden');
+            } else {
+                const examObj = examHierarchy.find(e => e.id === selectedMainExamId);
+                if (examObj && examObj.subExams.length > 0) {
+                    subWrapper.classList.remove('hidden');
+                    const allSubBtn = document.createElement('button');
+                    allSubBtn.type = 'button';
+                    attachInstantSingleClick(allSubBtn, () => selectSubExam('all'));
+                    allSubBtn.className = `shrink-0 px-3 py-1 rounded-lg text-[11px] font-bold transition border cursor-pointer ${selectedSubExamId === 'all' ? 'bg-indigo-600 text-white border-indigo-600' : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-100'}`;
+                    allSubBtn.innerText = `सभी ${examObj.name} सेट्स`;
+                    subBar.appendChild(allSubBtn);
+
+                    examObj.subExams.forEach(sub => {
+                        const isSubActive = selectedSubExamId === sub.id;
+                        const sBtn = document.createElement('button');
+                        sBtn.type = 'button';
+                        attachInstantSingleClick(sBtn, () => selectSubExam(sub.id));
+                        sBtn.className = `shrink-0 px-3 py-1 rounded-lg text-[11px] font-bold transition border cursor-pointer ${isSubActive ? 'bg-indigo-600 text-white border-indigo-600 shadow-sm' : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-100'}`;
+                        sBtn.innerText = sub.name;
+                        subBar.appendChild(sBtn);
+                    });
+                } else {
+                    subWrapper.classList.add('hidden');
+                }
+            }
+            setTimeout(adjustTopFixedSpacer, 20);
+        }
+
+        function selectMainExam(mainId) {
+            selectedMainExamId = mainId;
+            selectedSubExamId = 'all';
+            renderNavigationBars();
+            renderPracticeSets();
+        }
+
+        function selectSubExam(subId) {
+            selectedSubExamId = subId;
+            renderNavigationBars();
+            renderPracticeSets();
+        }
+
+        setInterval(() => {
+            if (document.visibilityState === 'visible') recordActiveHeartbeat();
+        }, 10000);
+
+        // ब्लैक बैकग्राउंड वाला फुटर केवल मुख्य होम पेज पर दिखेगा
         function syncHomeOnlyFooter() {
             const footer = document.getElementById('home-only-footer');
             const home = document.getElementById('main-home-view');
@@ -927,7 +978,8 @@ Exp: The chemical name of washing soda is sodium carbonate decahydrate and its f
             grid.innerHTML = '';
             examHierarchy.forEach(main => {
                 (main.subExams || []).forEach(sub => {
-                    const card = document.createElement('div');
+                    const card = document.createElement('button');
+                    card.type = 'button';
                     card.className = 'text-left group overflow-hidden bg-white rounded-2xl border border-slate-200 shadow-md hover:shadow-xl hover:-translate-y-0.5 transition-all flex flex-col min-h-[285px] cursor-pointer';
                     const courseSets = practiceSets.filter(set => set.subExamId === sub.id);
                     const count = courseSets.length;
@@ -937,24 +989,13 @@ Exp: The chemical name of washing soda is sodium carbonate decahydrate and its f
                     const color = colors[Math.abs(String(sub.id).split('').reduce((a,c)=>a+c.charCodeAt(0),0)) % colors.length];
                     card.innerHTML = `<div class="relative bg-gradient-to-r ${color} text-white p-5 overflow-hidden">
                           <div class="absolute -right-5 -top-8 text-8xl opacity-10">📚</div>
-                          <div class="relative flex items-start justify-between gap-3"><div><span class="inline-block text-[10px] uppercase tracking-widest bg-white/20 border border-white/25 rounded-full px-2.5 py-1 mb-3">${mainLabel}</span><h2 class="text-xl md:text-2xl font-extrabold leading-tight">${sub.name}</h2><p class="text-white/85 text-xs mt-2">स्मार्ट तैयारी • मॉक टेस्ट • लीडरबोर्ड रैंक</p></div><span class="text-3xl shrink-0">🎓</span></div>
+                          <div class="relative flex items-start justify-between gap-3"><div><span class="inline-block text-[10px] uppercase tracking-widest bg-white/20 border border-white/25 rounded-full px-2.5 py-1 mb-3">${mainLabel}</span><h2 class="text-xl md:text-2xl font-extrabold leading-tight">${sub.name}</h2><p class="text-white/85 text-xs mt-2">स्मार्ट तैयारी • मॉक टेस्ट • अभ्यास</p></div><span class="text-3xl shrink-0">🎓</span></div>
                           <div class="relative mt-5 grid grid-cols-2 gap-2"><div class="rounded-xl bg-black/15 border border-white/20 p-2.5"><strong class="block text-2xl">${count >= 15 ? count + '+' : count}</strong><span class="text-[11px] text-white/85">उपलब्ध मॉक टेस्ट</span></div><div class="rounded-xl bg-black/15 border border-white/20 p-2.5"><strong class="block text-2xl">${questionCount}+</strong><span class="text-[11px] text-white/85">कुल अभ्यास प्रश्न</span></div></div>
-                        </div>
-                        <div class="p-4 flex flex-col flex-1">
-                            <div class="flex flex-wrap gap-2 text-[11px] mb-4">
-                                <span class="bg-emerald-50 text-emerald-700 rounded-full px-2.5 py-1 font-bold">✓ Free Practice</span>
-                                <button type="button" onclick="event.stopPropagation(); openCourseLeaderboard('${sub.id}')" class="bg-blue-50 hover:bg-blue-100 border border-blue-200 text-blue-700 rounded-full px-2.5 py-1 font-bold cursor-pointer transition">✓ Live Leaderboard</button>
-                                <button type="button" onclick="event.stopPropagation(); openCourseLeaderboard('${sub.id}')" class="bg-amber-50 hover:bg-amber-100 border border-amber-200 text-amber-800 rounded-full px-2.5 py-1 font-bold cursor-pointer transition">✓ Top 10 & Rank</button>
-                            </div>
-                            <p class="text-sm text-slate-600 leading-relaxed flex-1">${sub.name} की तैयारी के लिए उपलब्ध प्रैक्टिस सेट देखें और टेस्ट देकर सभी छात्रों के बीच अपना स्थान (Rank) जानें।</p>
-                            <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
-                                <span class="text-xs text-slate-500">${count} टेस्ट • ${questionCount} प्रश्न</span>
-                                <span class="rounded-xl bg-blue-600 group-hover:bg-blue-700 text-white font-bold text-sm px-4 py-2.5">टेस्ट देखें →</span>
-                            </div>
-                        </div>`;
+                        </div><div class="p-4 flex flex-col flex-1"><div class="flex flex-wrap gap-2 text-[11px] mb-4"><span class="bg-emerald-50 text-emerald-700 rounded-full px-2.5 py-1 font-bold">✓ Free Practice</span><span class="bg-blue-50 text-blue-700 rounded-full px-2.5 py-1 font-bold">✓ Result & Review</span><span class="bg-amber-50 text-amber-800 rounded-full px-2.5 py-1 font-bold">✓ सभी सेट एक जगह</span></div><p class="text-sm text-slate-600 leading-relaxed flex-1">${sub.name} की तैयारी के लिए उपलब्ध प्रैक्टिस सेट देखें। हर टेस्ट में प्रश्नों की संख्या, समय और परिणाम की जानकारी टेस्ट शुरू करने से पहले मिलेगी।</p><div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between"><span class="text-xs text-slate-500">${count} टेस्ट • ${questionCount} प्रश्न</span><span class="rounded-xl bg-blue-600 group-hover:bg-blue-700 text-white font-bold text-sm px-4 py-2.5">टेस्ट देखें →</span></div></div>`;
                     card.addEventListener('click', () => {
                         selectedMainExamId = main.id;
                         selectedSubExamId = sub.id;
+                        renderNavigationBars();
                         renderPracticeSets();
                         document.getElementById('exam-catalog-section').classList.add('hidden');
                         document.getElementById('practice-sets-section').classList.remove('hidden');
@@ -975,6 +1016,7 @@ Exp: The chemical name of washing soda is sodium carbonate decahydrate and its f
             document.getElementById('exam-catalog-section').classList.remove('hidden');
             document.getElementById('practice-sets-section').classList.add('hidden');
             syncHomeOnlyFooter();
+            renderNavigationBars();
             renderExamCatalog();
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
@@ -1018,23 +1060,14 @@ Exp: The chemical name of washing soda is sodium carbonate decahydrate and its f
                 card.className = "bg-white rounded-2xl p-5 shadow-sm border border-slate-200 flex flex-col justify-between hover:shadow-md transition";
                 card.innerHTML = `
                     <div>
-                        <div class="flex justify-between items-center mb-3 gap-2">
+                        <div class="flex justify-between items-center mb-3">
                             <span class="bg-blue-50 text-blue-700 text-[11px] font-bold px-2.5 py-1 rounded-lg">${badgeLabel}</span>
-                            <span class="text-xs font-bold text-slate-500 whitespace-nowrap">⏱️ ${set.durationMinutes} Min</span>
+                            <span class="text-xs font-bold text-slate-500">⏱️ ${set.durationMinutes} Min</span>
                         </div>
                         <h3 class="font-bold text-slate-900 text-base mb-2">${set.title}</h3>
-                        <div class="flex flex-wrap items-center gap-2 text-xs text-slate-500 mb-4">
-                            <span>कुल प्रश्न: <strong>${set.questions.length}</strong></span>
-                            <span>•</span>
-                            <button type="button" onclick="openSetLeaderboardModal('${set.id}')" class="inline-flex items-center gap-1 text-amber-800 bg-amber-50 hover:bg-amber-100 border border-amber-200 px-2.5 py-0.5 rounded-full font-bold cursor-pointer transition">
-                                🏆 रैंक लीडरबोर्ड देखें
-                            </button>
-                        </div>
+                        <p class="text-xs text-slate-500 mb-4">कुल प्रश्न: <strong>${set.questions.length}</strong></p>
                     </div>
-                    <div class="pt-3 border-t border-slate-100 flex items-center justify-between gap-2">
-                        <button type="button" onclick="openSetLeaderboardModal('${set.id}')" class="px-3 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold transition cursor-pointer">
-                            📊 Top 10 & Rank
-                        </button>
+                    <div class="pt-3 border-t border-slate-100 flex justify-end">
                         <button type="button" onclick="initiateSetOpen(${set.id})" class="px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold transition shadow-sm cursor-pointer">प्रारंभ करें ➡️</button>
                     </div>
                 `;
@@ -1042,15 +1075,58 @@ Exp: The chemical name of washing soda is sodium carbonate decahydrate and its f
             });
         }
 
+        let pendingSetToStart = null;
+        Object.defineProperty(window, "pendingSetToStart", { configurable: true, get: () => pendingSetToStart, set: value => { pendingSetToStart = value; } });
+        let adCountdownTimer = null;
+
         function initiateSetOpen(setId) {
             const set = practiceSets.find(s => String(s.id) === String(setId));
             if (!set) return;
             pendingSetToStart = set;
             if (!window.currentStudent || !window.currentStudent.uid) {
-                showStudentLogin();
+                if (typeof window.showStudentLogin === 'function') window.showStudentLogin();
+                else alert('लॉगिन सेवा लोड हो रही है। कृपया कुछ सेकंड बाद दोबारा प्रयास करें।');
                 return;
             }
             openTermsModal(set);
+        }
+
+        function openAdUnlockModal() {
+            const modal = document.getElementById('ad-unlock-modal');
+            const btn = document.getElementById('ad-continue-btn');
+            const countEl = document.getElementById('ad-countdown');
+            const countdownWrap = document.getElementById('ad-countdown-wrap');
+            const closeX = document.getElementById('ad-close-x-btn');
+            modal.classList.remove('hidden');
+            if (closeX) closeX.classList.add('hidden');
+            let left = 5;
+            countEl.innerText = left;
+            if (countdownWrap) countdownWrap.classList.remove('hidden');
+            btn.disabled = true;
+            btn.innerText = `कृपया ${left} सेकंड प्रतीक्षा करें...`;
+            btn.className = "w-full py-3 bg-slate-300 text-slate-600 rounded-xl text-xs font-bold transition";
+
+            clearInterval(adCountdownTimer);
+            adCountdownTimer = setInterval(() => {
+                left--;
+                countEl.innerText = Math.max(0, left);
+                btn.innerText = `कृपया ${Math.max(0, left)} सेकंड प्रतीक्षा करें...`;
+                if (left <= 0) {
+                    clearInterval(adCountdownTimer);
+                    if (countdownWrap) countdownWrap.classList.add('hidden');
+                    btn.disabled = false;
+                    btn.innerText = "विज्ञापन स्किप करें और प्रैक्टिस सेट शुरू करें";
+                    btn.className = "w-full py-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold transition shadow cursor-pointer";
+                }
+            }, 1000);
+        }
+
+        function completeAdUnlock() {
+            clearInterval(adCountdownTimer);
+            document.getElementById('ad-unlock-modal').classList.add('hidden');
+            if (pendingSetToStart) {
+                openTermsModal(pendingSetToStart);
+            }
         }
 
         function openTermsModal(set) {
@@ -1137,6 +1213,9 @@ Exp: The chemical name of washing soda is sodium carbonate decahydrate and its f
 
             document.getElementById('exam-pos-marks').innerText = `सही: +${set.marksPerQuestion || 1.0}`;
             document.getElementById('exam-neg-marks').innerText = `गलत: -${set.negativeMarking || 0.25}`;
+
+            document.getElementById('top-nav-bars-wrapper')?.classList.add('hidden');
+            adjustTopFixedSpacer();
 
             document.getElementById('main-home-view').classList.add('hidden');
             document.getElementById('result-view').classList.add('hidden');
@@ -1250,181 +1329,20 @@ Exp: The chemical name of washing soda is sodium carbonate decahydrate and its f
             recordCurrentQuestionTime();
             const answeredCount = Object.keys(activeExam.userAnswers).length;
             const total = activeExam.shuffledQuestions.length;
-            if (confirm(`आपने ${total} में से ${answeredCount} प्रश्नों के उत्तर दिए हैं।\nक्या आप टेस्ट सबमिट करके अपना रिजल्ट और रैंक देखना चाहते हैं?`)) {
+            if (confirm(`आपने ${total} में से ${answeredCount} प्रश्नों के उत्तर दिए हैं।\nक्या आप टेस्ट सबमिट करना चाहते हैं?`)) {
                 clearInterval(activeExam.intervalId);
                 finishAndShowResult();
             }
         }
 
-        function formatSecondsToMMSS(sec) {
-            const s = Math.max(0, Number(sec) || 0);
-            const m = String(Math.floor(s / 60)).padStart(2, '0');
-            const r = String(s % 60).padStart(2, '0');
-            return `${m}m ${r}s`;
-        }
-
-        // Top 10 Leaderboard + 11th Row for Current Student if Rank > 10 (Single-line cells for clean horizontal scroll)
-        function renderLeaderboardRows(entries, currentUid, targetTbodyId = 'leaderboard-tbody', targetPillId = 'my-rank-pill') {
-            const tbody = document.getElementById(targetTbodyId);
-            const rankPill = document.getElementById(targetPillId);
-            if (!tbody) return;
-
-            const sorted = [...entries].sort((a, b) => {
-                if (Number(b.score) !== Number(a.score)) return Number(b.score) - Number(a.score);
-                if (Number(b.accuracy) !== Number(a.accuracy)) return Number(b.accuracy) - Number(a.accuracy);
-                return Number(a.timeTakenSeconds || 999999) - Number(b.timeTakenSeconds || 999999);
-            });
-
-            const myIndex = currentUid ? sorted.findIndex(item => String(item.studentUid) === String(currentUid)) : -1;
-            const myRank = myIndex !== -1 ? myIndex + 1 : null;
-            const totalStudents = sorted.length;
-
-            if (rankPill) {
-                if (myRank) {
-                    rankPill.textContent = `आपका स्थान: #${myRank} (${myRank}वाँ स्थान / कुल ${totalStudents} छात्र)`;
-                } else {
-                    rankPill.textContent = `कुल प्रतिभागी: ${totalStudents} छात्र`;
-                }
-            }
-
-            if (sorted.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="5" class="py-6 text-center text-slate-500 text-xs">अभी तक इस प्रैक्टिस सेट में किसी ने टेस्ट सबमिट नहीं किया है।</td></tr>`;
-                return;
-            }
-
-            const top10 = sorted.slice(0, 10);
-            tbody.innerHTML = '';
-
-            const buildRowHTML = (item, rankNum, isMe, isEleventhRow = false) => {
-                let badge = `<span class="inline-flex items-center justify-center px-2.5 py-0.5 rounded-md font-extrabold text-xs bg-slate-200 text-slate-800 whitespace-nowrap">#${rankNum} (${rankNum}वाँ स्थान)</span>`;
-                if (rankNum === 1) badge = `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md font-extrabold text-xs bg-amber-300 text-slate-950 whitespace-nowrap">🥇 #1 (1ला स्थान)</span>`;
-                else if (rankNum === 2) badge = `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md font-extrabold text-xs bg-slate-300 text-slate-900 whitespace-nowrap">🥈 #2 (2रा स्थान)</span>`;
-                else if (rankNum === 3) badge = `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md font-extrabold text-xs bg-orange-200 text-orange-950 whitespace-nowrap">🥉 #3 (3रा स्थान)</span>`;
-
-                const tr = document.createElement('tr');
-                if (isEleventhRow) {
-                    tr.className = 'bg-amber-100 border-t-2 border-amber-500 font-bold text-slate-950 whitespace-nowrap';
-                } else if (isMe) {
-                    tr.className = 'bg-blue-50 font-bold text-blue-950 whitespace-nowrap';
-                } else {
-                    tr.className = 'hover:bg-slate-100/80 text-slate-700 whitespace-nowrap';
-                }
-
-                const studentName = item.studentName || 'विद्यार्थी';
-                tr.innerHTML = `
-                    <td class="py-2.5 px-3.5 sm:px-4 whitespace-nowrap">${badge}</td>
-                    <td class="py-2.5 px-3.5 sm:px-4 whitespace-nowrap">
-                        <div class="inline-flex items-center gap-1.5">
-                            <span>${studentName}</span>
-                            ${isMe ? '<span class="text-[10px] bg-blue-600 text-white px-2 py-0.5 rounded-full font-extrabold whitespace-nowrap">आप (You)</span>' : ''}
-                        </div>
-                    </td>
-                    <td class="py-2.5 px-3.5 sm:px-4 text-center font-mono font-bold whitespace-nowrap">${Number(item.score).toFixed(2)} / ${item.maxScore || '-'}</td>
-                    <td class="py-2.5 px-3.5 sm:px-4 text-center whitespace-nowrap">${item.accuracy || 0}%</td>
-                    <td class="py-2.5 px-3.5 sm:px-4 text-right font-mono text-xs whitespace-nowrap">${formatSecondsToMMSS(item.timeTakenSeconds)}</td>
-                `;
-                return tr;
-            };
-
-            top10.forEach((item, idx) => {
-                const rankNum = idx + 1;
-                const isMe = currentUid && String(item.studentUid) === String(currentUid);
-                tbody.appendChild(buildRowHTML(item, rankNum, isMe, false));
-            });
-
-            if (myRank && myRank > 10) {
-                const sepRow = document.createElement('tr');
-                sepRow.innerHTML = `<td colspan="5" class="py-1 px-4 text-center text-[11px] font-bold text-amber-900 bg-amber-50 whitespace-nowrap">••• नीचे आपका स्थान (11वीं पंक्ति) •••</td>`;
-                tbody.appendChild(sepRow);
-
-                const myEntry = sorted[myIndex];
-                tbody.appendChild(buildRowHTML(myEntry, myRank, true, true));
-            }
-        }
-
-        // किसी भी समय (बिना टेस्ट दिए या बैक आने के बाद) लीडरबोर्ड और रैंक देखने के फंक्शन
-        async function loadAndRenderSetLeaderboard(setId, tbodyId, pillId) {
-            const currentUid = window.currentStudent?.uid || null;
-            const localLbKey = 'sss_leaderboard_set_' + String(setId);
-            let localEntries = [];
-            try { localEntries = JSON.parse(localStorage.getItem(localLbKey)) || []; } catch (_) {}
-
-            renderLeaderboardRows(localEntries, currentUid, tbodyId, pillId);
-
-            if (window.studentCloud) {
-                try {
-                    const cloudEntries = await window.studentCloud.fetchSetLeaderboard(String(setId));
-                    if (cloudEntries && cloudEntries.length > 0) {
-                        const mergedMap = new Map();
-                        [...localEntries, ...cloudEntries].forEach(item => {
-                            const prev = mergedMap.get(String(item.studentUid));
-                            if (!prev || Number(item.score) > Number(prev.score) || (Number(item.score) === Number(prev.score) && Number(item.timeTakenSeconds) < Number(prev.timeTakenSeconds))) {
-                                mergedMap.set(String(item.studentUid), item);
-                            }
-                        });
-                        renderLeaderboardRows(Array.from(mergedMap.values()), currentUid, tbodyId, pillId);
-                    }
-                } catch (_) {}
-            }
-        }
-
-        function openSetLeaderboardModal(setId, customSetList = null) {
-            const setsToChoose = customSetList && customSetList.length > 0 ? customSetList : practiceSets;
-            const targetSet = setsToChoose.find(s => String(s.id) === String(setId)) || setsToChoose[0];
-            if (!targetSet) {
-                alert('इस कोर्स में अभी कोई प्रैक्टिस सेट उपलब्ध नहीं है।');
-                return;
-            }
-
-            const modal = document.getElementById('standalone-leaderboard-modal');
-            const titleEl = document.getElementById('modal-lb-set-title');
-            const selectEl = document.getElementById('modal-lb-set-select');
-
-            if (titleEl) titleEl.textContent = targetSet.title;
-            if (selectEl) {
-                selectEl.innerHTML = '';
-                setsToChoose.forEach(s => {
-                    const opt = document.createElement('option');
-                    opt.value = String(s.id);
-                    opt.textContent = s.title;
-                    if (String(s.id) === String(targetSet.id)) opt.selected = true;
-                    selectEl.appendChild(opt);
-                });
-            }
-
-            modal.classList.remove('hidden');
-            loadAndRenderSetLeaderboard(targetSet.id, 'modal-leaderboard-tbody', 'modal-my-rank-pill');
-        }
-        window.openSetLeaderboardModal = openSetLeaderboardModal;
-
-        function openCourseLeaderboard(subExamId) {
-            const courseSets = practiceSets.filter(s => String(s.subExamId) === String(subExamId));
-            if (courseSets.length === 0) {
-                alert('इस परीक्षा श्रेणी में अभी कोई मॉक टेस्ट उपलब्ध नहीं है।');
-                return;
-            }
-            openSetLeaderboardModal(courseSets[0].id, courseSets);
-        }
-        window.openCourseLeaderboard = openCourseLeaderboard;
-
-        function changeStandaloneLeaderboardSet(newSetId) {
-            const set = practiceSets.find(s => String(s.id) === String(newSetId));
-            const titleEl = document.getElementById('modal-lb-set-title');
-            if (set && titleEl) titleEl.textContent = set.title;
-            loadAndRenderSetLeaderboard(newSetId, 'modal-leaderboard-tbody', 'modal-my-rank-pill');
-        }
-        window.changeStandaloneLeaderboardSet = changeStandaloneLeaderboardSet;
-
-        function closeStandaloneLeaderboard() {
-            document.getElementById('standalone-leaderboard-modal').classList.add('hidden');
-        }
-        window.closeStandaloneLeaderboard = closeStandaloneLeaderboard;
-
         let reviewCategory = null;
         let reviewList = [];
         let reviewIndex = 0;
 
-        async function finishAndShowResult() {
+        function finishAndShowResult() {
+            document.getElementById('top-nav-bars-wrapper')?.classList.add('hidden');
+            adjustTopFixedSpacer();
+
             document.getElementById('exam-view').classList.add('hidden');
             document.getElementById('result-view').classList.remove('hidden');
             syncHomeOnlyFooter();
@@ -1451,13 +1369,24 @@ Exp: The chemical name of washing soda is sodium carbonate decahydrate and its f
             const attempted = correct + wrong;
             const accuracy = attempted > 0 ? Math.round((correct / attempted) * 100) : 0;
 
+            if (window.studentCloud && window.currentStudent) {
+                window.studentCloud.saveAttempt({
+                    setId: String(set.id), setTitle: set.title || 'Mock Test',
+                    mainExamId: set.mainExamId || '', subExamId: set.subExamId || '',
+                    totalQuestions: total, correct, wrong, skipped, attempted,
+                    score: Number(finalScore), maxScore: Number(maxScore), accuracy,
+                    timeTakenSeconds: Number(activeExam.timeTakenSeconds || 0),
+                    completedAt: new Date().toISOString()
+                }).catch(err => console.warn('Student attempt save skipped:', err));
+            }
+
             const totalTimeSec = activeExam.timeTakenSeconds;
             const tHrs = String(Math.floor(totalTimeSec / 3600)).padStart(2, '0');
             const tMins = String(Math.floor((totalTimeSec % 3600) / 60)).padStart(2, '0');
             const tSecs = String(totalTimeSec % 60).padStart(2, '0');
 
             document.getElementById('res-set-title').innerText = set.title;
-            document.getElementById('res-score-summary').innerText = `कुल स्कोर: ${finalScore} / ${maxScore} • सटीकता: ${accuracy}% • कुल समय: ${tHrs}:${tMins}:${tSecs}`;
+            document.getElementById('res-score-summary').innerText = `कुल स्कोर: ${finalScore} / ${maxScore} • सटीकता: ${accuracy}% • कुल समय लिया गया: ${tHrs}:${tMins}:${tSecs}`;
 
             document.getElementById('res-total').innerText = total;
             document.getElementById('res-correct').innerText = correct;
@@ -1467,57 +1396,6 @@ Exp: The chemical name of washing soda is sodium carbonate decahydrate and its f
             document.getElementById('filtered-questions-wrapper').classList.add('hidden');
             resetBoxHighlights();
             window.scrollTo({ top: 0, behavior: 'smooth' });
-
-            const currentStudent = window.currentStudent || { uid: 'guest_' + Date.now(), displayName: 'विद्यार्थी' };
-            const attemptPayload = {
-                setId: String(set.id),
-                setTitle: set.title || 'Mock Test',
-                studentUid: currentStudent.uid,
-                studentName: currentStudent.displayName || currentStudent.email || 'विद्यार्थी',
-                totalQuestions: total,
-                correct,
-                wrong,
-                skipped,
-                attempted,
-                score: Number(finalScore),
-                maxScore: Number(maxScore),
-                accuracy,
-                timeTakenSeconds: Number(activeExam.timeTakenSeconds || 0),
-                completedAt: new Date().toISOString()
-            };
-
-            const localLbKey = 'sss_leaderboard_set_' + String(set.id);
-            let localEntries = [];
-            try { localEntries = JSON.parse(localStorage.getItem(localLbKey)) || []; } catch (_) {}
-            const existingIdx = localEntries.findIndex(e => String(e.studentUid) === String(currentStudent.uid));
-            if (existingIdx !== -1) {
-                const prev = localEntries[existingIdx];
-                if (attemptPayload.score > prev.score || (attemptPayload.score === prev.score && attemptPayload.timeTakenSeconds < prev.timeTakenSeconds)) {
-                    localEntries[existingIdx] = attemptPayload;
-                }
-            } else {
-                localEntries.push(attemptPayload);
-            }
-            try { localStorage.setItem(localLbKey, JSON.stringify(localEntries)); } catch (_) {}
-
-            renderLeaderboardRows(localEntries, currentStudent.uid, 'leaderboard-tbody', 'my-rank-pill');
-
-            if (window.studentCloud) {
-                try {
-                    await window.studentCloud.saveAttemptAndLeaderboard(attemptPayload);
-                    const cloudEntries = await window.studentCloud.fetchSetLeaderboard(String(set.id));
-                    if (cloudEntries && cloudEntries.length > 0) {
-                        const mergedMap = new Map();
-                        [...localEntries, ...cloudEntries].forEach(item => {
-                            const prev = mergedMap.get(String(item.studentUid));
-                            if (!prev || Number(item.score) > Number(prev.score) || (Number(item.score) === Number(prev.score) && Number(item.timeTakenSeconds) < Number(prev.timeTakenSeconds))) {
-                                mergedMap.set(String(item.studentUid), item);
-                            }
-                        });
-                        renderLeaderboardRows(Array.from(mergedMap.values()), currentStudent.uid, 'leaderboard-tbody', 'my-rank-pill');
-                    }
-                } catch (_) {}
-            }
         }
 
         function resetBoxHighlights() {
@@ -1665,6 +1543,8 @@ Exp: The chemical name of washing soda is sodium carbonate decahydrate and its f
             document.getElementById('result-view').classList.add('hidden');
             document.getElementById('main-home-view').classList.remove('hidden');
             syncHomeOnlyFooter();
+            document.getElementById('top-nav-bars-wrapper').classList.remove('hidden');
+            adjustTopFixedSpacer();
             renderPracticeSets();
         }
 
@@ -1712,6 +1592,7 @@ Exp: The chemical name of washing soda is sodium carbonate decahydrate and its f
             saveHierarchyToStorage();
             renderAdminExamManagers();
             populateMainExamDropdownForSet();
+            renderNavigationBars();
             renderExamCatalog();
         }
 
@@ -1721,6 +1602,7 @@ Exp: The chemical name of washing soda is sodium carbonate decahydrate and its f
                 saveHierarchyToStorage();
                 renderAdminExamManagers();
                 populateMainExamDropdownForSet();
+                renderNavigationBars();
             }
         }
 
@@ -1735,6 +1617,7 @@ Exp: The chemical name of washing soda is sodium carbonate decahydrate and its f
                 saveHierarchyToStorage();
                 renderAdminSubExamTags();
                 populateMainExamDropdownForSet();
+                renderNavigationBars();
                 renderExamCatalog();
             }
         }
@@ -1746,6 +1629,7 @@ Exp: The chemical name of washing soda is sodium carbonate decahydrate and its f
                 saveHierarchyToStorage();
                 renderAdminSubExamTags();
                 populateMainExamDropdownForSet();
+                renderNavigationBars();
             }
         }
 
@@ -1798,7 +1682,7 @@ Exp: The chemical name of washing soda is sodium carbonate decahydrate and its f
             }
             const parsedQuestions = parseQuestionsFromText(rawText);
             if (parsedQuestions.length === 0) {
-                alert("❌ फॉर्मेट सही नहीं है!");
+                alert("❌ फॉर्मेट सही नहीं है!\n\nसही फॉर्मेट:\nQ: प्रश्न\nA) विकल्प\nB) विकल्प\nC) विकल्प\nD) विकल्प\nAns: 1\nExp: व्याख्या");
                 return;
             }
 
@@ -1810,6 +1694,8 @@ Exp: The chemical name of washing soda is sodium carbonate decahydrate and its f
                     practiceSets[idx] = { ...practiceSets[idx], title, mainExamId, subExamId, durationMinutes: duration, marksPerQuestion: posMarks, negativeMarking: negMarks, isLocked, rawText, questions: parsedQuestions };
                     cloudSaveSet(practiceSets[idx]);
                     alert(`✅ प्रैक्टिस सेट अपडेट हो गया! (${parsedQuestions.length} प्रश्न)`);
+                } else {
+                    alert("एडिट करने के लिए सेट नहीं मिला!");
                 }
             } else {
                 const newId = Date.now();
@@ -1829,12 +1715,12 @@ Exp: The chemical name of washing soda is sodium carbonate decahydrate and its f
             document.getElementById('edit-set-id').value = '';
             document.getElementById('set-title-inp').value = '';
             document.getElementById('bulk-questions-inp').value = '';
-            document.getElementById('form-mode-title').innerText = '➕ प्रैक्टिस सेट और प्रश्न जोड़ें';
+            document.getElementById('form-mode-title').innerText = '➕ प्रैक्टिस सेट और 50+ प्रश्न जोड़ें';
         }
 
         function editPracticeSet(setId) {
             const set = practiceSets.find(s => String(s.id) === String(setId));
-            if (!set) return;
+            if (!set) { alert("सेट नहीं मिला!"); return; }
             document.getElementById('edit-set-id').value = String(set.id);
             document.getElementById('set-main-exam-inp').value = set.mainExamId;
             populateSubExamDropdownForSet();
@@ -1843,8 +1729,10 @@ Exp: The chemical name of washing soda is sodium carbonate decahydrate and its f
             document.getElementById('set-duration-inp').value = set.durationMinutes;
             document.getElementById('set-pos-inp').value = set.marksPerQuestion || 1.0;
             document.getElementById('set-neg-inp').value = set.negativeMarking || 0.25;
+            document.getElementById('set-locked-inp').checked = true;
             document.getElementById('bulk-questions-inp').value = set.rawText || '';
             document.getElementById('form-mode-title').innerText = '✏️ प्रैक्टिस सेट एडिट करें';
+            document.getElementById('form-mode-title').scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
 
         function deletePracticeSet(setId) {
@@ -1855,6 +1743,7 @@ Exp: The chemical name of washing soda is sodium carbonate decahydrate and its f
                 saveSetsToStorage();
                 renderAdminSetsList();
                 renderPracticeSets();
+                alert("🗑️ सेट डिलीट हो गया!");
             }
         }
 
@@ -1882,22 +1771,146 @@ Exp: The chemical name of washing soda is sodium carbonate decahydrate and its f
             });
         }
 
+        async function loadBackupList() {
+            const box = document.getElementById('backup-list');
+            if (!window.cloud) {
+                box.innerHTML = '<p class="text-xs text-red-600">Firebase अभी कनेक्ट नहीं है। पेज रीलोड करके देखें।</p>';
+                return;
+            }
+            box.innerHTML = '<p class="text-xs text-slate-500">लोड हो रहा है...</p>';
+            try {
+                const items = await window.cloud.listBackups();
+                if (!items.length) {
+                    box.innerHTML = '<p class="text-xs text-slate-500">अभी कोई बैकअप नहीं मिला।</p>';
+                    return;
+                }
+                box.innerHTML = '';
+                items.forEach(b => {
+                    const when = b.createdAt && b.createdAt.toDate ? b.createdAt.toDate().toLocaleString('hi-IN') : 'अभी';
+                    const row = document.createElement('div');
+                    row.className = 'bg-white p-3 rounded-lg border border-slate-200 flex flex-wrap justify-between items-center gap-2';
+                    const info = document.createElement('div');
+                    info.innerHTML = `<span class="text-xs font-bold text-slate-800 block">${b.reason || 'बैकअप'}</span><span class="text-[11px] text-slate-500">${when} • ${(b.sets || []).length} सेट्स</span>`;
+                    const btn = document.createElement('button');
+                    btn.type = 'button';
+                    btn.className = 'px-3 py-1.5 bg-indigo-600 text-white rounded-lg text-xs font-bold cursor-pointer';
+                    btn.innerText = '♻️ रिस्टोर';
+                    btn.onclick = () => restoreFromBackup(b);
+                    row.appendChild(info);
+                    row.appendChild(btn);
+                    box.appendChild(row);
+                });
+            } catch (e) {
+                box.innerHTML = `<p class="text-xs text-red-600">त्रुटि: ${e.message}</p>`;
+            }
+        }
+
+        async function restoreFromBackup(b) {
+            if (!confirm('क्या आप इस बैकअप को रिस्टोर करना चाहते हैं? मौजूदा डेटा का भी नया बैकअप ले लिया जाएगा।')) return;
+            try {
+                await window.cloud.backup({ reason: 'रिस्टोर से पहले', sets: practiceSets, hierarchy: examHierarchy });
+                await window.cloud.restore({ sets: b.sets || [], hierarchy: b.hierarchy });
+                alert('✅ बैकअप रिस्टोर हो गया!');
+                loadBackupList();
+            } catch (e) {
+                alert('रिस्टोर में त्रुटि: ' + e.message);
+            }
+        }
+
+        // Legal Pages Content & Modal Logic
         const legalPagesContent = {
             about: {
                 title: "📖 हमारे बारे में (About Us) - SANTALI SMART STUDY",
-                html: `<div class="space-y-3"><h4 class="text-base font-bold text-slate-900">SANTALI SMART STUDY में आपका स्वागत है!</h4><p><strong>SANTALI SMART STUDY</strong> एक समर्पित ऑनलाइन एजुकेशनल और मॉक टेस्ट (Mock Test) प्लेटफॉर्म है। यहाँ सभी प्रतियोगी परीक्षाओं के लिए संताली और सामान्य अध्ययन के प्रैक्टिस सेट्स व लीडरबोर्ड उपलब्ध हैं।</p><p>📧 ईमेल: <a href="mailto:bhootn75@gmail.com" class="text-blue-600 underline">bhootn75@gmail.com</a> | 📢 टेलीग्राम: <a href="https://t.me/santalisstudy" target="_blank" class="text-blue-600 underline">@santalisstudy</a></p></div>`
+                html: `
+                    <div class="space-y-3">
+                        <h4 class="text-base font-bold text-slate-900">SANTALI SMART STUDY में आपका स्वागत है!</h4>
+                        <p><strong>SANTALI SMART STUDY</strong> एक समर्पित ऑनलाइन एजुकेशनल और मॉक टेस्ट (Mock Test) प्लेटफॉर्म है। हमारा मुख्य उद्देश्य उन सभी विद्यार्थियों और अभ्यर्थियों की सहायता करना है जो विभिन्न प्रतियोगी परीक्षाओं (Competitive Exams) की तैयारी कर रहे हैं।</p>
+                        
+                        <h5 class="font-bold text-slate-900 pt-2">🎯 हमारा मुख्य उद्देश्य (Our Mission):</h5>
+                        <p>जितने भी कंपटीशन एग्जाम (जैसे JSSC CGL, JSSC झारखंड पुलिस, उत्पाद सिपाही, कक्षपाल, JPSC, JTET, UGC-NET/JRF, सहायक आचार्य, रेलवे, SSC आदि) में <strong>संताली (Santali)</strong> विषय से संबंधित प्रश्न पूछे जाते हैं, हमारा निरंतर प्रयास है कि उन सभी परीक्षाओं के लिए उच्च-स्तरीय <strong>संताली मॉक टेस्ट (Santali Mock Tests)</strong> और प्रैक्टिस सेट्स इस वेबसाइट पर उपलब्ध कराए जाएं। इसके अतिरिक्त यहाँ सामान्य ज्ञान, सामान्य विज्ञान और अन्य विषयों के भी द्विभाषी (Hindi & English) प्रैक्टिस सेट्स उपलब्ध हैं।</p>
+
+                        <h5 class="font-bold text-slate-900 pt-2">✨ हमारी विशेषताएं:</h5>
+                        <ul class="list-disc pl-5 space-y-1">
+                            <li>सभी प्रतियोगी परीक्षाओं के लिए संताली भाषा एवं साहित्य (Santali Language & Literature) के विशेष मॉक टेस्ट।</li>
+                            <li>नवीनतम परीक्षा पैटर्न पर आधारित समयबद्ध (Timer-Based) ऑनलाइन टेस्ट सीरीज।</li>
+                            <li>प्रत्येक प्रश्न का तुरंत परिणाम, सटीकता (Accuracy) विश्लेषण और विस्तृत व्याख्या (Explanation)।</li>
+                            <li>मोबाइल और कंप्यूटर दोनों पर आसानी से उपयोग करने योग्य इंटरफ़ेस।</li>
+                        </ul>
+
+                        <div class="bg-blue-50 p-4 rounded-xl border border-blue-200 mt-4">
+                            <p class="font-bold text-blue-950">हमारे साथ जुड़ें:</p>
+                            <p class="mt-1">📧 आधिकारिक ईमेल: <a href="mailto:bhootn75@gmail.com" class="text-blue-600 font-semibold underline">bhootn75@gmail.com</a></p>
+                            <p>📢 टेलीग्राम चैनल: <a href="https://t.me/santalisstudy" target="_blank" rel="noopener noreferrer" class="text-blue-600 font-semibold underline">SANTALI SMART STUDY (@santalisstudy)</a></p>
+                        </div>
+                    </div>
+                `
             },
             contact: {
                 title: "📞 संपर्क करें (Contact Us)",
-                html: `<div class="space-y-3"><p>किसी भी सहायता या सुझाव के लिए संपर्क करें:</p><p>📧 Email: <a href="mailto:bhootn75@gmail.com" class="text-blue-600 font-bold">bhootn75@gmail.com</a></p><p>📢 Telegram: <a href="https://t.me/santalisstudy" target="_blank" class="text-indigo-600 font-bold">SANTALI SMART STUDY (@santalisstudy)</a></p></div>`
+                html: `
+                    <div class="space-y-4">
+                        <p>यदि आपको हमारी वेबसाइट <strong>SANTALI SMART STUDY</strong>, संताली मॉक टेस्ट, किसी प्रश्न में सुधार, विज्ञापन, या किसी अन्य विषय से संबंधित कोई भी जानकारी या सहायता चाहिए, तो आप नीचे दिए गए माध्यमों से हमसे सीधे संपर्क कर सकते हैं:</p>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-4">
+                            <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                                <h5 class="font-bold text-slate-900 mb-1">📧 ईमेल द्वारा संपर्क (Email Support)</h5>
+                                <p class="text-xs text-slate-500 mb-2">आप हमें किसी भी समय ईमेल भेज सकते हैं, हम 24-48 घंटों के भीतर उत्तर देने का प्रयास करेंगे:</p>
+                                <a href="mailto:bhootn75@gmail.com" class="text-blue-600 font-bold hover:underline break-all">bhootn75@gmail.com</a>
+                            </div>
+                            <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                                <h5 class="font-bold text-slate-900 mb-1">📢 टेलीग्राम चैनल (Telegram)</h5>
+                                <p class="text-xs text-slate-500 mb-2">नवीनतम संताली मॉक टेस्ट अपडेट्स और स्टडी मटेरियल के लिए हमारे टेलीग्राम चैनल से जुड़ें:</p>
+                                <a href="https://t.me/santalisstudy" target="_blank" rel="noopener noreferrer" class="text-indigo-600 font-bold hover:underline">SANTALI SMART STUDY (@santalisstudy)</a>
+                            </div>
+                        </div>
+
+                        <div class="bg-amber-50 p-4 rounded-xl border border-amber-200">
+                            <h5 class="font-bold text-amber-900 mb-1">💡 सुझाव एवं फीडबैक:</h5>
+                            <p class="text-xs text-amber-800">हम इस वेबसाइट पर सभी प्रतियोगी परीक्षाओं के संताली विषय के मॉक टेस्ट उपलब्ध कराने के लिए प्रतिबद्ध हैं। यदि आप किसी विशेष परीक्षा का संताली प्रैक्टिस सेट चाहते हैं, तो हमें ईमेल या टेलीग्राम पर अवश्य बताएं।</p>
+                        </div>
+                    </div>
+                `
             },
             privacy: {
                 title: "🔒 गोपनीयता नीति (Privacy Policy)",
-                html: `<div class="space-y-3"><p><strong>SANTALI SMART STUDY</strong> अपने उपयोगकर्ताओं की गोपनीयता का सम्मान करता है। आपका नाम और स्कोर केवल आपको मॉक टेस्ट परिणाम और लीडरबोर्ड रैंक दिखाने के लिए उपयोग किया जाता है।</p></div>`
+                html: `
+                    <div class="space-y-3">
+                        <p><strong>SANTALI SMART STUDY</strong> में, हम अपने उपयोगकर्ताओं (Users) की गोपनीयता (Privacy) का पूरा सम्मान करते हैं। यह गोपनीयता नीति बताती है कि जब आप हमारी वेबसाइट का उपयोग करते हैं, तो हम आपकी जानकारी को कैसे एकत्रित और सुरक्षित रखते हैं।</p>
+
+                        <h5 class="font-bold text-slate-900 pt-2">1. जानकारी का संग्रह (Information We Collect):</h5>
+                        <p>हमारी वेबसाइट पर मॉक टेस्ट देने के लिए हम किसी भी छात्र से कोई संवेदनशील व्यक्तिगत जानकारी (जैसे बैंक विवरण) नहीं मांगते हैं। आपके टेस्ट की प्रगति और सेटिंग्स को सुचारू रूप से चलाने के लिए केवल ब्राउज़र के लोकल स्टोरेज (Local Storage) और सुरक्षित क्लाउड प्रमाणीकरण का उपयोग किया जाता है।</p>
+
+                        <h5 class="font-bold text-slate-900 pt-2">2. लॉग फाइल्स (Log Files):</h5>
+                        <p>अन्य मानक वेबसाइटों की तरह, हमारी वेबसाइट भी लॉग फाइल्स का उपयोग करती है। इसमें इंटरनेट प्रोटोकॉल (IP) एड्रेस, ब्राउज़र का प्रकार, इंटरनेट सेवा प्रदाता (ISP), दिनांक/समय स्टैम्प और क्लिक संख्या शामिल हो सकती है।</p>
+
+                        <h5 class="font-bold text-slate-900 pt-2">3. कुकीज़ और Google AdSense (Cookies & Google DoubleClick DART Cookie):</h5>
+                        <ul class="list-disc pl-5 space-y-1.5">
+                            <li><strong>Google</strong> हमारी वेबसाइट पर एक तृतीय-पक्ष विक्रेता (Third-party vendor) के रूप में कार्य करता है।</li>
+                            <li>Google हमारी साइट के उपयोगकर्ताओं को विज्ञापन दिखाने के लिए कुकीज़ (जिन्हें <strong>DART कुकीज़</strong> कहा जाता है) का उपयोग करता है।</li>
+                            <li>उपयोगकर्ता Google विज्ञापन और कंटेंट नेटवर्क गोपनीयता नीति पर जाकर DART कुकी के उपयोग को अस्वीकार (Opt-out) कर सकते हैं: <a href="https://policies.google.com/technologies/ads" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline">https://policies.google.com/technologies/ads</a></li>
+                        </ul>
+
+                        <h5 class="font-bold text-slate-900 pt-2">4. संपर्क करें:</h5>
+                        <p>यदि इस गोपनीयता नीति के संबंध में आपके कोई प्रश्न हैं, तो आप हमसे ईमेल (<a href="mailto:bhootn75@gmail.com" class="text-blue-600 underline">bhootn75@gmail.com</a>) या टेलीग्राम (<a href="https://t.me/santalisstudy" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline">@santalisstudy</a>) पर संपर्क कर सकते हैं।</p>
+                    </div>
+                `
             },
             terms: {
                 title: "📋 नियम एवं शर्तें (Terms & Conditions)",
-                html: `<div class="space-y-3"><p>इस वेबसाइट पर उपलब्ध सभी मॉक टेस्ट केवल शैक्षिक अभ्यास के लिए हैं।</p></div>`
+                html: `
+                    <div class="space-y-3">
+                        <p><strong>SANTALI SMART STUDY</strong> वेबसाइट पर आने के लिए धन्यवाद। इस वेबसाइट का उपयोग करने से पहले कृपया निम्नलिखित नियम एवं शर्तों को ध्यानपूर्वक पढ़ें:</p>
+
+                        <h5 class="font-bold text-slate-900 pt-2">1. शैक्षिक उद्देश्य (Educational Purpose):</h5>
+                        <p>इस वेबसाइट पर उपलब्ध कराए गए सभी संताली मॉक टेस्ट (Santali Mock Tests), सामान्य ज्ञान प्रैक्टिस सेट्स, प्रश्नोत्तरी और व्याख्याएं केवल विद्यार्थियों के अभ्यास और शैक्षिक सहायता के लिए हैं।</p>
+
+                        <h5 class="font-bold text-slate-900 pt-2">2. बौद्धिक संपदा अधिकार (Intellectual Property Rights):</h5>
+                        <p>इस पोर्टल पर प्रकाशित सभी प्रश्न-संग्रह, संताली टेस्ट सेट्स, डिज़ाइन और अध्ययन सामग्री <strong>SANTALI SMART STUDY</strong> की संपत्ति हैं। बिना पूर्व लिखित अनुमति के इस सामग्री को किसी अन्य व्यावसायिक वेबसाइट या ऐप पर कॉपी करके पुनः प्रकाशित करना वर्जित है।</p>
+
+                        <h5 class="font-bold text-slate-900 pt-2">3. संपर्क जानकारी:</h5>
+                        <p>किसी भी प्रश्न या स्पष्टीकरण के लिए हमें <strong>bhootn75@gmail.com</strong> पर ईमेल करें या हमारे टेलीग्राम चैनल <strong>SANTALI SMART STUDY (@santalisstudy)</strong> से जुड़ें।</p>
+                    </div>
+                `
             }
         };
 
@@ -1906,6 +1919,16 @@ Exp: The chemical name of washing soda is sodium carbonate decahydrate and its f
             if (!page) return;
             document.getElementById('legal-modal-title').innerText = page.title;
             document.getElementById('legal-modal-body').innerHTML = page.html;
+
+            ['about', 'contact', 'privacy', 'terms'].forEach(k => {
+                const btn = document.getElementById('tab-legal-' + k);
+                if (btn) {
+                    btn.className = k === pageKey
+                        ? 'px-3 py-1.5 rounded-lg text-xs font-bold cursor-pointer transition bg-blue-600 text-white shadow-sm'
+                        : 'px-3 py-1.5 rounded-lg text-xs font-bold cursor-pointer transition bg-white text-slate-700 border border-slate-300 hover:bg-slate-200';
+                }
+            });
+
             document.getElementById('legal-pages-modal').classList.remove('hidden');
         }
 
@@ -1913,30 +1936,35 @@ Exp: The chemical name of washing soda is sodium carbonate decahydrate and its f
             document.getElementById('legal-pages-modal').classList.add('hidden');
         }
 
+        renderNavigationBars();
         renderExamCatalog();
         renderPracticeSets();
         syncHomeOnlyFooter();
+        setTimeout(adjustTopFixedSpacer, 100);
     </script>
 
-    <!-- Official Working Firebase SDK (v10.14.1) for Google Account Picker & Cloud Leaderboard -->
+    <!-- Firebase Authentication & Firestore Module -->
     <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-analytics.js";
         import {
             getAuth,
+            RecaptchaVerifier,
+            signInWithPhoneNumber,
             GoogleAuthProvider,
             signInWithPopup,
             signInWithRedirect,
-            getRedirectResult,
             createUserWithEmailAndPassword,
             signInWithEmailAndPassword,
+            sendPasswordResetEmail,
             updateProfile,
             onAuthStateChanged,
             signOut
-        } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+        } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-auth.js";
         import {
             getFirestore, collection, doc, getDoc, getDocs, setDoc, deleteDoc, addDoc,
-            onSnapshot, query, where, orderBy, limit, serverTimestamp
-        } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
+            onSnapshot, query, orderBy, limit, serverTimestamp
+        } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyBxfv8UNc9oqeYYRgbSJ46WL6S-XaCrX-s",
@@ -1949,115 +1977,291 @@ Exp: The chemical name of washing soda is sodium carbonate decahydrate and its f
         };
 
         const app = initializeApp(firebaseConfig);
+        try { getAnalytics(app); } catch (_) {}
         const db = getFirestore(app);
         const auth = getAuth(app);
         auth.languageCode = 'hi';
 
-        const googleProvider = new GoogleAuthProvider();
-        googleProvider.setCustomParameters({
-            prompt: 'select_account'
+        let confirmationResult = null;
+        let recaptchaVerifier = null;
+        window.currentStudent = null;
+
+        const authGate = document.getElementById('phone-auth-gate');
+        const authMessage = document.getElementById('auth-message');
+        const headerLoginBtn = document.getElementById('header-login-btn');
+        const headerUserInfo = document.getElementById('header-user-info');
+        const headerUserLabel = document.getElementById('header-user-label');
+
+        function authStatus(message, error = false) {
+            if (!authMessage) return;
+            authMessage.textContent = message;
+            authMessage.className = 'text-xs mt-3 p-2.5 rounded-xl border text-center font-semibold ' +
+                (error ? 'bg-red-50 border-red-200 text-red-700' : 'bg-blue-50 border-blue-200 text-blue-800');
+        }
+
+        function formatFirebaseAuthError(err) {
+            const code = err?.code || '';
+            if (code === 'auth/email-already-in-use') return 'यह ईमेल पहले से पंजीकृत है। कृपया "लॉगिन करें" विकल्प चुनें।';
+            if (code === 'auth/invalid-email') return 'कृपया सही ईमेल आईडी दर्ज करें।';
+            if (code === 'auth/weak-password') return 'पासवर्ड कम से कम 6 अक्षरों का होना चाहिए।';
+            if (code === 'auth/invalid-credential' || code === 'auth/wrong-password' || code === 'auth/user-not-found') {
+                return 'ईमेल या पासवर्ड गलत है, या अकाउंट नहीं बना है। नया अकाउंट बनाने के लिए Sign Up चुनें।';
+            }
+            if (code === 'auth/popup-closed-by-user') return 'लॉगिन पॉपअप बंद कर दिया गया। कृपया दोबारा प्रयास करें।';
+            if (code === 'auth/unauthorized-domain') return 'यह डोमेन Firebase Auth में अधिकृत नहीं है। कृपया ईमेल/पासवर्ड से साइन-अप करें।';
+            if (code === 'auth/operation-not-allowed') return 'यह लॉगिन विधि Firebase Console में अभी बंद है। कृपया दूसरा विकल्प चुनें।';
+            if (code === 'auth/billing-not-enabled' || code === 'auth/quota-exceeded') {
+                return 'मोबाइल SMS सेवा अभी व्यस्त है। कृपया Google (Gmail) या ईमेल/पासवर्ड से लॉगिन करें।';
+            }
+            return err?.message || 'प्रमाणीकरण में समस्या आई। कृपया पुनः प्रयास करें।';
+        }
+
+        window.showStudentLogin = () => {
+            authGate.classList.remove('hidden');
+            document.body.classList.add('overflow-hidden');
+            authStatus('प्रैक्टिस सेट शुरू करने के लिए Google, ईमेल या मोबाइल से लॉगिन करें।');
+        };
+
+        window.hideStudentLogin = () => {
+            authGate.classList.add('hidden');
+            document.body.classList.remove('overflow-hidden');
+        };
+
+        window.logoutStudent = async () => {
+            try {
+                await signOut(auth);
+            } catch (e) {
+                console.error(e);
+            }
+            localStorage.removeItem('sss_local_student_v1');
+            window.currentStudent = null;
+            updateHeaderAuthUI(null);
+        };
+
+        function updateHeaderAuthUI(student) {
+            if (student && student.uid) {
+                headerLoginBtn?.classList.add('hidden');
+                headerUserInfo?.classList.remove('hidden');
+                headerUserInfo?.classList.add('flex');
+                if (headerUserLabel) {
+                    headerUserLabel.textContent = student.displayName || student.email || student.phoneNumber || 'Student';
+                }
+            } else {
+                headerLoginBtn?.classList.remove('hidden');
+                headerUserInfo?.classList.add('hidden');
+                headerUserInfo?.classList.remove('flex');
+            }
+        }
+
+        // पूर्ण लॉगिन हैंडलर: यदि Firestore Rules में अनुमति न भी हो, तब भी यूजर को ब्लॉक नहीं करेगा
+        async function completeStudentLogin(user, extraName = '') {
+            const studentObj = {
+                uid: user.uid,
+                displayName: extraName || user.displayName || '',
+                email: user.email || '',
+                phoneNumber: user.phoneNumber || ''
+            };
+            window.currentStudent = studentObj;
+            try {
+                localStorage.setItem('sss_local_student_v1', JSON.stringify(studentObj));
+            } catch (_) {}
+
+            updateHeaderAuthUI(studentObj);
+            window.hideStudentLogin();
+
+            // Firestore में सेव करने का प्रयास करें (नियम सख्त होने पर भी टेस्ट नहीं रुकेगा)
+            try {
+                const studentRef = doc(db, 'students', user.uid);
+                await setDoc(studentRef, {
+                    uid: user.uid,
+                    displayName: studentObj.displayName,
+                    email: studentObj.email,
+                    phoneNumber: studentObj.phoneNumber,
+                    lastLoginAt: serverTimestamp(),
+                    updatedAt: serverTimestamp()
+                }, { merge: true });
+            } catch (dbErr) {
+                console.warn('Firestore profile sync skipped:', dbErr);
+            }
+
+            if (typeof renderExamCatalog === 'function') renderExamCatalog();
+            if (window.pendingSetToStart && typeof openTermsModal === 'function') {
+                const requestedSet = window.pendingSetToStart;
+                window.pendingSetToStart = null;
+                openTermsModal(requestedSet);
+            }
+        }
+
+        // 1. Google (Gmail) Login Handler
+        const googleLoginBtn = document.getElementById('google-login-btn');
+        googleLoginBtn?.addEventListener('click', async () => {
+            authStatus('Google (Gmail) से कनेक्ट किया जा रहा है…');
+            const provider = new GoogleAuthProvider();
+            try {
+                const result = await signInWithPopup(auth, provider);
+                await completeStudentLogin(result.user);
+            } catch (err) {
+                if (err?.code === 'auth/popup-blocked') {
+                    try {
+                        await signInWithRedirect(auth, provider);
+                        return;
+                    } catch (redirErr) {
+                        authStatus(formatFirebaseAuthError(redirErr), true);
+                        return;
+                    }
+                }
+                console.error(err);
+                authStatus(formatFirebaseAuthError(err), true);
+            }
         });
 
-        window.firebaseSignOut = () => signOut(auth);
+        // 2. Email & Password Sign Up / Login Handler
+        const emailSubmitBtn = document.getElementById('email-submit-btn');
+        emailSubmitBtn?.addEventListener('click', async () => {
+            const nameVal = document.getElementById('auth-name')?.value.trim() || '';
+            const emailVal = document.getElementById('auth-email')?.value.trim() || '';
+            const passVal = document.getElementById('auth-password')?.value || '';
 
-        window.cloudSaveStudentProfile = async (studentObj) => {
-            await setDoc(doc(db, 'students', String(studentObj.uid)), {
-                uid: String(studentObj.uid),
-                displayName: studentObj.displayName || 'विद्यार्थी',
-                email: studentObj.email || '',
-                lastLoginAt: serverTimestamp()
-            }, { merge: true });
-        };
-
-        window.firebaseDirectEmailAuth = async (email, password, name) => {
-            let cred;
-            try {
-                cred = await signInWithEmailAndPassword(auth, email, password);
-            } catch (_) {
-                cred = await createUserWithEmailAndPassword(auth, email, password);
+            if (!emailVal || !/^\S+@\S+\.\S+$/.test(emailVal)) {
+                authStatus('कृपया सही ईमेल (Gmail) आईडी दर्ज करें।', true);
+                return;
             }
-            if (name) {
-                try { await updateProfile(cred.user, { displayName: name }); } catch (_) {}
+            if (!passVal || passVal.length < 6) {
+                authStatus('कृपया कम से कम 6 अक्षरों का पासवर्ड दर्ज करें।', true);
+                return;
             }
-            return cred.user;
-        };
+            if (window.isEmailSignupMode && !nameVal) {
+                authStatus('कृपया अपना नाम दर्ज करें।', true);
+                return;
+            }
 
-        window.triggerFirebaseGoogleSignIn = async () => {
-            const btn = document.getElementById('google-login-btn');
-            setAuthStatusText('मोबाइल में लॉगिन सभी Gmail अकाउंट्स की लिस्ट खोली जा रही है...');
-            if (btn) btn.disabled = true;
+            emailSubmitBtn.disabled = true;
+            const originalText = emailSubmitBtn.textContent;
+            emailSubmitBtn.textContent = 'कृपया प्रतीक्षा करें…';
 
             try {
-                const result = await signInWithPopup(auth, googleProvider);
-                const user = result.user;
-                await window.completeStudentLogin({
-                    uid: user.uid,
-                    displayName: user.displayName || user.email?.split('@')[0] || 'विद्यार्थी',
-                    email: user.email || ''
-                });
-            } catch (err) {
-                const code = err?.code || '';
-                if (code === 'auth/popup-blocked') {
-                    await signInWithRedirect(auth, googleProvider);
-                    return;
-                } else if (code === 'auth/unauthorized-domain') {
-                    setAuthStatusText('नोट: इस वेबसाइट का डोमेन अभी Firebase Console > Authorized domains में नहीं जुड़ा है। फिलहाल नीचे नाम और Gmail लिखकर तुरंत लॉगिन करें।', true);
-                } else if (code === 'auth/operation-not-allowed') {
-                    setAuthStatusText('नोट: Firebase Console में Google Sign-In अभी Enable नहीं है। कृपया नीचे नाम और Gmail लिखकर तुरंत लॉगिन करें।', true);
-                } else if (code === 'auth/popup-closed-by-user') {
-                    setAuthStatusText('आपने Gmail चुनने वाली विंडो बंद कर दी। दोबारा क्लिक करें।', true);
+                if (window.isEmailSignupMode) {
+                    const cred = await createUserWithEmailAndPassword(auth, emailVal, passVal);
+                    if (nameVal) {
+                        try { await updateProfile(cred.user, { displayName: nameVal }); } catch (_) {}
+                    }
+                    authStatus('नया अकाउंट सफलतापूर्वक बन गया है!');
+                    await completeStudentLogin(cred.user, nameVal);
                 } else {
-                    setAuthStatusText('कृपया नीचे अपना नाम, Gmail और कोई भी 6 अंकों का पासवर्ड डालकर तुरंत Login / Sign In करें।', true);
+                    const cred = await signInWithEmailAndPassword(auth, emailVal, passVal);
+                    authStatus('लॉगिन सफल रहा!');
+                    await completeStudentLogin(cred.user);
                 }
+            } catch (err) {
+                console.error(err);
+                authStatus(formatFirebaseAuthError(err), true);
             } finally {
-                if (btn) btn.disabled = false;
+                emailSubmitBtn.disabled = false;
+                emailSubmitBtn.textContent = originalText;
             }
-        };
+        });
 
-        getRedirectResult(auth).then(async (result) => {
-            if (result && result.user) {
-                const user = result.user;
-                await window.completeStudentLogin({
-                    uid: user.uid,
-                    displayName: user.displayName || user.email?.split('@')[0] || 'विद्यार्थी',
-                    email: user.email || ''
-                });
+        // Forgot Password Handler
+        const forgotPassBtn = document.getElementById('forgot-pass-btn');
+        forgotPassBtn?.addEventListener('click', async () => {
+            const emailVal = document.getElementById('auth-email')?.value.trim() || '';
+            if (!emailVal || !/^\S+@\S+\.\S+$/.test(emailVal)) {
+                authStatus('पासवर्ड रीसेट लिंक पाने के लिए पहले ऊपर बॉक्स में अपना ईमेल लिखें।', true);
+                return;
             }
-        }).catch(() => {});
+            try {
+                await sendPasswordResetEmail(auth, emailVal);
+                authStatus('आपके ईमेल पर पासवर्ड रीसेट लिंक भेज दिया गया है। अपना इनबॉक्स/स्पैम जाँचें।');
+            } catch (err) {
+                authStatus(formatFirebaseAuthError(err), true);
+            }
+        });
+
+        // 3. Mobile OTP Login Handler
+        const sendOtpBtn = document.getElementById('send-otp-btn');
+        const verifyOtpBtn = document.getElementById('verify-otp-btn');
+        const otpEntryWrap = document.getElementById('otp-entry-wrap');
+
+        function setupRecaptcha() {
+            if (recaptchaVerifier) return recaptchaVerifier;
+            const container = document.getElementById('recaptcha-container');
+            if (container) container.innerHTML = '';
+            recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', { size: 'normal' });
+            return recaptchaVerifier;
+        }
+
+        sendOtpBtn?.addEventListener('click', async () => {
+            const number = document.getElementById('auth-phone').value.replace(/\D/g, '');
+            if (!/^[6-9]\d{9}$/.test(number)) {
+                authStatus('कृपया सही 10 अंकों का भारतीय मोबाइल नंबर दर्ज करें।', true);
+                return;
+            }
+            sendOtpBtn.disabled = true;
+            sendOtpBtn.textContent = 'OTP भेजा जा रहा है…';
+            try {
+                const verifier = setupRecaptcha();
+                confirmationResult = await signInWithPhoneNumber(auth, '+91' + number, verifier);
+                otpEntryWrap.classList.remove('hidden');
+                verifyOtpBtn.classList.remove('hidden');
+                sendOtpBtn.classList.add('hidden');
+                authStatus('OTP भेज दिया गया है। SMS में आया 6 अंकों का कोड दर्ज करें।');
+            } catch (err) {
+                console.error(err);
+                authStatus(formatFirebaseAuthError(err), true);
+                sendOtpBtn.disabled = false;
+                sendOtpBtn.textContent = 'फिर से OTP भेजें';
+                if (recaptchaVerifier) {
+                    try { recaptchaVerifier.clear(); } catch (_) {}
+                    recaptchaVerifier = null;
+                }
+            }
+        });
+
+        verifyOtpBtn?.addEventListener('click', async () => {
+            const code = document.getElementById('auth-otp').value.trim();
+            if (!/^\d{6}$/.test(code) || !confirmationResult) {
+                authStatus('पहले OTP मँगाएँ और 6 अंकों का कोड दर्ज करें।', true);
+                return;
+            }
+            verifyOtpBtn.disabled = true;
+            verifyOtpBtn.textContent = 'सत्यापन हो रहा है…';
+            try {
+                const credential = await confirmationResult.confirm(code);
+                authStatus('सत्यापन सफल!');
+                await completeStudentLogin(credential.user);
+            } catch (err) {
+                console.error(err);
+                authStatus('OTP गलत या समाप्त हो गया है। कृपया दोबारा जाँचें।', true);
+            } finally {
+                verifyOtpBtn.disabled = false;
+                verifyOtpBtn.textContent = 'OTP सत्यापित करें';
+            }
+        });
 
         onAuthStateChanged(auth, async (user) => {
-            if (user && !window.currentStudent) {
-                await window.completeStudentLogin({
-                    uid: user.uid,
-                    displayName: user.displayName || user.email?.split('@')[0] || 'विद्यार्थी',
-                    email: user.email || ''
-                });
+            if (user) {
+                await completeStudentLogin(user);
+            } else {
+                window.currentStudent = null;
+                updateHeaderAuthUI(null);
+                authGate.classList.add('hidden');
+                document.body.classList.remove('overflow-hidden');
             }
         });
 
         const clean = (o) => JSON.parse(JSON.stringify(o));
 
         window.studentCloud = {
-            saveAttemptAndLeaderboard: async (attempt) => {
-                const docId = `${attempt.setId}_${attempt.studentUid}`;
-                const lbRef = doc(db, 'leaderboards', docId);
-                try {
-                    const prevSnap = await getDoc(lbRef);
-                    if (prevSnap.exists()) {
-                        const prev = prevSnap.data();
-                        const isBetter = Number(attempt.score) > Number(prev.score) ||
-                            (Number(attempt.score) === Number(prev.score) && Number(attempt.timeTakenSeconds) < Number(prev.timeTakenSeconds));
-                        if (!isBetter) return;
-                    }
-                    await setDoc(lbRef, { ...clean(attempt), updatedAt: serverTimestamp() });
-                } catch (e) {
-                    console.warn('Cloud leaderboard write:', e);
-                }
-            },
-            fetchSetLeaderboard: async (setId) => {
-                const q = query(collection(db, 'leaderboards'), where('setId', '==', String(setId)));
-                const snap = await getDocs(q);
-                return snap.docs.map(d => d.data());
+            saveAttempt: async (attempt) => {
+                if (!window.currentStudent?.uid) return;
+                const ref = collection(db, 'students', window.currentStudent.uid, 'attempts');
+                await addDoc(ref, {
+                    ...clean(attempt),
+                    studentUid: window.currentStudent.uid,
+                    email: window.currentStudent.email || '',
+                    phoneNumber: window.currentStudent.phoneNumber || '',
+                    createdAt: serverTimestamp()
+                });
             }
         };
 
@@ -2095,13 +2299,13 @@ Exp: The chemical name of washing soda is sodium carbonate decahydrate and its f
 
                 onSnapshot(collection(db, 'practiceSets'), (snap) => {
                     const list = snap.docs.map(d => d.data()).sort((a, b) => Number(b.id) - Number(a.id));
-                    if (list.length > 0) window.applyCloudSets(list);
+                    window.applyCloudSets(list);
                 });
                 onSnapshot(doc(db, 'config', 'examHierarchy'), (snap) => {
-                    if (snap.exists() && snap.data().items) window.applyCloudHierarchy(snap.data().items);
+                    if (snap.exists()) window.applyCloudHierarchy(snap.data().items);
                 });
             } catch (e) {
-                console.warn('Firebase sync:', e);
+                console.error('Firebase sync error', e);
             }
         }
         initSync();
